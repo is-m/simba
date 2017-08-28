@@ -25,6 +25,8 @@ hs_err_pid*
 # Eclipse files or folders
 /target/
 /.settings/
+/.metadata/
+/RemoteSystemsTempFiles/
 .classpath
 .project
 .gitgnore
