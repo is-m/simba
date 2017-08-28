@@ -1,0 +1,25 @@
+<?xml ?>
+<mapper>
+
+	
+	<select id="">
+		<sattrProvider provider="beanName" mainField="id" typeName="Attribute" />
+		
+		select 
+			id,
+			<sattr operate="read" attributeName="attrName">
+				attr_name as attrName,
+			</sattr> 
+		from sb_attribute_t
+	</select>
+	
+	<update id="">
+		<sattrProvider provider="beanName" mainField="id" typeName="Attribute" />
+	
+		update sb_attribute_t set
+		<sattr operate="write" attributeName="attrName">
+			attr_name = #{attrName}
+		</sattr> 
+		where id=#{id}
+	</update>
+</mapper>

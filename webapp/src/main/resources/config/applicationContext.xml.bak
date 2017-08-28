@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context.xsd  
+    http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans.xsd  
+    http://www.springframework.org/schema/tx  
+    http://www.springframework.org/schema/tx/spring-tx.xsd  
+    http://www.springframework.org/schema/jdbc  
+    http://www.springframework.org/schema/jdbc/spring-jdbc.xsd  
+    http://www.springframework.org/schema/cache  
+    http://www.springframework.org/schema/cache/spring-cache.xsd  
+    http://www.springframework.org/schema/aop  
+    http://www.springframework.org/schema/aop/spring-aop.xsd  
+    http://www.springframework.org/schema/util  
+    http://www.springframework.org/schema/util/spring-util.xsd"
+	default-autowire="byName">
+
+	<context:component-scan base-package="cn.ism" />
+
+	<!-- 引入属性配置文件,预加载配置文件 之后可通过${XXX}读取 --> 
+	<!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="locations"> <list> <value>classpath*:jdbc.properties</value> 
+		</list> </property> </bean> -->
+
+	<!-- dataSource 配置 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<!-- 基本属性 url、user、password -->
+		<!-- <property name="driverClass" class="" /> -->
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/db_simba_demo?useUnicode=true&amp;characterEncoding=utf8&amp;allowMultiQueries=true&amp;useSSL=false" />
+		<property name="username" value="SIMBA_OP" />
+		<property name="password" value="SIMBA_OP" />
+
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="10" />
+		<property name="minIdle" value="10" />
+		<property name="maxActive" value="100" />
+
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="false" />
+		<property name="maxPoolPreparedStatementPerConnectionSize"
+			value="20" />
+
+		<!-- 配置监控统计拦截的filters -->
+		<property name="filters" value="stat" />
+	</bean>
+	
+	 
+		  <!--通过jndi配置数据源-->  
+		  
+   <!--  <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">  
+        <property name="jndiName" value="jdbc/stptdemo"/>  
+               <property name="jndiName" value="java:comp/env/jdbc/stpt"/>  tomcat数据源  
+    </bean> -->   
+
+	<!-- mybatis文件配置，扫描所有mapper文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+		p:dataSource-ref="dataSource" p:configLocation="classpath:config/mybatis-config.xml"
+		p:mapperLocations="classpath*:**/dao/*.xml" />
+
+	<!-- spring与mybatis整合配置，扫描所有dao -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+		p:basePackage="cn.ism" p:sqlSessionFactoryBeanName="sqlSessionFactory" />
+
+	<!-- 对dataSource 数据源进行事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="dataSource" />
+
+	<!-- 配置使Spring采用CGLIB代理 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!-- 启用对事务注解的支持 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- Cache配置 -->
+	<cache:annotation-driven cache-manager="cacheManager" />
+
+	<bean id="ehCacheManagerFactory"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+		p:configLocation="classpath:ehcache.xml" />
+
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"
+		p:cacheManager-ref="ehCacheManagerFactory" />
+		 
+    <!--事务代理类 ，用于xml配置 时 为代理service，增加事务管理；使用时作为service的基类进行事务管理-->  
+    <bean id="basicTxProxy" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">  
+        <property name="transactionManager" ref="transactionManager" />  
+        <property name="transactionAttributes">  
+        <!-- //ProxyConfig类的exposeProxy属性，表示是否要将当前的代理对象放入AopContext中，  
+         //这样在你的Service中可以用AopContext.currentProxy()取得当前代理，相当于this引用，   
+         <property name="exposeProxy" value="true" /> -->  
+            <props>  
+                <prop key="save*">PROPAGATION_REQUIRED</prop> <!--如果当前没有事务，就新建一个事务，如果已经存在一个事务中，加入到这个事务中。这是最常见的选择-->  
+                <prop key="add*">PROPAGATION_REQUIRED</prop>  
+                <prop key="remove*">PROPAGATION_REQUIRED</prop>  
+                <prop key="update*">PROPAGATION_REQUIRED</prop>  
+                <prop key="*">PROPAGATION_REQUIRED</prop>  
+            </props>  
+        </property>  
+    </bean>  
+		
+	<!--配置jdbc操作类-->  
+    <bean id="jdbcTemplate" class = "org.springframework.jdbc.core.JdbcTemplate">   
+        <property name="dataSource" ref="dataSource"/>  
+    </bean>   
+		
+	<beans> 
+		 <import resource="classpath*:config/*.beans.xml" />
+		 <import resource="classpath*:config/*.configs.xml" />
+		 <import resource="classpath*:config/*.caches.xml" />
+		 <import resource="classpath*:config/*.overrides.xml" />
+	</beans>
+</beans>  

@@ -1,0 +1,142 @@
+* {
+	font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑',
+		Arial, sans-serif;
+}
+
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+	overflow: hidden;
+	padding-top: 72px;
+	background: #fbfbfb;
+}
+
+/*
+ * Typography
+ */
+h1 {
+	margin-bottom: 20px;
+	padding-bottom: 9px;
+	border-bottom: 1px solid #eee;
+}
+
+/*
+ * Sidebar
+ */
+.sidebar {
+	position: fixed;
+	top: 76px;
+	bottom: 0;
+	left: 0;
+	z-index: 1000;
+	padding: 20px; 
+	overflow-x: hidden;
+	overflow-y: auto;
+	/* Scrollable contents if viewport is shorter than content. */
+	border-right: 1px solid #eee;
+}
+
+/* Sidebar navigation */
+.sidebar {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.sidebar .nav {
+	margin-bottom: 20px;
+}
+
+.sidebar .nav-item {
+	width: 100%;
+}
+
+.sidebar .nav-item+.nav-item {
+	margin-left: 0;
+}
+
+.sidebar .nav-link {
+	border-radius: 0;
+}
+
+/*
+ * Dashboard
+ */
+
+/* Placeholders */
+.placeholders {
+	padding-bottom: 3rem;
+}
+
+.placeholder img {
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+}
+
+/* 
+.col-form-label {
+	text-align: center;
+} */
+.form-control {
+	border-radius: 0;
+}
+
+@media ( min-width : 992px) {
+	.col-form-label {
+		text-align: right;
+	}
+}
+
+.ellipsis {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+/* 
+.form-group.row {
+	margin-left: 0;
+	margin-right: 0;
+}
+  */
+.breadcrumb {
+	background-color:transparent;
+} 
+
+.fixed-top {
+	top:22px;
+}
+
+.page-loading {
+	position: absolute;
+	width:100%;
+	height:500px;
+	top:0;
+	background: rgba(242,242,242,1);
+	z-index:9999; 
+}
+.page-loading .load-container{
+	position: relative;
+	top: 40%;
+}
+
+.page-loading .load-icon {
+	font-size:50px;
+}
+
+.page-loading .load-text {
+	font-size:14px;
+	font-weight: bold;
+}
+
+.screen-center {
+	background-color: #fff;
+    left: 50%;
+    margin: -150px 0 0 -150px; /* -高/2px 0 0 -宽/2px;*/
+    position: fixed;
+    top: 50%;
+    width: 300px;
+    height: 300px;
+    z-index: 25; 
+}

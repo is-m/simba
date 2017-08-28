@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ism.fw.simba.security.dao.IUserDao">
+
+	<sql id="query_base">
+		select
+		id,
+		username,
+		passwd
+		from sb_user_t t
+	</sql>
+
+	<select id="findObj" resultType="cn.ism.fw.simba.security.UserVO">
+		<include refid="query_base" />
+		where t.id = #{id}
+	</select>
+
+	<insert id="createObj">
+		insert into SB_USER_T(id,username,passwd)
+		values(#{id},#{username,jdbcType=VARCHAR},#{passwd,jdbcType=VARCHAR})
+	</insert>
+
+	<sql id="query_condition">
+		<where>
+			<if test="vo.username != null">
+				t.username = #{vo.username,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
+
+	<select id="findUserByName" resultType="cn.ism.fw.simba.security.UserVO">
+		<include refid="query_base" />
+		where t.username = #{username,jdbcType=VARCHAR}
+	</select>
+
+	<select id="findPagedListCount" resultType="int">
+		select count(*) total from sb_user_t t
+		<include refid="query_condition" />
+	</select>
+
+	<select id="findPagedList" resultType="cn.ism.fw.simba.security.UserVO">
+		<include refid="query_base" />
+		<include refid="query_condition" />
+	</select>
+	
+</mapper>

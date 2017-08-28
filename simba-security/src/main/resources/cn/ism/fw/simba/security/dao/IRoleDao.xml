@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ism.fw.simba.security.dao.IRoleDao">
+
+	<sql id="baseQuery">
+		SELECT 
+		  `id`,
+		  `name`,
+		  `description`,
+		  `default_page`  defaultPage
+		FROM
+		  `sb_role_t`  
+	</sql>
+	
+	<!-- 1.如果存在用户ID，则查询用户身上的角色，以及默认用户角色 -->
+	<sql id="baseQuery_condition">
+		<where>
+			<if test="vo.userId != null"> 
+				(exists (select 1 from sb_user_role_t sur 
+						  where sur.user_id = #{vo.userId} 
+						    and sur.role_id = t.id )
+			     or exists
+			     		(select 1 from sb_user_role_t sur,sb_user_t su
+						  where sur.user_id = su.id
+						  and su.username = 'GLOBAL USER'
+						  and sur.role_id = t.id  )
+			     ) 
+			</if>
+		</where>
+	</sql>
+
+	<select id="findList" resultType="cn.ism.fw.simba.security.RoleVO">
+		<include refid="baseQuery" />
+		<include refid="baseQuery_condition" />
+	</select>
+</mapper>

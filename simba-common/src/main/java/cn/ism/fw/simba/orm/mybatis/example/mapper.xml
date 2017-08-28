@@ -1,0 +1,16 @@
+<mapper>
+	<!-- 演示Select Key 的更多用法 -->
+	<insert id="saveOrUpdate">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(*) from country where id = #{id}
+		</selectKey>
+		<if test="count > 0">
+			update country
+			set countryname = #{countryname},countrycode = #{countrycode}
+			where id = #{id}
+		</if>
+		<if test="count==0">
+			insert into country values(#{id},#{countryname},#{countrycode})
+		</if>
+	</insert>
+</mapper>
