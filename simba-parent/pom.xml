@@ -126,19 +126,7 @@
 
 	</dependencies>
 
-	<build>
-		<pluginManagement>
-			<plugin>
-				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-		</pluginManagement>
+	<build> 
 
 		<plugins>
 			<plugin>
