@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("")
 public class SsoController {
-
+/*
 	public String login(){
 		
 	}
@@ -15,5 +15,5 @@ public class SsoController {
 	public String logout(){
 		
 	}
-	
+	*/
 }

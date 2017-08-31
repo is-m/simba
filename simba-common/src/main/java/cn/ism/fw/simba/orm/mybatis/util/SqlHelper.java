@@ -17,6 +17,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import cn.ism.fw.simba.util.SpringUtil;
 
+/**
+ * 该类实现主要是拷贝的 SqlMapper 的代码，但是修改了SqlSession改成使用SqlSessionTemplate
+ * http://git.oschina.net/free/EntityMapper
+ * @author Administrator
+ *
+ */
 public class SqlHelper { 
 
 	private static MSUtils msUtils;
@@ -33,8 +39,7 @@ public class SqlHelper {
 	 * @see org.mybatis.spring.SqlSessionTemplate$$SqlSessionInterceptor invoke
 	 */
 	public static SqlSessionTemplate getSqlSessionTemplate() {
-		SqlSessionTemplate template = SpringUtil.getContext().getBean(SqlSessionTemplate.class); 
-		return template;
+		return SpringUtil.getContext().getBean(SqlSessionTemplate.class);  
 	}
 
 	/**

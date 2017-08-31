@@ -51,10 +51,37 @@ public class StringUtil {
 		
 		StringBuilder sb = new StringBuilder(array[0]);
 		
-		for(String item : array){
-			sb.append(",").append(item);
+		for(int i=1,j=array.length;i<j;i++){
+			sb.append(",").append(array[i]);
 		}
 	    return sb.toString();
 	}
 
+	/**
+	 * 连接字符串
+	 * @param array
+	 * @return
+	 * @since 2017年8月7日
+	 * @author Administrator
+	 */
+	public static String concat(Object... array){
+		if(ObjectUtil.isEmpty(array)) {
+			return "";
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		for(int i=0,j=array.length;i<j;i++){ 
+			sb.append(array[i]);
+		} 
+	    return sb.toString();
+	}
+	
+	public static String upper(String string){
+		return isEmpty(string) ? string : string.toUpperCase();
+	}
+	
+	public static boolean equals(String a,String b,boolean igroneUpperOrLowerCase){
+		if(a == null && b == null) return true;
+		return a != null ? upper(a).contains(upper(b)) : upper(b).contains(upper(a));
+	}
 }

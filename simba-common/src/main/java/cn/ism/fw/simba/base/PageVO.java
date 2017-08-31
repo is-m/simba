@@ -77,15 +77,15 @@ public class PageVO {
 	}
 
 	/**
-	 * 获取页起始位置
-	 * 
+	 * 获取页起始位置，首页为 1  (curPage - 1 ) * pageSize + 1
+	 * 注意:mysql获取起始位置需要-1
 	 * @return
 	 * @since 2017年7月29日
 	 * @author Administrator
 	 */
 	public int getPageStartIndex() {
-		return ((curPage - 1) * pageSize) + 1;
-	}
+		return (curPage - 1) * pageSize + 1;
+	} 
 
 	/**
 	 * 获取页结束位置

@@ -45,4 +45,5 @@ public class CollectionUtil {
 	public static <T> List<T> newList(){
 		return new ArrayList<>();
 	}
+	  
 }
