@@ -23,6 +23,7 @@ hs_err_pid*
 
 
 # Eclipse files or folders
+.recommenders/
 target/
 .settings/
 .metadata/
