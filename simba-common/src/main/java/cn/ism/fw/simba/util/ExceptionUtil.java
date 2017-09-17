@@ -13,7 +13,7 @@ public class ExceptionUtil {
 	 * @since 2017年7月28日
 	 * @author Administrator
 	 */
-	public String getStackTrace(Throwable e) {
+	public static String getStackTrace(Throwable e) {
 		// @see
 		// org.apache.commons.lang.exception.ExceptionUtils.getFullStackTrace(exception);
 		// org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(e);

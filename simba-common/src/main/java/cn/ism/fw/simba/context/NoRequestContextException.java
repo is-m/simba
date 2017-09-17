@@ -1,6 +1,6 @@
 package cn.ism.fw.simba.context;
 
-import cn.ism.fw.simba.base.BaseException;
+import cn.ism.fw.simba.exception.BaseException;
 
 public class NoRequestContextException extends BaseException {
 

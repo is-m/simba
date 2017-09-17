@@ -19,7 +19,7 @@ define(function(require, exports, module){
 		var pageElements = document.body.children;
 		for(var i=0;i<pageElements.length;i++){
 			var el = pageElements[i];
-			
+			//var tagName = el.tagName;
 			if(el.toString() == "[object HTMLUnknownElement]"){
 				var widgetName = el.tagName.toLowerCase();
 				require(["widget/common/"+widgetName],$.proxy(function(widget){

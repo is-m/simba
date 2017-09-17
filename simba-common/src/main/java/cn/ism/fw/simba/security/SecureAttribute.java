@@ -1,4 +1,4 @@
-package cn.ism.fw.simba.specs;
+package cn.ism.fw.simba.security;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
@@ -13,8 +13,6 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import cn.ism.fw.simba.specs.support.IAttributeCheckProvider;
-
 /**
  * 属性权限注解
  * 
@@ -24,7 +22,7 @@ import cn.ism.fw.simba.specs.support.IAttributeCheckProvider;
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, ANNOTATION_TYPE, TYPE_PARAMETER })
-public @interface SAttribute {
+public @interface SecureAttribute {
 
 	/**
 	 * 属性类型

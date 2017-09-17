@@ -1,4 +1,4 @@
-package cn.ism.fw.simba.specs.support;
+package cn.ism.fw.simba.security;
 
 /**
  * 安全策略
@@ -16,10 +16,15 @@ public enum SecurityPolicy {
 	/**
 	 * 能登录系统的
 	 */
-	Logined, 
+	Logined,   
 	
 	/**
-	 * 必须拥有权限的
+     * 入口方法存在权限则允许整个方法链被访问
+     */
+	Basic,
+	
+	/**
+	 * 必须检查权限
 	 */
 	Required,
 	

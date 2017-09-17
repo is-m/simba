@@ -1,4 +1,4 @@
-package cn.ism.fw.simba.specs;
+package cn.ism.fw.simba.security;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;

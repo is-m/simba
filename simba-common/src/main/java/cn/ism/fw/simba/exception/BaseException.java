@@ -1,4 +1,4 @@
-package cn.ism.fw.simba.base;
+package cn.ism.fw.simba.exception;
 
 /**
  * 基础异常

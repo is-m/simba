@@ -1,5 +1,8 @@
 package cn.ism.fw.simba.base;
 
+import javax.naming.spi.DirStateFactory.Result;
+
+import cn.ism.fw.simba.util.ExceptionUtil;
 import cn.ism.fw.simba.util.JSONUtil;
 
 /**
@@ -46,6 +49,11 @@ public class ResultVO<T> extends BasePOJO {
 
   public void setMsg(String msg) {
     this.msg = msg;
+  }
+  
+  public ResultVO<T> msg(String msg) {
+    setMsg(msg);
+    return this;
   }
 
   public T getData() {
@@ -101,10 +109,9 @@ public class ResultVO<T> extends BasePOJO {
 
   public static <T> ResultVO<T> SUCCESS(T data) {
     return new ResultVO<>(ResultType.SUCCESS, data);
-  }
-
-  @Override
-  public String toString() {
-    return JSONUtil.toJSON(this);
+  } 
+  
+  public static <T> ResultVO<T> EXCEPTION(Throwable t){
+    return new ResultVO<T>(ResultType.EXCEPTION, ExceptionUtil.getStackTrace(t)).msg(t.getMessage());
   }
 }

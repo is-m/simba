@@ -1,7 +1,5 @@
 package cn.ism.fw.simba.util;
 
-import java.util.Iterator;
-
 /**
  * 字符串工具类
  * 

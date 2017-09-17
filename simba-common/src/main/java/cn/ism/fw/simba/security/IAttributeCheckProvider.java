@@ -1,4 +1,4 @@
-package cn.ism.fw.simba.specs.support;
+package cn.ism.fw.simba.security;
 
 /**
  * 属性检查接口
