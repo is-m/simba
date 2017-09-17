@@ -1,17 +1,17 @@
 package cn.ism.fw.simba.base;
 
-import java.io.Serializable;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import cn.ism.fw.simba.util.JSONUtil;
 
-@JsonIgnoreProperties("setId")
-@SuppressWarnings("serial")
-public class BaseVO implements Serializable {
+@JsonIgnoreProperties("setId") 
+public class BaseVO extends BasePOJO {
+ 
+  private static final long serialVersionUID = -2985566320727450256L;
 
-	private String id;
+  private String id;
 	
 	private boolean setId;
 

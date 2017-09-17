@@ -104,4 +104,24 @@ public class ReflectUtil {
 		}
 	}
 
+	/**
+	 * 
+	 * @param a 比较源
+	 * @param b 比较对象
+	 * @return b == a || b extends a;
+	 */
+	public static boolean isType(Class<?> a,Class<?> b){
+		if(a == null || b == null) return false; 
+	    return a.isAssignableFrom(b);
+	}
+	
+	public static boolean inType(Class<?> a,Class<?>... inArray){
+		if(a == null || inArray == null || inArray.length == 0) return false;
+		for(Class<?> item : inArray){
+			if(isType(item,a )){
+				return true;
+			}
+		}
+		return false;
+	}
 }

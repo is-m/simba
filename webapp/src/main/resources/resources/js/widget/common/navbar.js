@@ -2,6 +2,7 @@ define(["widget/factory","jquery"],function(widget,$){
 	
 	widget.define("navbar",{
 		template:"<h1>Hello this navbar Widget</h1>", 
+		templateUri:"js/widget/common/navbar.html",
 		init:function(){
 			
 		},
@@ -15,6 +16,9 @@ define(["widget/factory","jquery"],function(widget,$){
 			
 		},
 		ready:function(){
+			
+		},
+		destory:function(){
 			
 		}
 	

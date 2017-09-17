@@ -10,8 +10,8 @@
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
 	overflow: hidden;
-	padding-top: 72px;
-	background: #fbfbfb;
+	padding-top: 50px;
+	/* background: #fbfbfb; */
 }
 
 /*
@@ -28,7 +28,7 @@ h1 {
  */
 .sidebar {
 	position: fixed;
-	top: 76px;
+	top: 55px;
 	bottom: 0;
 	left: 0;
 	z-index: 1000;
@@ -104,10 +104,12 @@ h1 {
 	background-color:transparent;
 } 
 
+/*
 .fixed-top {
 	top:22px;
 }
-
+ */
+ 
 .page-loading {
 	position: absolute;
 	width:100%;

@@ -18,29 +18,30 @@ import cn.ism.fw.simba.security.service.IUserService;
 @RequestMapping("/api/user")
 public class UserController {
 
-	@Inject
-	private IUserService userService;
+  @Inject
+  private IUserService userService;
 
-	@GetMapping
-	public ResponseEntity<?> find(UserVO userVO){
-		if(!userVO.isSetId()){
-			return ResponseEntity.badRequest().body("no set id");
-		}
-		UserVO user = userService.findObj(userVO.getId());
-		return ResponseEntity.ok(user);
-		
-	}
-	
-	@PostMapping
-	public ResponseEntity<?> create(@RequestBody UserVO userVO){
-		int n = userService.createObj(userVO); 
-		return ResponseEntity.ok(n);
-	}
-	
-	@GetMapping("/page/{pageSize}/{curPage}")
-	public ResponseEntity<?> find(PageVO page,UserVO vo){ 
-		PagedResult<UserVO> pageData = userService.findPagedList(new PageVO(), new UserVO());
-		return ResponseEntity.ok(pageData);
-		
-	}
+  @GetMapping
+  public ResponseEntity<?> find(UserVO userVO) {
+    if (!userVO.isSetId()) {
+      return ResponseEntity.badRequest().body("no set id");
+    }
+    
+    UserVO user = userService.findObj(userVO.getId());
+    return ResponseEntity.ok(user);
+
+  }
+
+  @PostMapping
+  public ResponseEntity<?> create(@RequestBody UserVO userVO) {
+    int n = userService.createObj(userVO);
+    return ResponseEntity.ok(n);
+  }
+
+  @GetMapping("/page/{pageSize}/{curPage}")
+  public ResponseEntity<?> find(PageVO page, UserVO vo) {
+    PagedResult<UserVO> pageData = userService.findPagedList(new PageVO(), new UserVO());
+    return ResponseEntity.ok(pageData);
+
+  }
 }

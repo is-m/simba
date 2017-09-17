@@ -20,6 +20,7 @@ import cn.ism.fw.simba.util.SpringUtil;
 /**
  * 该类实现主要是拷贝的 SqlMapper 的代码，但是修改了SqlSession改成使用SqlSessionTemplate
  * http://git.oschina.net/free/EntityMapper
+ * 实际上mybaits 有一个类型安全的SQL构造程序
  * @author Administrator
  *
  */

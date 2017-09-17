@@ -15,7 +15,6 @@ define(function(require, exports, module){
 	};
 	
 	var initWidget = function(){
-		
 		// 读取界面内容
 		var pageElements = document.body.children;
 		for(var i=0;i<pageElements.length;i++){

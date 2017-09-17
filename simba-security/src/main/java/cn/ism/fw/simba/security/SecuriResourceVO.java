@@ -1,40 +1,61 @@
 package cn.ism.fw.simba.security;
 
-import cn.ism.fw.simba.base.BaseVO;
+import java.util.List;
+
+import cn.ism.fw.simba.security.util.SecuriConstant;
 
 /**
  * 资源
+ * 
  * @since 2017年8月8日
  * @author Administrator
  */
-public class ResourceVO extends BaseVO {
- 
-	private static final long serialVersionUID = 7216340276893147737L;
+public class SecuriResourceVO extends BaseSecuriVO {
 
-	/**
-	 * 资源编码
-	 */
-	private String code;
-	
-	/**
-	 * 资源描述
-	 */
-	private String desc;
+  private static final long serialVersionUID = 7216340276893147737L;
 
-	public String getCode() {
-		return code;
-	}
+  /**
+   * 资源编码
+   */
+  private String code;
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+  /**
+   * 资源描述
+   */
+  private String desc;
 
-	public String getDesc() {
-		return desc;
-	}
+  /**
+   * 资源操作列表
+   */
+  private List<SecuriOperateVO> operations;
 
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}  
-	
+  public String getCode() {
+    return code;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
+  }
+
+  public String getDesc() {
+    return desc;
+  }
+
+  public void setDesc(String desc) {
+    this.desc = desc;
+  }
+
+  public List<SecuriOperateVO> getOperations() {
+    return operations;
+  }
+
+  public void setOperations(List<SecuriOperateVO> operations) {
+    this.operations = operations;
+  }
+
+  @Override
+  public String getPermissionCode() {
+    return String.format("%s%s", SecuriConstant.PERMISSION_SYS_PIX, getCode());
+  }
+
 }

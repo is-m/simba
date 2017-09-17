@@ -9,110 +9,112 @@ import cn.ism.fw.simba.util.NumUtil;
  * @since 2017年7月22日
  * @author Administrator
  */
-public class PageVO {
+public class PageVO extends BasePOJO {
 
-	/**
-	 * 最大页大小
-	 */
-	public static final int MAX_PAGE_SIZE = 3000;
+  private static final long serialVersionUID = -5748509209645323438L;
 
-	/**
-	 * 最小页大小
-	 */
-	public static final int MIN_PAGE_SIZE = 1;
+  /**
+   * 最大页大小
+   */
+  public static final int MAX_PAGE_SIZE = 3000;
 
-	/**
-	 * 最小页
-	 */
-	public static final int MIN_PAGE = 1;
+  /**
+   * 最小页大小
+   */
+  public static final int MIN_PAGE_SIZE = 1;
 
-	/**
-	 * 当前页
-	 */
-	private int curPage = 1;
+  /**
+   * 最小页
+   */
+  public static final int MIN_PAGE = 1;
 
-	/**
-	 * 页大小
-	 */
-	private int pageSize = 15;
+  /**
+   * 当前页
+   */
+  private int curPage = 1;
 
-	/**
-	 * 总记录数
-	 */
-	private int totalRecord;
+  /**
+   * 页大小
+   */
+  private int pageSize = 15;
 
-	public int getCurPage() {
-		return curPage;
-	}
+  /**
+   * 总记录数
+   */
+  private int totalRecord;
 
-	public void setCurPage(int curPage) {
-		this.curPage = curPage < MIN_PAGE ? MIN_PAGE : curPage;
-	}
+  public int getCurPage() {
+    return curPage;
+  }
 
-	public int getPageSize() {
-		return pageSize;
-	}
+  public void setCurPage(int curPage) {
+    this.curPage = curPage < MIN_PAGE ? MIN_PAGE : curPage;
+  }
 
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize < MIN_PAGE_SIZE ? MIN_PAGE_SIZE : (pageSize > MAX_PAGE_SIZE ? MAX_PAGE_SIZE : pageSize);
-	}
+  public int getPageSize() {
+    return pageSize;
+  }
 
-	public int getTotalRecord() {
-		return totalRecord;
-	}
+  public void setPageSize(int pageSize) {
+    this.pageSize = pageSize < MIN_PAGE_SIZE ? MIN_PAGE_SIZE
+        : (pageSize > MAX_PAGE_SIZE ? MAX_PAGE_SIZE : pageSize);
+  }
 
-	public void setTotalRecord(int totalRecord) {
-		this.totalRecord = totalRecord;
-	}
+  public int getTotalRecord() {
+    return totalRecord;
+  }
 
-	/**
-	 * 获取总页数
-	 * 
-	 * @return
-	 * @since 2017年7月29日
-	 * @author Administrator
-	 */
-	public int getTotalPage() {
-		return NumUtil.divides(totalRecord, pageSize);
-	}
+  public void setTotalRecord(int totalRecord) {
+    this.totalRecord = totalRecord;
+  }
 
-	/**
-	 * 获取页起始位置，首页为 1  (curPage - 1 ) * pageSize + 1
-	 * 注意:mysql获取起始位置需要-1
-	 * @return
-	 * @since 2017年7月29日
-	 * @author Administrator
-	 */
-	public int getPageStartIndex() {
-		return (curPage - 1) * pageSize + 1;
-	} 
+  /**
+   * 获取总页数
+   * 
+   * @return
+   * @since 2017年7月29日
+   * @author Administrator
+   */
+  public int getTotalPage() {
+    return NumUtil.divides(totalRecord, pageSize);
+  }
 
-	/**
-	 * 获取页结束位置
-	 * 
-	 * @return
-	 * @since 2017年7月29日
-	 * @author Administrator
-	 */
-	public int getPageEndIndex() {
-		return curPage * pageSize;
-	}
+  /**
+   * 获取页起始位置，首页为 1 (curPage - 1 ) * pageSize + 1 注意:mysql获取起始位置需要-1
+   * 
+   * @return
+   * @since 2017年7月29日
+   * @author Administrator
+   */
+  public int getPageStartIndex() {
+    return (curPage - 1) * pageSize + 1;
+  }
 
-	public PageVO() {
-	}
+  /**
+   * 获取页结束位置
+   * 
+   * @return
+   * @since 2017年7月29日
+   * @author Administrator
+   */
+  public int getPageEndIndex() {
+    return curPage * pageSize;
+  }
 
-	public PageVO(int curPage, int pageSize) {
-		this(curPage, pageSize, 0);
-	}
+  public PageVO() {}
 
-	public PageVO(int curPage, int pageSize, int totalRecord) {
-		setCurPage(curPage);
-		setPageSize(pageSize);
-		setTotalRecord(totalRecord);
-	}
+  public PageVO(int curPage, int pageSize) {
+    this(curPage, pageSize, 0);
+  }
 
-	@Override
-	public String toString() { 
-		return JSONUtil.toJSON(this);
-	}
+  public PageVO(int curPage, int pageSize, int totalRecord) {
+    setCurPage(curPage);
+    setPageSize(pageSize);
+    setTotalRecord(totalRecord);
+  }
+
+  @Override
+  public String toString() {
+    return JSONUtil.toJSON(this);
+  }
 }

@@ -1,5 +1,7 @@
 package cn.ism.fw.simba.util;
 
+import java.util.Iterator;
+
 /**
  * 字符串工具类
  * 
@@ -83,5 +85,16 @@ public class StringUtil {
 	public static boolean equals(String a,String b,boolean igroneUpperOrLowerCase){
 		if(a == null && b == null) return true;
 		return a != null ? upper(a).contains(upper(b)) : upper(b).contains(upper(a));
+	}
+	
+	public static boolean inArray(String[] range,String value) {
+		if(value == null) return false;
+		
+		for(String item : range) {
+			if(value.equals(item)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
