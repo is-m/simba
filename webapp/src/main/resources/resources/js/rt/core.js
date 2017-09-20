@@ -17,14 +17,16 @@ define([],function(){
 	// 通用扩展 
 	// 以XX开始
 	var oldStartsWith = String.prototype.startsWith;
-	String.prototype.startsWith = function(start){ 
-		return oldStartsWith ?  oldStartsWith.call(this,start) : this.indexOf(start) === 0;
+	String.prototype.startsWith = function(start,igroneCase){ 
+		var ig = igroneCase || false ,_this = ig ?  this.toLowerCase() : this ,_start = ig ? start.toLowerCase() : start;
+		return oldStartsWith ?  oldStartsWith.call(_this,_start) : this.indexOf(_start) === 0; 
 	}
 	
 	// 以XX结尾
 	var oldEndsWith = String.prototype.endsWith;
-	String.prototype.endsWith = function(end){ 
-		return oldEndsWith ?  oldEndsWith.call(this,end) : (this.lastIndexOf(end) === (this.length-end.length));
+	String.prototype.endsWith = function(end,igroneCase){ 
+		var ig = igroneCase || false ,_this = ig ?  this.toLowerCase() : this ,_end = ig ? end.toLowerCase() : end;
+		return oldEndsWith ?  oldEndsWith.call(_this,_end) : (_this.lastIndexOf(_end) === (_this.length-_end.length));
 	}
 	
 	// 字符串格式化，可以是{0},{1}这种占位符，也可以是:fieldName或者{fieldName}这种占位符，但是同一时间只支持一种

@@ -14,14 +14,33 @@ define(function(require, exports, module){
 		console.log("trigger url default event");
 	};
 	
+	var getAllChildrens = function(dom,collector){
+		var domArray = typeof dom.length == 'undifined' ? [dom] : dom; 
+		for(var i=0;i<domArray.length;i++){
+			var currentDom = domArray[i];
+			if(currentDom.children.length > 0){
+				getAllChildrens(currentDom.children,collector);
+			}else{
+				collector.push(currentDom);
+			}
+		}
+	}
+	
 	var initWidget = function(){
 		// 读取界面内容
-		var pageElements = document.body.children;
+		var allEls = [];
+		getAllChildrens(document.body.children,allEls);
+		var pageElements = allEls;
 		for(var i=0;i<pageElements.length;i++){
 			var el = pageElements[i];
+			console.log("load js widget -- "+el + "    "+ el.toString() );
 			//var tagName = el.tagName;
 			if(el.toString() == "[object HTMLUnknownElement]"){
 				var widgetName = el.tagName.toLowerCase();
+				if(widgetName.indexOf(":")){
+					widgetName = widgetName.substring(widgetName.indexOf(":")+1);
+				}
+				console.log("load js widget -- "+widgetName);
 				require(["widget/common/"+widgetName],$.proxy(function(widget){
 					// 加载完组件则初始化组件的基本内容
 					$(this.el).xWidget(this.widgetName);

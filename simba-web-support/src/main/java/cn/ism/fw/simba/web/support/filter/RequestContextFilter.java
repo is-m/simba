@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.helpers.MessageFormatter;
 
 import cn.ism.fw.simba.base.ResultVO;
 import cn.ism.fw.simba.context.support.RequestContextManager;
@@ -38,6 +39,7 @@ public class RequestContextFilter implements Filter {
     HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse resp = (HttpServletResponse) response;
     String threadName = Thread.currentThread().getName();
+    System.out.println("-------------"+threadName);
     try {
 
       // TODO:暂时未放置用户信息
@@ -46,7 +48,8 @@ public class RequestContextFilter implements Filter {
 
       // 设置当前线程名称
       // 当前线程名称 WebContainer - 主机名:端口 - 当前操作用户 - 时间
-      Thread.currentThread().setName(String.format("%s - {hostname - %s", threadName, "unknow"));
+      //  %s %s %s",req.getServerName(),req.getServerPort(), "unknow"
+      //Thread.currentThread().setName(String.format("WebContainer 12321123123213123213",req.getServerName()));
 
       chain.doFilter(request, response);
     } catch (Exception e) {

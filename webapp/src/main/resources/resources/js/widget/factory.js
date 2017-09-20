@@ -80,39 +80,55 @@ define(["jquery","template"],function($,tmpl){
 			self.before($widgetBegin);
 			self.after($widgetEnd)
 			self.empty().remove(); 
+			
 			// 获取组件内容
-			debugger
 			var Widget = WidgetFactory.constructMap[name]; 
 			var widgetDefine = Widget.define;
-			if(widgetDefine.templateUri /*&& !widgetDefine.template*/){
-				debugger
-				var templateUri = appConfig.contextPath + "/" +widgetDefine.templateUri;
-				$.get(templateUri).success(function(html){ 
-					debugger
-					var tmpl = require("template");
-					tmpl(templateUri,html);
-					var templatedHtml = tmpl(templateUri, {
-					    value: 'aui'
-					});
-					widgetDefine.template = templatedHtml;
-					$widgetBegin.after(widgetDefine.template);
-					var widgetManager = new Widget(name,op,data,null);
-					componentMap[_id] = widgetManager;
-				}).error(function(err){
-					console.log(err);
-					if(err.status==404){
-						widgetDefine.template = "no found component for uri "+
+			
+			var initCompoent = $.proxy(function(){
+				if(widgetDefine.templateUri /*&& !widgetDefine.template*/){ 
+					var templateUri = appConfig.contextPath + "/" +widgetDefine.templateUri;
+					$.get(templateUri).success(function(html){  
+						var tmpl = require("template");
+						tmpl(templateUri,html);
+						var templatedHtml = tmpl(templateUri, {
+						    value: 'aui'
+						});
+						widgetDefine.template = templatedHtml;
 						$widgetBegin.after(widgetDefine.template);
 						var widgetManager = new Widget(name,op,data,null);
 						componentMap[_id] = widgetManager;
-					} 
-				});
+					}).error(function(err){
+						console.log(err);
+						if(err.status==404){
+							widgetDefine.template = "no found component for uri "+
+							$widgetBegin.after(widgetDefine.template);
+							var widgetManager = new Widget(name,op,data,null);
+							componentMap[_id] = widgetManager;
+						} 
+					});
+				}else{
+					$widgetBegin.after(widgetDefine.template);
+					var widgetManager = new Widget(name,op,data,null);
+					componentMap[_id] = widgetManager;
+					//alert($widgetBegin.data("widget"));
+				}
+			},{Widget:Widget,widgetDefine:widgetDefine,widgetBegin:$widgetBegin});
+			
+			var resourceOp = widgetDefine.resources;
+			if(resourceOp){
+				require(["rt/resource"],$.proxy(function(res){ 
+					if(resourceOp.css){
+						res.loadCSS(resourceOp.css[0]);
+					}
+					if(resourceOp.js){
+						res.loadJS(resourceOp.js[0],initCompoent);
+					}
+				},{Widget:Widget,widgetDefine:widgetDefine,widgetBegin:$widgetBegin})); 
 			}else{
-				$widgetBegin.after(widgetDefine.template);
-				var widgetManager = new Widget(name,op,data,null);
-				componentMap[_id] = widgetManager;
-				//alert($widgetBegin.data("widget"));
+				initCompoent();
 			}
+			
 		
 		});
 	}
