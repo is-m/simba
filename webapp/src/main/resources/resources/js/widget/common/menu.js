@@ -4,8 +4,7 @@ define(["widget/factory","jquery"],function(widget,$){
 		template:"<h1>Hello this navbar Widget</h1>", 
 		templateUri:"js/widget/common/menu.html",
 		resources:{
-			css:["../css/lib/metisMenu.css"],
-			js:["../js/lib/metisMenu.js"]
+			css:["../css/lib/metisMenu.css"] 
 		},
 		init:function(){
 			
@@ -17,7 +16,10 @@ define(["widget/factory","jquery"],function(widget,$){
 			return html;
 		},
 		afterRender:function(){
-			
+			require(["lib/metisMenu"],function(m){
+				debugger
+				 $('.side-nav .metismenu').metisMenu({ toggle: true });
+			}) 
 		},
 		ready:function(){
 			alert("menu ready");

@@ -5,7 +5,7 @@
  *
  * Made by Osman Nuri Okumus <onokumus@gmail.com> (https://github.com/onokumus)
  * Under MIT License
- */
+ */ 
 
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
@@ -19,7 +19,7 @@
     factory(global.jquery);
     global.metisMenu = mod.exports;
   }
-})(this, function (_jquery) {
+})(this, function (_jquery) { 
   'use strict';
 
   var _jquery2 = _interopRequireDefault(_jquery);

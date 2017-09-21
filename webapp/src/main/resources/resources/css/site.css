@@ -27,8 +27,8 @@ h1 {
  * Sidebar
  */
 .sidebar {
-	position: fixed;
-	top: 55px;
+	/* position: fixed;
+	top: 55px; */
 	bottom: 0;
 	left: 0;
 	z-index: 1000;
@@ -182,3 +182,9 @@ h1 {
 	border-left: #fff solid 2px;
 	box-shadow: -1px 0 0 #ccc;
 }  
+
+.app-side {
+	position: relative;
+	margin: 0;
+	width:100%;
+}

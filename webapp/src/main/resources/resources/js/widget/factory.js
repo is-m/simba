@@ -28,7 +28,9 @@ define(["jquery","template"],function($,tmpl){
 				this.dom = dom;
 			};
 			
-			Widget.prototype = {
+			Widget.define = defineContext;
+			
+			Widget.prototype = $.extend(true,{
 				constructor:Widget,
 				on:function(eventName){
 					
@@ -39,9 +41,7 @@ define(["jquery","template"],function($,tmpl){
 				refresh:function(op,data){
 					
 				}
-			} 
-			
-			Widget.define = defineContext;
+			},defineContext);  
 			
 			this.constructMap[name] = Widget;
 		},
@@ -94,16 +94,19 @@ define(["jquery","template"],function($,tmpl){
 						var templatedHtml = tmpl(templateUri, {
 						    value: 'aui'
 						});
+						
 						widgetDefine.template = templatedHtml;
 						$widgetBegin.after(widgetDefine.template);
 						var widgetManager = new Widget(name,op,data,null);
+						debugger
+						widgetManager.afterRender && widgetManager.afterRender();
 						componentMap[_id] = widgetManager;
 					}).error(function(err){
 						console.log(err);
 						if(err.status==404){
 							widgetDefine.template = "no found component for uri "+
 							$widgetBegin.after(widgetDefine.template);
-							var widgetManager = new Widget(name,op,data,null);
+							var widgetManager = new Widget(name,op,data,null); 
 							componentMap[_id] = widgetManager;
 						} 
 					});
@@ -122,7 +125,10 @@ define(["jquery","template"],function($,tmpl){
 						res.loadCSS(resourceOp.css[0]);
 					}
 					if(resourceOp.js){
+						debugger
 						res.loadJS(resourceOp.js[0],initCompoent);
+					}else{
+						initCompoent();
 					}
 				},{Widget:Widget,widgetDefine:widgetDefine,widgetBegin:$widgetBegin})); 
 			}else{

@@ -27,7 +27,11 @@ define(["jquery"],function($){
 	}*/
 
 	var loadJS = function(src,callback) {
-		$.getScript(src, callback);
+		$.getScript(src).done(callback).fail(function(jqxhr, settings, exception) {
+			debugger
+		}).complete(function(){
+			debugger
+		});
 	} 
 	
 	var loadMutliJS = function(arr,callback){
