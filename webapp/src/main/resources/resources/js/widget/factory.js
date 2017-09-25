@@ -91,9 +91,12 @@ define(["jquery","template"],function($,tmpl){
 					$.get(templateUri).success(function(html){  
 						var tmpl = require("template");
 						tmpl(templateUri,html);
-						var templatedHtml = tmpl(templateUri, {
-						    value: 'aui'
-						});
+						var data = {
+							$win:window,
+							$widget:widgetDefine.op,
+							value:'aui'
+						}
+						var templatedHtml = tmpl(templateUri, data);
 						
 						widgetDefine.template = templatedHtml;
 						$widgetBegin.after(widgetDefine.template);

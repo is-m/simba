@@ -35,7 +35,7 @@ public class SecurityAspect {
 
   private static final Logger LOG = LoggerFactory.getLogger(SecurityAspect.class);
 
-  //@Around("@annotation(cn.ism.fw.simba.security.SecureOperation) && @annotation(secureOperation)")
+  @Around("@annotation(cn.ism.fw.simba.security.SecureOperation) && @annotation(secureOperation)")
   public Object invoke(ProceedingJoinPoint joinPoint, SecureOperation secureOperation) throws Throwable {
     System.err.println("invoke----------拦截到方法啦");
     Class<?> clz = AopUtils.getTargetClass(joinPoint.getTarget());

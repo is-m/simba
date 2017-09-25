@@ -14,8 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.ism.fw.simba.base.ResultVO;
@@ -32,16 +30,15 @@ public class LoginController {
   @Inject
   private ILoginService loginService;
 
-  @PostMapping(value="/login",produces="application/json;charset=utf-8")
-  @ResponseBody
+  @PostMapping(value="/login",produces="application/json;charset=utf-8") 
   public ResultVO login(HttpServletRequest request, HttpServletResponse resp, @Validated UserVO userVO, BindingResult bindingResult)
-      throws IOException, ServletException {
+      throws IOException, ServletException { 
     LOG.info("user login::",userVO);
     if (bindingResult.hasErrors()) {
       ResultVO.SUCCESS(bindingResult);
     }
 
-    // 待HEX或者加密密码
+    // TODO:待HEX或者加密密码
     UserVO user = loginService.login(userVO.getUsername(), userVO.getPasswd());
     HttpSession session = request.getSession(true);
     session.setAttribute(LoginUtil.LOCAL_LOGIN_USER, user);
@@ -63,5 +60,28 @@ public class LoginController {
     resp.sendRedirect("web/page/login.html");
   }
 
+  /**
+   * 获取用户环境
+   * TODO:待将环境信息写入到界面
+   * @return
+   * @since 2017年9月26日
+   * @author Administrator
+   */
+  @GetMapping("/environment")
+  public Object environment(HttpServletRequest request, HttpServletResponse resp) {
+    return null;
+  }
+  
+  /**
+   * 会话重建
+   * @param request
+   * @param resp
+   * @since 2017年9月26日
+   * @author Administrator
+   */
+  @GetMapping("/rebuildSession")
+  public void rebuildSession(HttpServletRequest request, HttpServletResponse resp) {
+    
+  }
 
 }

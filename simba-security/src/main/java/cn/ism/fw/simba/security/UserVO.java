@@ -3,13 +3,14 @@ package cn.ism.fw.simba.security;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import cn.ism.fw.simba.base.BaseVO;
+import cn.ism.fw.simba.context.UserPrincipal;
 
 /**
  * 用户
  * @since 2017年8月8日
  * @author Administrator
  */
-public class UserVO extends BaseVO  {
+public class UserVO extends BaseVO implements UserPrincipal {
 
 	private static final long serialVersionUID = 5189034420014315333L;
 

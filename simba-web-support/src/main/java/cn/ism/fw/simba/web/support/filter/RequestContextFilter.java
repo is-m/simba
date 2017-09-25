@@ -60,12 +60,14 @@ public class RequestContextFilter implements Filter {
       // 12321123123213123213",req.getServerName()));
 
       chain.doFilter(request, response);
+      
     } catch (Exception e) {
       handleException(e, req, resp);
     } finally {
       RequestContextManager.destory();
       Thread.currentThread().setName(threadName);
     }
+    resp.setContentType("application/json;charset=UTF-8");
   }
 
   private void handleException(Throwable t, HttpServletRequest req, HttpServletResponse resp) throws IOException {

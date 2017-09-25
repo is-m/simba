@@ -11,9 +11,10 @@ import javax.servlet.http.HttpServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cn.ism.fw.simba.context.RequestContext;
 import cn.ism.fw.simba.security.SecureOperation;
 import cn.ism.fw.simba.security.SecureResource;
-import cn.ism.fw.simba.security.SecurityPolicy;
+import cn.ism.fw.simba.security.SecurityPolicy; 
 
 @SecureResource(code="APP.Servlet")
 @Named("/servlet/environment") 
@@ -31,7 +32,7 @@ public class EnviromentServlet extends HttpServlet {
 		 * if(user == null){ throw new NoAuthenticationException(); }
 		 */
 
-		res.getOutputStream().print("workspaceVO=null;");
+		res.getOutputStream().print("workspaceVO={user:"+RequestContext.getCurrent().getUser()+"};");
 	}
 
 }
