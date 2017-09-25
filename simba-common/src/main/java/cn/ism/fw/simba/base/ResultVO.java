@@ -1,9 +1,8 @@
 package cn.ism.fw.simba.base;
 
-import javax.naming.spi.DirStateFactory.Result;
+import java.io.Serializable;
 
 import cn.ism.fw.simba.util.ExceptionUtil;
-import cn.ism.fw.simba.util.JSONUtil;
 
 /**
  * 消息结果
@@ -11,7 +10,7 @@ import cn.ism.fw.simba.util.JSONUtil;
  * @since 2017年7月28日
  * @author Administrator
  */
-public class ResultVO<T> extends BasePOJO {
+public class ResultVO extends BasePOJO {
 
   private static final long serialVersionUID = -8681658011740210741L;
 
@@ -28,7 +27,7 @@ public class ResultVO<T> extends BasePOJO {
   /**
    * 响应数据
    */
-  private T data;
+  private Object data;
 
   /**
    * 响应详情 例如消息可能只是提示无访问权限，或者系统异常，此处可以具体描述消息提示的原因
@@ -50,17 +49,17 @@ public class ResultVO<T> extends BasePOJO {
   public void setMsg(String msg) {
     this.msg = msg;
   }
-  
-  public ResultVO<T> msg(String msg) {
+
+  public ResultVO msg(String msg) {
     setMsg(msg);
     return this;
   }
 
-  public T getData() {
+  public Object getData() {
     return data;
   }
 
-  public void setData(T data) {
+  public void setData(Object data) {
     this.data = data;
   }
 
@@ -76,14 +75,14 @@ public class ResultVO<T> extends BasePOJO {
 
   }
 
-  public ResultVO(String code, String msg, T data, String detail) {
+  public ResultVO(String code, String msg, Object data, String detail) {
     this.code = code;
     this.msg = msg;
     this.data = data;
     this.detail = detail;
   }
 
-  public ResultVO(String code, String msg, T data) {
+  public ResultVO(String code, String msg, Object data) {
     this(code, msg, data, null);
   }
 
@@ -95,7 +94,7 @@ public class ResultVO<T> extends BasePOJO {
     this(type.getCode(), type.getMessage(), null, null);
   }
 
-  public ResultVO(ResultType type, T data) {
+  public ResultVO(ResultType type, Object data) {
     this(type.getCode(), type.getMessage(), data, null);
   }
 
@@ -103,15 +102,15 @@ public class ResultVO<T> extends BasePOJO {
     this(type.getCode(), type.getMessage(), null, detail);
   }
 
-  public ResultVO(ResultType type, T data, String detail) {
+  public ResultVO(ResultType type, Serializable data, String detail) {
     this(type.getCode(), type.getMessage(), data, detail);
   }
 
-  public static <T> ResultVO<T> SUCCESS(T data) {
-    return new ResultVO<>(ResultType.SUCCESS, data);
-  } 
-  
-  public static <T> ResultVO<T> EXCEPTION(Throwable t){
-    return new ResultVO<T>(ResultType.EXCEPTION, ExceptionUtil.getStackTrace(t)).msg(t.getMessage());
+  public static ResultVO SUCCESS(Object data) {
+    return new ResultVO(ResultType.SUCCESS, data);
+  }
+
+  public static ResultVO EXCEPTION(Throwable t) {
+    return new ResultVO(ResultType.EXCEPTION, ExceptionUtil.getStackTrace(t)).msg(t.getMessage());
   }
 }

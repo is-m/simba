@@ -53,14 +53,14 @@
 			<span class="pull-right"><small>还没有帐号，<a href="#">现在注册?</a></small></span>
 		</div>
 		<div class="login-form">
-			<form id="formLogin" class="form" action="/webapp/login" method="post">
+			<form id="formLogin" class="form" action="/webapp/login" method="post" enctype="application/json">
 				<div class="input-group">
 					<div class="input-group-addon"><i class="iconfont icon-account"></i></div>
 					<input class="form-control" name="username" placeholder="用户名/手机号码/邮箱" value="admin">
 				</div>
 				<div class="input-group">
 					<div class="input-group-addon"><i class="iconfont icon-password"></i></div>
-					<input class="form-control" name="username" placeholder="密码" type="password" value="admin">
+					<input class="form-control" name="passwd" placeholder="密码" type="password" value="admin">
 				</div>
 				
 				<div class="form-check">
@@ -73,7 +73,7 @@
 			</form>
 		</div>
 		<div class="login-btns">
-			<button class="btn btn-primary" style="width:100%" onclick="/*document.getElementById('formLogin').submit();*/ window.location='../index.html'; ">登录</button>
+			<button class="btn btn-primary" style="width:100%" onclick="document.getElementById('formLogin').submit(); /* window.location='../index.html'; */">登录</button>
 		</div>
 	</div>
 </body>

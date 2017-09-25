@@ -1,5 +1,7 @@
 package cn.ism.fw.simba.security;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import cn.ism.fw.simba.base.BaseVO;
 
 /**
@@ -14,11 +16,13 @@ public class UserVO extends BaseVO  {
 	/**
 	 * 用户名
 	 */
+	@NotEmpty
 	private String username;
 	
 	/**
 	 * 密码
 	 */
+	@NotEmpty
 	private String passwd;
 
 	public String getUsername() {

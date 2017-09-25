@@ -2,7 +2,7 @@ package cn.ism.fw.simba.web;
 
 import javax.servlet.http.HttpServletRequest;
 
-import cn.ism.fw.simba.base.IUser;
+import cn.ism.fw.simba.context.UserPrincipal;
 import cn.ism.fw.simba.context.RequestContext;
 
 public class HttpRequestContext extends RequestContext {
@@ -17,7 +17,7 @@ public class HttpRequestContext extends RequestContext {
 		setRequest(request);
 	}
 
-	public HttpRequestContext(HttpServletRequest request,IUser user) {
+	public HttpRequestContext(HttpServletRequest request,UserPrincipal user) {
 		setUser(user);
 		setRequest(request);
 	}

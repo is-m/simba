@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.stereotype.Component;
 
-import cn.ism.fw.simba.base.IUser;
+import cn.ism.fw.simba.context.UserPrincipal;
 import cn.ism.fw.simba.context.RequestContext;
 import cn.ism.fw.simba.security.NoAuthenticationException;
 import cn.ism.fw.simba.security.SecureOperation;
@@ -42,7 +42,7 @@ public class SecurityAspect {
     Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
     LOG.info("test method interceptor for class:{} ,method:{}", clz.getName(), method.getName());
     LOG.info("securiCode:" + secureOperation.code());
-    IUser user = RequestContext.getCurrent().getUser();
+    UserPrincipal user = RequestContext.getCurrent().getUser();
     if(user == null) {
       throw new NoAuthenticationException();
     } 

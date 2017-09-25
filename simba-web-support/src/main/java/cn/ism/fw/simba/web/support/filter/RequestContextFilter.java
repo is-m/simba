@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.MessageFormatter;
 
 import cn.ism.fw.simba.base.ResultVO;
+import cn.ism.fw.simba.context.UserPrincipal;
 import cn.ism.fw.simba.context.support.RequestContextManager;
 import cn.ism.fw.simba.exception.IHttpCodeProvider;
 import cn.ism.fw.simba.util.RequestUtil;
@@ -39,17 +40,24 @@ public class RequestContextFilter implements Filter {
     HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse resp = (HttpServletResponse) response;
     String threadName = Thread.currentThread().getName();
-    System.out.println("-------------"+threadName);
+    System.out.println("-------------" + threadName);
     try {
 
       // TODO:暂时未放置用户信息
       HttpRequestContext context = new HttpRequestContext(req);
+      
+      // 获取用户
+      UserPrincipal user = SSOUtil.getCurrentUser(req);
+      context.setUser(user);
+      
       RequestContextManager.init(context);
+      
 
       // 设置当前线程名称
       // 当前线程名称 WebContainer - 主机名:端口 - 当前操作用户 - 时间
-      //  %s %s %s",req.getServerName(),req.getServerPort(), "unknow"
-      //Thread.currentThread().setName(String.format("WebContainer 12321123123213123213",req.getServerName()));
+      // %s %s %s",req.getServerName(),req.getServerPort(), "unknow"
+      // Thread.currentThread().setName(String.format("WebContainer
+      // 12321123123213123213",req.getServerName()));
 
       chain.doFilter(request, response);
     } catch (Exception e) {

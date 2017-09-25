@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cn.ism.fw.simba.base.IUser;
+import cn.ism.fw.simba.context.UserPrincipal;
 import cn.ism.fw.simba.context.RequestContext;
 import cn.ism.fw.simba.security.SecureOperation;
 import cn.ism.fw.simba.security.SecurityPolicy;
@@ -27,7 +27,7 @@ public class RebuildSessionServlet extends HttpServlet {
 	@SecureOperation(policy=SecurityPolicy.Logined)
 	public void service(ServletRequest req, ServletResponse resp) throws ServletException, IOException {
 		LOG.info("execute EnviromentServlet doGet");
-		IUser user = RequestContext.getCurrent().getUser(); 
+		UserPrincipal user = RequestContext.getCurrent().getUser(); 
 		resp.setContentType(MimeUtil.HTML);
 		resp.getOutputStream().print("//<script>parent.rebuildSession && parent.rebuildSession('"+user.getUsername()+"')</script>\r\n");
 	}

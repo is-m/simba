@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import cn.ism.fw.simba.base.IUser;
+import cn.ism.fw.simba.context.UserPrincipal;
 import cn.ism.fw.simba.util.MimeUtil;
 
 public class SSOUtil {
@@ -21,10 +21,10 @@ public class SSOUtil {
    * @since 2017年9月17日
    * @author Administrator
    */
-  public static IUser getCurrentUser(HttpServletRequest req) {
+  public static UserPrincipal getCurrentUser(HttpServletRequest req) {
     HttpSession session = req.getSession();
     if (session != null) {
-      return (IUser) session.getAttribute(LOCAL_SESSION_USER_KEY);
+      return (UserPrincipal) session.getAttribute(LOCAL_SESSION_USER_KEY);
     }
     return null;
   }

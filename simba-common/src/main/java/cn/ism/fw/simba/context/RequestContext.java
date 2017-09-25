@@ -1,17 +1,16 @@
 package cn.ism.fw.simba.context;
 
-import cn.ism.fw.simba.base.IUser;
 import cn.ism.fw.simba.context.support.RequestContextManager;
 
 public abstract class RequestContext {
 
-	private IUser user;
+	private UserPrincipal user;
 
-	public IUser getUser() {
+	public UserPrincipal getUser() {
 		return user;
 	}
 
-	public void setUser(IUser user) {
+	public void setUser(UserPrincipal user) {
 		this.user = user;
 	}
 	

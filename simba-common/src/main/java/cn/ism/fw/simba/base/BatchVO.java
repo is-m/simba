@@ -2,8 +2,6 @@ package cn.ism.fw.simba.base;
 
 import java.util.List;
 
-import cn.ism.fw.simba.util.JSONUtil;
-
 /**
  * 批处理类
  * 
@@ -64,10 +62,5 @@ public class BatchVO<T> extends BasePOJO {
 
   public void setUpdObjects(List<T> updObjects) {
     this.updObjects = updObjects;
-  }
-
-  @Override
-  public String toString() {
-    return JSONUtil.toJSON(this);
   }
 }

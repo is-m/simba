@@ -15,24 +15,29 @@ import cn.ism.fw.simba.security.service.IUserService;
 @Named
 public class UserSerivce implements IUserService {
 
-	@Inject
-	private IUserDao userDao;
+  @Inject
+  private IUserDao userDao;
 
-	@Override
-	public UserVO findObj(Serializable id) {
-		return userDao.findObj(id);
-	}
+  @Override
+  public UserVO findObj(Serializable id) {
+    return userDao.findObj(id);
+  }
 
-	@Override
-	@SecureOperation
-	public int createObj(UserVO obj) {
-		return userDao.createObj(obj);
-	}
+  @Override
+  @SecureOperation
+  public int createObj(UserVO obj) {
+    return userDao.createObj(obj);
+  }
 
-	@SecureOperation(code="findPagedList")
-	@Override
-	public PagedResult<UserVO> findPagedList(PageVO page, UserVO userVO) {
-		return userDao.findPagedList(page, userVO);
-	}
+  @SecureOperation(code = "findPagedList")
+  @Override
+  public PagedResult<UserVO> findPagedList(PageVO page, UserVO userVO) {
+    return userDao.findPagedList(page, userVO);
+  }
+
+  @Override
+  public UserVO findUserByName(String username) { 
+    return userDao.findUserByName(username);
+  }
 
 }
