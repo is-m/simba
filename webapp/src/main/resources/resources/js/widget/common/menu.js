@@ -17,9 +17,8 @@ define(["widget/factory","jquery"],function(widget,$){
 		},
 		afterRender:function(){
 			require(["lib/metisMenu"],function(m){
-				debugger
-				 $('.side-nav .metismenu').metisMenu({ toggle: true });
-			}) 
+				 $('.side-nav .metismenu').metisMenu({ toggle: true }); 
+			});
 		},
 		ready:function(){
 			alert("menu ready");

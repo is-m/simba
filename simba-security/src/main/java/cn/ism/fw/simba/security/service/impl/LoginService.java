@@ -33,8 +33,8 @@ public class LoginService implements ILoginService {
     
     // 检查数据
     Assert.notNull(userVO,"用户不存在 "+username);
-    Assert.isTrue(Objects.equals(userVO.getPasswd(), password),"用户名和密码不匹配");
-    
+    Assert.isTrue(Objects.equals(userVO.getPasswd(), password),"用户名和密码不匹配"); 
+    userVO.setPasswd(null);
     return userVO;
   } 
 

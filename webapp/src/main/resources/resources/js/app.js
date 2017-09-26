@@ -4,7 +4,9 @@ define(function(require, exports, module){
 		// 隐藏整个页面内容
 		
 		// 绑定URL地址事件
-		console.log("bound url event");
+		require(["rt/router"],function(router){
+			router.init();
+		});
 		
 		// 初始化基础内容
 		console.log("init ui context");

@@ -101,7 +101,7 @@ define(["jquery","template"],function($,tmpl){
 						widgetDefine.template = templatedHtml;
 						$widgetBegin.after(widgetDefine.template);
 						var widgetManager = new Widget(name,op,data,null);
-						debugger
+						
 						widgetManager.afterRender && widgetManager.afterRender();
 						componentMap[_id] = widgetManager;
 					}).error(function(err){
@@ -127,8 +127,7 @@ define(["jquery","template"],function($,tmpl){
 					if(resourceOp.css){
 						res.loadCSS(resourceOp.css[0]);
 					}
-					if(resourceOp.js){
-						debugger
+					if(resourceOp.js){ 
 						res.loadJS(resourceOp.js[0],initCompoent);
 					}else{
 						initCompoent();

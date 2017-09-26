@@ -188,3 +188,8 @@ h1 {
 	margin: 0;
 	width:100%;
 }
+
+.app-side .side-nav .metismenu a:active, .app-side .side-nav .metismenu a:focus, .app-side .side-nav .metismenu a:hover {
+    color: #000000;
+    background: #e0f0ff;
+}

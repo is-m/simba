@@ -5,6 +5,8 @@ import java.util.UUID;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import cn.ism.fw.simba.jsr.validation.MustEmpty;
 import cn.ism.fw.simba.jsr.validation.groups.CreateGroup;
@@ -16,6 +18,7 @@ import cn.ism.fw.simba.jsr.validation.groups.UpdateGroup;
  * @author Administrator
  */
 @JsonIgnoreProperties("setId")
+@JsonInclude(Include.NON_NULL)
 public class BaseVO extends BasePOJO {
 
   private static final long serialVersionUID = -2985566320727450256L;
