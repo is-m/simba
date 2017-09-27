@@ -1,4 +1,4 @@
-// pageContext 需要预加载
+// TODO: 1.pageContext 需要预加载 ，2.widget/data/datable 需要在使用时加载
 require(["rt/pageContext","widget/data/datatable"],function(pageContext){
 	pageContext.define("admin.sitemap.layout",function(page){
 		
