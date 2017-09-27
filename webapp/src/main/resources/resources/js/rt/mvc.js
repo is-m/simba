@@ -1,8 +1,5 @@
-(function(){
+define(["jquery"], function($) {
 	
 	
 	
-	
-	
-	
-}(window));
+});

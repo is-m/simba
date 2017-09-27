@@ -164,6 +164,7 @@ define([],function(){
 	var getObj = function(){
 		
 	}
+	
 	return { 
 		getString:_toString(),
 		_slice:_slice, 

@@ -83,26 +83,41 @@ define(["jquery","template"],function($,tmpl){
 			
 			// 获取组件内容
 			var Widget = WidgetFactory.constructMap[name]; 
+			if(!Widget){ 
+				console.log("no defined xWidget of name "+name)
+				return;
+			}
 			var widgetDefine = Widget.define;
 			
-			var initCompoent = $.proxy(function(){
+			var initCompoent = $.proxy(function(){ 
+				
 				if(widgetDefine.templateUri /*&& !widgetDefine.template*/){ 
 					var templateUri = appConfig.contextPath + "/" +widgetDefine.templateUri;
 					$.get(templateUri).success(function(html){  
 						var tmpl = require("template");
 						tmpl(templateUri,html);
-						var data = {
+						var $data = {
 							$win:window,
 							$widget:widgetDefine.op,
 							value:'aui'
 						}
-						var templatedHtml = tmpl(templateUri, data);
+						var templatedHtml = tmpl(templateUri, $data);
 						
-						widgetDefine.template = templatedHtml;
-						$widgetBegin.after(widgetDefine.template);
+						widgetDefine.template = templatedHtml; 
 						var widgetManager = new Widget(name,op,data,null);
 						
-						widgetManager.afterRender && widgetManager.afterRender();
+						var doTemplateHtml = widgetManager.beforeRender ? widgetManager.beforeRender(templatedHtml) : doTemplateHtml;
+						$widgetBegin.after(doTemplateHtml);
+						
+						// 可以接收一个promise 对象，防止afterRender里存在异步方法
+						
+						var promise = widgetManager.afterRender && widgetManager.afterRender();
+						if(promise && promise["done"] && promise["fail"] && promise["then"]){
+							promise.done($.proxy(widgetManager.ready,widgetManager));
+						}else{
+							widgetManager.ready && widgetManager.ready();
+						}
+						
 						componentMap[_id] = widgetManager;
 					}).error(function(err){
 						console.log(err);

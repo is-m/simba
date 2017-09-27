@@ -44,7 +44,7 @@ public class LoginController {
     session.setAttribute(LoginUtil.LOCAL_LOGIN_USER, user);
     request.authenticate(resp);
 
-    resp.sendRedirect("web/index.html");
+    resp.sendRedirect("web/");
     return null;
   }
 
