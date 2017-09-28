@@ -24,7 +24,7 @@ define(["jquery"], function($) {
 					$("#__pageContext").load(path,null,function(response,status,xhr){ 
 						if(status == "error"){
 							if(xhr.status == "404"){
-								$("#__pageContext").html("<h2 class='center'>Page NotFound 404</h2>")
+								$("#__pageContext").html("<div class='col-md-12'><h2 class='center'>Page NotFound 404</h2></div>")
 							}
 						}else{
 							// 绑定页面模块

@@ -29,7 +29,8 @@ define(["widget/factory","jquery"],function(widget,$){
 			return dtd.promise();//此处也可以直接返回dtd，区别在于Deferred 对象有resolve,reject,notify而promise只能设置done/fail函数
 		},
 		ready:function(){ 
-			debugger
+			// 加载点击事件
+			
 		},
 		destory:function(){
 			

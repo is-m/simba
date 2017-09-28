@@ -50,6 +50,14 @@ define(function(require, exports, module){
 			}
 		}
 		
+		$("body").find("[data-x-widget]").each(function(){
+			var $this = $(this);
+			var widgetName =  $this.data("xWidget");
+			require(["widget/common/"+widgetName],$.proxy(function(widget){
+				// 加载完组件则初始化组件的基本内容
+				$this.xWidget(this.widgetName);
+			},{ el:el, widgetName:widgetName })); 
+		});
 	}
 	
 	return { init:initilize };

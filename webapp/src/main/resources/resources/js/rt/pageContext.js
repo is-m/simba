@@ -6,6 +6,7 @@ define(["jquery"],function($){
 	
 	var pageContextStack = [];
 	var pageContextMap = {};
+	var pageContextElStack = [$("#__pageContext")];
 	
 	/**
 	 * id:上下文ID
@@ -18,12 +19,26 @@ define(["jquery"],function($){
 		pageContextStack.push(page);
 		pageContextMap[id]=page;
 		// pageContext.define 主要是加载内容到核心上下文，而非核心上下文的加载需要通过选中元素后$("xx").loadPage(url);
-		var $pc = $("#__pageContext");
+		var $pc = pageContextElStack[pageContextElStack.length-1];
+		//debugger
 		var context = $pc.data("context") || {};
 		$pc.data("context",$.extend(context,{ id : page }));
 		
 		// TODO:等页面自动渲染部分完成后触发ready函数
 		page.ready && page.ready();
+	}
+	
+	var _loadPage = function(el,url){
+		var $el = $(el); 
+		$el.load(url,function(resp,status,xhr){
+			// 加载完页面，绑定上下文，
+			if(status != "error"){
+				$el.attr("data-module",url);
+				pageContextElStack.push($el);
+			}else{
+				$el.attr("data-module","error");
+			} 
+		});
 	}
 	
 	var _shutdown = function(){
@@ -38,7 +53,8 @@ define(["jquery"],function($){
 
 	return {
 		define:_define,
-		shutdown:_shutdown
+		shutdown:_shutdown,
+		loadPage:_loadPage
 	}
 	
 });

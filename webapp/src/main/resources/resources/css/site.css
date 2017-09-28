@@ -9,7 +9,7 @@
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-	overflow: hidden;
+	/* overflow: hidden; */
 	padding-top: 50px;
 	/* background: #fbfbfb; */
 }
@@ -38,6 +38,7 @@ h1 {
 	overflow-y: auto;
 	/* Scrollable contents if viewport is shorter than content. */
 	border-right: 1px solid #eee;
+	height:100%;
 }
 
 /* Sidebar navigation */
@@ -193,4 +194,22 @@ h1 {
 .app-side .side-nav .metismenu a:active, .app-side .side-nav .metismenu a:focus, .app-side .side-nav .metismenu a:hover {
     color: #000000;
     background: #e0f0ff;
+}
+
+.ui-tabs.nav-tabs {
+	background: #FBFBFB;
+}
+
+.ui-tabs.tab-body {
+	border: 1px solid #ddd;
+    border-top: none;
+    padding:15px;
+}
+
+.ui-tabs.nav-tabs .nav-link.active {
+	border-top: 3px solid #ddd;
+}
+
+.btn:focus {
+	box-shadow:none !important;
 }

@@ -1,16 +1,8 @@
 // TODO: 1.pageContext 需要预加载 ，2.widget/data/datable 需要在使用时加载
 require(["rt/pageContext","widget/data/datatable","widget/container/tab"],function(pageContext){
-	pageContext.define("admin.sitemap.layout",function(page){
+	pageContext.define("admin.sitemap.list",function(page){
 		
-		page.ready = function(){
-			$("#demoTab").xWidget("tab",{
-				pages:[{
-					title:"栏目列表",
-					url:"/webapp/web/admin/sitemap/list.html", 
-					allowClose:true
-				}]
-			});
-			
+		page.ready = function(){  
 			var gridOption = {
 				
 				pageOp:{
@@ -32,9 +24,17 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 			};
 			
 			// 绑定表格
-			$("#tableDemo").xWidget("datatable",gridOption);
 			
+			$("#gridSitemap").xWidget("datatable",gridOption); 
 			
+			$("#btnAdd").on("click",function(){ 
+				var demoTab = $("#demoTab").xWidget();
+				var page = demoTab.addPage({
+					title:"添加栏目",
+					url:"edit",
+					allowClose:true
+				}); 
+			});
 		}
 		
 	});

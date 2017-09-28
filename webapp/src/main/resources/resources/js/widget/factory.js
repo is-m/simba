@@ -20,16 +20,16 @@ define(["jquery","template"],function($,tmpl){
 				console.log('override widget by name ' + name); 
 			}
 			
-			Widget = function(name,op,data,dom){
+			Widget = function(name,op,data,$dom){
 				this._task = [];
 				this.name = name;
 				this.op = op;
 				this.data = data;
-				this.dom = dom;
+				this.$dom = $dom;
 			};
 			
 			Widget.define = defineContext;
-			
+			 
 			Widget.prototype = $.extend(true,{
 				constructor:Widget,
 				on:function(eventName){
@@ -65,21 +65,18 @@ define(["jquery","template"],function($,tmpl){
 
 	$.fn.xWidget = function(name, op, data) {
 		if(!arguments.length){
-			return this.each(function(){
-				var self = $(this); 
+			var managers = []; 
+			this.each(function(){
+				managers.push($(this).data("__widget")); 
 			});
+			return managers.length == 1 ? managers[0] : managers;
 		}
 		
 		//debugger
 		return this.each(function() {
 			var self = $(this); 
-			var _id = buildComponentId(name);
-			var $widgetBegin = $("<!-- {0}::{1} begin -->".format(name,_id))
-			//$widgetBegin.data("widget",name);
-			var $widgetEnd =   $("<!-- {0}::{1} end -->".format(name,_id))
-			self.before($widgetBegin);
-			self.after($widgetEnd)
-			self.empty().remove(); 
+			var _id = buildComponentId(name); 
+			var $widgetBegin = self;
 			
 			// 获取组件内容
 			var Widget = WidgetFactory.constructMap[name]; 
@@ -87,10 +84,10 @@ define(["jquery","template"],function($,tmpl){
 				console.log("no defined xWidget of name "+name)
 				return;
 			}
+			
 			var widgetDefine = Widget.define;
 			
-			var initCompoent = $.proxy(function(){ 
-				
+			var initCompoent = $.proxy(function(){  
 				if(widgetDefine.templateUri /*&& !widgetDefine.template*/){ 
 					var templateUri = appConfig.contextPath + "/" +widgetDefine.templateUri;
 					$.get(templateUri).success(function(html){  
@@ -98,18 +95,22 @@ define(["jquery","template"],function($,tmpl){
 						tmpl(templateUri,html);
 						var $data = {
 							$win:window,
-							$widget:widgetDefine.op,
+							$widget:$.extend({},widgetDefine.op,op || {}),
 							value:'aui'
 						}
 						var templatedHtml = tmpl(templateUri, $data);
 						
-						widgetDefine.template = templatedHtml; 
-						var widgetManager = new Widget(name,op,data,null);
+						widgetDefine.template = templatedHtml;  
 						
-						var doTemplateHtml = widgetManager.beforeRender ? widgetManager.beforeRender(templatedHtml) : doTemplateHtml;
-						$widgetBegin.after(doTemplateHtml);
+						var $dom = $(templatedHtml);
+						var widgetManager = new Widget(name,op,data,$dom);
+						var doTemplateHtml = widgetManager.beforeRender ? widgetManager.beforeRender($dom) : $dom;
+						 
+						$widgetBegin.html($dom);
+						$widgetBegin.data("__widget",widgetManager);
 						
-						// 可以接收一个promise 对象，防止afterRender里存在异步方法
+						// TODO:可以接收一个promise 对象，防止afterRender里存在异步方法
+						// TODO:后续，需要整理出一个JS执行流程的内容，存在Promise则等Promise返回后执行各个回调函数
 						
 						var promise = widgetManager.afterRender && widgetManager.afterRender();
 						if(promise && promise["done"] && promise["fail"] && promise["then"]){
@@ -134,7 +135,7 @@ define(["jquery","template"],function($,tmpl){
 					componentMap[_id] = widgetManager;
 					//alert($widgetBegin.data("widget"));
 				}
-			},{Widget:Widget,widgetDefine:widgetDefine,widgetBegin:$widgetBegin});
+			},{Widget:Widget,widgetDefine:widgetDefine,widgetBegin:$widgetBegin,op:op});
 			
 			var resourceOp = widgetDefine.resources;
 			if(resourceOp){
@@ -150,9 +151,7 @@ define(["jquery","template"],function($,tmpl){
 				},{Widget:Widget,widgetDefine:widgetDefine,widgetBegin:$widgetBegin})); 
 			}else{
 				initCompoent();
-			}
-			
-		
+			} 
 		});
 	}
 
