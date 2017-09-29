@@ -16,7 +16,7 @@ define(["widget/factory","jquery","rt/pageContext"],function(widget,$,pageContex
 			// 加载完成后如果没有选中的项，则默认选中第一项 
 			var $tabHeader = this.$dom.find(".tab-header:eq(0)");
 			var $tabBody = this.$dom.find(".tab-body:eq(0)");
-			
+			var self = this;
 			$tabHeader.on("click",function(e){
 				var $trigger = $(e.target);
 				// 只处理导航点击事件
@@ -39,17 +39,8 @@ define(["widget/factory","jquery","rt/pageContext"],function(widget,$,pageContex
 				}
 				
 				// 如果是关闭按钮
-				if($trigger.is(".icon-close")){
-					var $headerEl = $trigger.closest("li");
-					var pageId = $trigger.parent().data("toggle");
-					$headerEl.fadeOut(100,function(){ 
-						$tabBody.children("[data-tab-id={0}]".format(pageId)).remove();
-						$headerEl.remove(); 
-						
-						// TODO:选中最后选中的页签
-						$tabHeader.find("a:eq(0)").trigger("click");
-					});
-					
+				if($trigger.is(".icon-close")){ 
+					self.closeTab($trigger.parent().data("toggle"));
 					return false;
 				}
 			}); 
@@ -72,12 +63,7 @@ define(["widget/factory","jquery","rt/pageContext"],function(widget,$,pageContex
 		},
 		destory:function(){
 			
-		}
-		,selectTab:function(tab){
-			if($.isNumeric(tab)){
-				this.$dom.find(".tab-header:eq(0)").find(".nav-link:eq({0})".format(tab).trigger("click"))
-			}
-		}
+		} 
 		,addPage:function(op){ 
 			var pageDefaultOption = {
 				title:"未命名",
@@ -89,6 +75,8 @@ define(["widget/factory","jquery","rt/pageContext"],function(widget,$,pageContex
 			var pageOp = $.extend(true,pageDefaultOption,op);
 			
 			var $tabHeader = this.$dom.find(".tab-header:eq(0)");
+			// 
+			
 			// 这个要做成工具供模版调用
 			var headHtml = [];
 			headHtml.push("<li class='nav-item'>");
@@ -106,6 +94,35 @@ define(["widget/factory","jquery","rt/pageContext"],function(widget,$,pageContex
 			$tabBody.append($bodyEl);
 			 
 			$headerEl.find(".nav-link").trigger("click");
+		}
+		,selectTab:function(tabId){
+			if(tabId){
+				var $tabHeader = this.$dom.find(".tab-header:eq(0)"); 
+				if($.isNumeric(tab)){
+					$tabHeader.find(".nav-link:eq({0})".format(tabId)).trigger("click"); 
+				}else{
+					$tabHeader.find("[data-toggle={0}]".format(tabId)).trigger("click");
+				}
+			} 
+		}
+		,closeTab:function(tabId){ 
+			if(tabId){
+				var $tabHeader = this.$dom.find(".tab-header:eq(0)"); 
+				var $tabBody = this.$dom.find(".tab-body:eq(0)");
+				var $trigger = $tabHeader.find("[data-toggle={0}]".format(tabId)); 
+				var $headerEl = $trigger.closest("li");
+				var pageId = $trigger.parent().data("toggle");
+				$headerEl.fadeOut(100,function(){  
+					var $pageEl = $tabBody.children("[data-tab-id={0}]".format(tabId));
+					pageContext.shutPage($pageEl);
+					$pageEl.remove();
+					$headerEl.remove(); 
+					
+					// TODO:选中最后选中的页签
+					$tabHeader.find("a:eq(0)").trigger("click");
+				}); 
+				return false;
+			} 
 		}
 	
 	});

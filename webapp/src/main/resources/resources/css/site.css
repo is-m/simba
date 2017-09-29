@@ -206,6 +206,10 @@ h1 {
     padding:15px;
 }
 
+.nav-tabs .nav-link {
+	background: #F6F6F6;
+}
+
 .ui-tabs.nav-tabs .nav-link.active {
 	border-top: 3px solid #ddd;
 }

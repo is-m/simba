@@ -31,7 +31,7 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 				var demoTab = $("#demoTab").xWidget();
 				var page = demoTab.addPage({
 					title:"添加栏目",
-					url:"edit",
+					url:"/webapp/web/admin/sitemap/edit.html",
 					allowClose:true
 				}); 
 			});

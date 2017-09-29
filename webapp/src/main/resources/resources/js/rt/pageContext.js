@@ -1,7 +1,8 @@
 define(["jquery"],function($){
 	
-	var Page = function(id){
+	var Page = function(id,$dom){
 		this._id = id; 
+		this.$dom = $dom;
 	}
 	
 	var pageContextStack = [];
@@ -21,11 +22,38 @@ define(["jquery"],function($){
 		// pageContext.define 主要是加载内容到核心上下文，而非核心上下文的加载需要通过选中元素后$("xx").loadPage(url);
 		var $pc = pageContextElStack[pageContextElStack.length-1];
 		//debugger
+		page.$dom = $pc;
 		var context = $pc.data("context") || {};
+		
 		$pc.data("context",$.extend(context,{ id : page }));
 		
 		// TODO:等页面自动渲染部分完成后触发ready函数
 		page.ready && page.ready();
+	}
+	
+	var _shutPage = function(el){ 
+		var $el = $(el);
+		var $waitShuts = [];
+		$waitShuts.push(el);
+		
+		var $childModules = $el.find("[data-module]");
+		for(var i=0;i<$childModules.length;i++){
+			$waitShuts.push($($childModules[i])); 
+		}
+
+		var $shutItem = null;
+		while($shutItem=$waitShuts.pop()){
+			var context = $shutItem.data("context") || {};
+			for(var pageId in context){
+				var page = context[pageId]; 
+				console.log("shutdown js module of "+page._id);
+				page.exit && page.exit();
+				delete pageContextMap[page._id]; 
+				page.$dom.removeAttr("data-module");
+				pageContextStack.remove(page);
+			}
+			$el.removeAttr("data-module");
+		}
 	}
 	
 	var _loadPage = function(el,url){
@@ -54,6 +82,7 @@ define(["jquery"],function($){
 	return {
 		define:_define,
 		shutdown:_shutdown,
+		shutPage:_shutPage,
 		loadPage:_loadPage
 	}
 	

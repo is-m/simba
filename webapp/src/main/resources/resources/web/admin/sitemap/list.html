@@ -1,10 +1,56 @@
 <script type="text/javascript" src="/webapp/web/admin/sitemap/list.js"></script>
-<h1>这个是list页面</h1>
+<!-- <h1>这个是list页面</h1> -->
+<form>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label for="validationDefault01">First name</label>
+      <input type="text" class="form-control" id="validationDefault01" placeholder="First name" value="Mark" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="validationDefault02">Last name</label>
+      <input type="text" class="form-control" id="validationDefault02" placeholder="Last name" value="Otto" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label for="validationDefault03">City</label>
+      <input type="text" class="form-control" id="validationDefault03" placeholder="City" required>
+      <div class="invalid-feedback">
+        Please provide a valid city.
+      </div> 
+    </div>
+    <div class="col-md-3 mb-3">
+      <label for="validationDefault04">State</label>
+      <input type="text" class="form-control" id="validationDefault04" placeholder="State" required>
+      <div class="invalid-feedback">
+        Please provide a valid state.
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <label for="validationDefault05">Zip</label>
+      <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
+      <div class="invalid-feedback">
+        Please provide a valid zip.
+      </div>
+    </div>
+  </div>
 
+  <button class="btn btn-primary" type="submit">Submit form</button>
+</form>
 <div class="datagrid">
-	<div id="grid-toolbar" style="margin:5px 0;">
-		<button type="button" class="btn btn-outline-primary btn-sm" id="btnAdd"><i class="iconfont icon-add"></i> 添加</button>
-		<button type="button" class="btn btn-outline-secondary btn-sm" id="btnDelete"><i class="iconfont icon-delete"></i> 删除</button> 
+	<div id="grid-toolbar" style="margin: 5px 0;">
+		<button type="button" class="btn btn-outline-primary btn-sm" id="btnAdd">
+			<i class="iconfont icon-add"></i> 添加
+		</button>
+		<button type="button" class="btn btn-outline-secondary btn-sm" id="btnDelete">
+			<i class="iconfont icon-delete"></i> 删除
+		</button>
+		<button type="button" class="btn btn-outline-secondary btn-sm" id="btnDelete">
+			 导出
+		</button>
+		<button type="button" class="btn btn-outline-secondary btn-sm" id="btnDelete">
+			导入
+		</button>
 	</div>
 	<div id="gridSitemap"></div>
 	<div id="pageDemo"></div>
