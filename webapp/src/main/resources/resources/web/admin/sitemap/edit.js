@@ -4,6 +4,19 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 		
 		page.ready = function(){  
 			console.log("你来把，我准备好了");
+			
+			$("#btnSave").on("click",function(){
+				// 往后台添加一个栏目
+				$("")
+			});
+			
+			$("#btnSaveDraft").on("click",function(){
+				alert("你点击了保存草稿");
+			});
+			
+			$("#btnCancel").on("click",function(){
+				alert("你点击了取消");
+			});
 		}
 		
 		page.exit = function(){

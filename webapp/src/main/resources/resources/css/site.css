@@ -217,3 +217,30 @@ h1 {
 .btn:focus {
 	box-shadow:none !important;
 }
+
+.iconfont { 
+    font-size:inherit; 
+}
+
+.mu-form label,.mu-form .label {
+	text-align:center;
+}
+
+.mu-grid {
+	margin:1.2em 0 0 0;
+}
+
+.mu-form-header {
+	margin-top: 15px;
+	margin-bottom: 30px;
+}
+
+.mu-form-header h3,.mu-form-header h4,.mu-form-header h5 {
+    border-bottom: .5px solid #EAEAEA;
+    line-height: 2em; 
+}
+
+.mu-form-header h3 span,.mu-form-header h4 span,.mu-form-header h5 span {
+    border-bottom: 1px solid #cd1ff9;
+    padding: 0.45em 0.5em;
+}
