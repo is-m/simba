@@ -11,6 +11,7 @@
 body {
 	/* overflow: hidden; */
 	padding-top: 50px;
+	font-size:.9rem;
 	/* background: #fbfbfb; */
 }
 
@@ -228,6 +229,28 @@ h1 {
 
 .mu-grid {
 	margin:1.2em 0 0 0;
+}
+
+.mu-grid .table {
+	border:1px solid #eee;
+}
+
+.mu-grid .table th,.mu-grid .table td {
+    padding: 0.5rem;
+    vertical-align: top;
+    border-top: none; 
+}
+
+.mu-grid .table th:nth-child(n+2),.mu-grid .table td:nth-child(n+2) {
+	border-left: 1px solid #eee; 
+}
+
+.mu-grid .table .table-th-resize { 
+	border-right:1px solid #ccc;
+}
+
+.mu-grid .table td .btn-link {
+	padding: 0.1rem;
 }
 
 .mu-form-header {
