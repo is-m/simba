@@ -31,3 +31,8 @@ RemoteSystemsTempFiles/
 .classpath
 .project
 .gitignore
+
+
+# temp project
+/exam-net
+/jse

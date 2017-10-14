@@ -3,6 +3,20 @@ define(["widget/factory","jquery","rt/pageContext"],function(widget,$,pageContex
 	widget.define("tab",{
 		template:"<h1>Hello this navbar Widget</h1>", 
 		templateUri:"js/widget/container/tab.html",
+		helpers:{
+		/*	"page":function(data){
+				var headHtml = [];
+				headHtml.push("<li class='nav-item'>");
+				headHtml.push("  <a class='nav-link' data-toggle='{0}' data-url='{1}'>".format(pageOp.id,pageOp.url));
+				headHtml.push(pageOp.title);
+				headHtml.push(pageOp.allowClose ? " <i class='iconfont icon-close'></i>" : '');
+				headHtml.push("  </a>")
+				headHtml.push("</ul>")
+				
+				var $pageEl = $(headHtml);
+				return $pageEl.html();
+			}*/
+		},
 		init:function(){
 			
 		},
@@ -29,6 +43,12 @@ define(["widget/factory","jquery","rt/pageContext"],function(widget,$,pageContex
 					$tabBody.children().hide();
 					
 					var $curPage = $tabBody.children("[data-tab-id={0}]".format(pageId));
+					if($curPage.length == 0){
+						var $tempPage = $("<div data-tab-id='"+pageId+"'></div> ");
+						$tabBody.append($tempPage);
+						$curPage = $tempPage;
+					}
+					
 					$curPage.show();
 					// 未初始化过才需要初始化
 					if(!$curPage.data("init")){
@@ -103,26 +123,32 @@ define(["widget/factory","jquery","rt/pageContext"],function(widget,$,pageContex
 				}else{
 					$tabHeader.find("[data-toggle={0}]".format(tabId)).trigger("click");
 				}
-			} 
+			}else{
+				throw 'no tabId';
+			}
 		}
 		,closeTab:function(tabId){ 
-			if(tabId){
+			// 如果当前未指定tabId 则关闭当前激活的页签
+			if(!tabId){
 				var $tabHeader = this.$dom.find(".tab-header:eq(0)"); 
-				var $tabBody = this.$dom.find(".tab-body:eq(0)");
-				var $trigger = $tabHeader.find("[data-toggle={0}]".format(tabId)); 
-				var $headerEl = $trigger.closest("li");
-				var pageId = $trigger.parent().data("toggle");
-				$headerEl.fadeOut(100,function(){  
-					var $pageEl = $tabBody.children("[data-tab-id={0}]".format(tabId));
-					pageContext.shutPage($pageEl);
-					$pageEl.remove();
-					$headerEl.remove(); 
-					
-					// TODO:选中最后选中的页签
-					$tabHeader.find("a:eq(0)").trigger("click");
-				}); 
-				return false;
-			} 
+				tabId = $tabHeader.find(".nav-link.active").data("toggle");
+			}
+			
+			var $tabHeader = this.$dom.find(".tab-header:eq(0)"); 
+			var $tabBody = this.$dom.find(".tab-body:eq(0)");
+			var $trigger = $tabHeader.find("[data-toggle={0}]".format(tabId)); 
+			var $headerEl = $trigger.closest("li");
+			var pageId = $trigger.parent().data("toggle");
+			//$headerEl.fadeOut(100,function(){  
+				var $pageEl = $tabBody.children("[data-tab-id={0}]".format(tabId));
+				pageContext.shutPage($pageEl);
+				$pageEl.remove();
+				$headerEl.remove(); 
+				
+				// TODO:选中最后选中的页签
+				$tabHeader.find("a:eq(0)").trigger("click");
+			//}); 
+			return false; 
 		}
 	
 	});

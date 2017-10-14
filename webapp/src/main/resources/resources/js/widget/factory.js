@@ -88,22 +88,31 @@ define(["jquery","template"],function($,tmpl){
 			var widgetDefine = Widget.define;
 			
 			var initCompoent = $.proxy(function(){  
-				if(widgetDefine.templateUri /*&& !widgetDefine.template*/){ 
+				if(widgetDefine.templateUri /*&& !widgetDefine.template*/){  
 					var templateUri = appConfig.contextPath + "/" +widgetDefine.templateUri;
 					$.get(templateUri).success(function(html){  
+						var widgetOp = $.extend({},widgetDefine.op,op || {});
+						var widgetManager = new Widget(name,widgetOp,data);
+						
+						widgetManager.init && widgetManager.init();
+						
 						var tmpl = require("template");
+						
 						tmpl(templateUri,html);
+						
 						var $data = {
 							$win:window,
-							$widget:$.extend({},widgetDefine.op,op || {}),
+							$widget:widgetOp,
 							value:'aui'
 						}
+						
 						var templatedHtml = tmpl(templateUri, $data);
 						
 						widgetDefine.template = templatedHtml;  
 						
 						var $dom = $(templatedHtml);
-						var widgetManager = new Widget(name,op,data,$dom);
+						
+						widgetManager.$dom = $dom;
 						var doTemplateHtml = widgetManager.beforeRender ? widgetManager.beforeRender($dom) : $dom;
 						 
 						$widgetBegin.html($dom);

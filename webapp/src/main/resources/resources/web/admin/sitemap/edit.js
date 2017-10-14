@@ -15,7 +15,8 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 			});
 			
 			$("#btnCancel").on("click",function(){
-				alert("你点击了取消");
+				console.log("click cancel");
+				$("#demoTab").xWidget().closeTab();
 			});
 		}
 		
