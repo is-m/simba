@@ -81,7 +81,7 @@ public class RequestContextFilter implements Filter {
       SSOUtil.redirectSignPage(req, resp);
       return;
     }
-
+    LOG.error("后台调用异常",t);
     resp.getWriter().write(ResultVO.EXCEPTION(t).toString());
   }
 

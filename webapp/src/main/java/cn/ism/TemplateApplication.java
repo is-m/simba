@@ -16,7 +16,7 @@ import cn.ism.template.webapp.common.util.SpringBootUtil;
 @EnableAspectJAutoProxy(proxyTargetClass=true,exposeProxy=true)
 @ImportResource(locations={"classpath:config/applicationContext.xml"})
 @SpringBootApplication
-@MapperScan({"cn.ism.fw.simba.security.dao"})
+@MapperScan({"cn.ism.fw.simba.security.dao","cn.ism.fw.simba.sitemap.dao"})
 public class TemplateApplication implements ServletContextInitializer {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(TemplateApplication.class);

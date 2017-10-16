@@ -9,7 +9,7 @@ require(["rt/pageContext","rt/validation","rt/request"],function(pageContext,val
 				// 往后台添加一个栏目
 				var isValid =  true;//$("#formEditSitemap").valid();
 				if(isValid){
-					var jsonData = {icon:"123"};//$("#formEditSitemap").jsonData();
+					var jsonData = {icon:"123",id:"123",seq:100000};//$("#formEditSitemap").jsonData();
 					http.doPost("/webapp/api/sitemap",jsonData,function(res){
 						alert('后台取数据完成');
 					});

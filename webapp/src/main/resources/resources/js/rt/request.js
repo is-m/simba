@@ -9,7 +9,14 @@ define(["jquery"],function($){
 			contentType:"application/json",
 		});
 		
-		sCallback && _async.success(sCallback); 
+		_async.success(function(resp){
+			if(resp && resp.code && resp.msg && resp.code != '200'){
+				console.log("call service error:",resp);
+				fCallback && fCallback(resp);
+			}else{
+				sCallback(resp.data);
+			} 
+		});
 		
 		fCallback && _async.error(fCallback); 
 		

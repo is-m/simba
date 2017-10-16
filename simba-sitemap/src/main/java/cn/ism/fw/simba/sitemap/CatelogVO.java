@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import cn.ism.fw.simba.base.BaseResourceVO;
+import cn.ism.fw.simba.jsr.validation.groups.CreateGroup;
 
 /**
  * 栏目VO
@@ -13,6 +14,7 @@ import cn.ism.fw.simba.base.BaseResourceVO;
  * @since 2017年5月7日
  * @author Administrator
  */
+
 public class CatelogVO extends BaseResourceVO {
 
   private static final long serialVersionUID = 4145424803228191015L;
@@ -21,7 +23,7 @@ public class CatelogVO extends BaseResourceVO {
    * 标题
    */
   @Length(max=500)
-  @NotEmpty
+  @NotEmpty(groups={CreateGroup.class})
   private String title;
 
   /**
@@ -33,7 +35,7 @@ public class CatelogVO extends BaseResourceVO {
   /**
    * 访问地址
    */
-  @Length(max=500)
+  @Length(max=500) 
   private String url;
 
 
@@ -54,7 +56,7 @@ public class CatelogVO extends BaseResourceVO {
    * 是否生效
    */
   @Length(max=1)
-  private String enabled;
+  private String isEnabled;
 
   /**
    * 排序
@@ -112,14 +114,14 @@ public class CatelogVO extends BaseResourceVO {
 
   public void setParentId(String parentId) {
     this.parentId = parentId;
+  }  
+  
+  public String getIsEnabled() {
+    return isEnabled;
   }
 
-  public String getEnabled() {
-    return enabled;
-  }
-
-  public void setEnabled(String enabled) {
-    this.enabled = enabled;
+  public void setIsEnabled(String isEnabled) {
+    this.isEnabled = isEnabled;
   }
 
   public Integer getSeq() {

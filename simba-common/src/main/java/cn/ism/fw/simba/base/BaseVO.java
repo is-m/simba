@@ -15,6 +15,7 @@ import cn.ism.fw.simba.jsr.validation.groups.UpdateGroup;
 
 /**
  * 基础VO类
+ * 
  * @since 2017年9月25日
  * @author Administrator
  */
@@ -24,11 +25,11 @@ public class BaseVO extends BasePOJO {
 
   private static final long serialVersionUID = -2985566320727450256L;
 
-  @MustEmpty(groups= {CreateGroup.class})
-  @NotEmpty(groups= {UpdateGroup.class})
+  @MustEmpty(groups = {CreateGroup.class})
+  @NotEmpty(groups = {UpdateGroup.class})
   private String id;
 
-  private boolean setId; 
+  private boolean setId;
 
   public String getId() {
     if (id == null || id.trim().length() == 0) {
@@ -45,9 +46,13 @@ public class BaseVO extends BasePOJO {
   public boolean isSetId() {
     return setId;
   }
-  
-  public String getCurrentUserId(){
-    return RequestContext.getCurrent().getUser().getId();
+
+  public String getCurrentUserId() {
+    try {
+      return RequestContext.getCurrent().getUser().getId();
+    } catch (Exception e) {
+      return "null";
+    }
   }
 
   // @NumberFormat(style=Style.CURRENCY)
@@ -56,5 +61,5 @@ public class BaseVO extends BasePOJO {
 
   // @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   // Date createTime;
- 
+
 }

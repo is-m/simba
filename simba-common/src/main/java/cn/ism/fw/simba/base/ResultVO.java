@@ -106,20 +106,20 @@ public class ResultVO extends BasePOJO {
   public ResultVO(ResultType type, Serializable data, String detail) {
     this(type.getCode(), type.getMessage(), data, detail);
   }
-  
+
   public static ResultVO SUCCESS(Object data) {
     return new ResultVO(ResultType.SUCCESS, data);
   }
-  
+
   public static ResultVO SUCCESS(int modifyCount) {
     HashMap<String, Object> data = new HashMap<>();
     data.put("modifyCount", modifyCount);
     data.put("totalCount", modifyCount);
     return new ResultVO(ResultType.SUCCESS, data);
   }
-  
-  public static ResultVO ERROR_PARAMS(Object error){
-    return new ResultVO(ResultType.FAILURE, error);
+
+  public static ResultVO ERROR_PARAMS(Object error) {
+    return new ResultVO(ResultType.ERROR_PARAMS, error);
   }
 
 

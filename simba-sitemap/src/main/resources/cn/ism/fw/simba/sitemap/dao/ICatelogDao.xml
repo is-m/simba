@@ -5,7 +5,43 @@
 <mapper namespace="cn.ism.fw.simba.sitemap.dao.ICatelogDao">
 
 	<insert id="createObj">
-		insert into sb_catelog_t(id,)
+		INSERT INTO `simba_demo`.`sb_catelog_t` (
+		  `id`,
+		  `title`,
+		  `icon`,
+		  `url`,
+		  `access_mode`,
+		  `parent_id`,
+		  `seq`,
+		  `is_enabled`,
+		  `visible_mode`,
+		  `visible_value`,
+		  `edition`,
+		  `delete_flag`,
+		  `created_by`,
+		  `creation_date`,
+		  `last_update_by`,
+		  `last_updated_date`
+		) 
+		VALUES
+		  (
+		    #{id},
+		    #{title,jdbcType=VARCHAR},
+		    #{icon,jdbcType=VARCHAR},
+		    #{url,jdbcType=VARCHAR},
+		    #{accessMode,jdbcType=VARCHAR},
+		    #{parentId,jdbcType=VARCHAR},
+		    #{seq,jdbcType=INTEGER},
+		    #{isEnabled,jdbcType=VARCHAR},
+		    #{visibleMode,jdbcType=VARCHAR},
+		    #{visibleValue,jdbcType=VARCHAR},
+		    #{edition,jdbcType=INTEGER},
+		    'N',
+		    #{currentUserId,jdbcType=VARCHAR},
+		    SYSDATE(),
+		    #{currentUserId,jdbcType=VARCHAR},
+		    SYSDATE()
+		  ); 
 	</insert>
 
 </mapper>

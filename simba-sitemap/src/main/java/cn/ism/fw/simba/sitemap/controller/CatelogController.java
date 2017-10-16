@@ -1,8 +1,15 @@
 package cn.ism.fw.simba.sitemap.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
+import javax.validation.groups.Default;
 
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,13 +29,31 @@ public class CatelogController {
   @Inject
   private ICatelogService catelogService;
 
-  @PostMapping
-  public ResultVO create(@RequestBody @Validated(CreateGroup.class) CatelogVO catelogVO, BindingResult result) {
-    return result.hasErrors() ? ResultVO.ERROR_PARAMS(result) : ResultVO.SUCCESS(catelogService.createObj(catelogVO));
+  private ResultVO fieldErrors(BindingResult bindingResult) {
+    Map<String, List<String>> errorMap = new HashMap<>();
+    for (FieldError err : bindingResult.getFieldErrors()) {
+      String field = err.getField();
+      List<String> fieldErrors = null;
+      if (!errorMap.containsKey(err)) {
+        fieldErrors = new ArrayList<>();
+        errorMap.put(field, fieldErrors);
+      } else {
+        fieldErrors = errorMap.get(field);
+      }
+
+      fieldErrors.add(err.getDefaultMessage());
+
+    }
+    return ResultVO.ERROR_PARAMS(errorMap);
   }
- 
+
+  @PostMapping
+  public ResultVO create(@RequestBody @Validated({Default.class, CreateGroup.class}) CatelogVO catelogVO, BindingResult bindingResult) {
+    return bindingResult.hasErrors() ? fieldErrors(bindingResult) : ResultVO.SUCCESS(catelogService.createObj(catelogVO));
+  }
+
   @GetMapping
-  public ResultVO findList(){
+  public ResultVO findList() {
     return ResultVO.SUCCESS(catelogService.findList());
   }
 }
