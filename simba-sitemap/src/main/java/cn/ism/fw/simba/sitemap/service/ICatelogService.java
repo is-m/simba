@@ -9,9 +9,23 @@ import cn.ism.fw.simba.sitemap.CatelogVO;
  * @since 2017年8月8日
  * @author Administrator
  */
-public interface ICatelogService {
+public interface ICatelogService  {
  
-	
+	/**
+	 * 查询列表
+	 * @return
+	 * @since 2017年10月16日
+	 * @author Administrator
+	 */
 	public List<CatelogVO> findList();
 	
+	/**
+	 * 创建栏目对象
+	 * @param vo
+	 * @return
+	 * @since 2017年10月16日
+	 * @author Administrator
+	 */
+	public int createObj(CatelogVO vo);
+	 
 }

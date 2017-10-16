@@ -10,11 +10,17 @@
 	<artifactId>simba-sitemap</artifactId>
 
 	<dependencies>
-
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
 		<dependency>
 			<groupId>cn.ism.fw</groupId>
 			<artifactId>simba-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency> 
+		</dependency>
 	</dependencies>
 </project>

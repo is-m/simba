@@ -5,11 +5,11 @@
 			<thead>
 				<tr>
 					<% if($widget.showSeq !== false){%>
-						<th style="width: 30px;" class="table-th-fixed"><span><i class="fa fa-th-large" title="用于指定列的显示隐藏，是否固定，排列顺序"></i></span></th>
+						<th width="30" class="table-th-fixed"><span><i class="fa fa-th-large" title="用于指定列的显示隐藏，是否固定，排列顺序"></i></span></th>
 					<%}%>
 					
 					<% if($widget.selectMode == "mutli"){%>
-						<th style="width: 30px;" class="table-th-fixed"><span><input type="checkbox" /></span></th>
+						<th width="30" class="table-th-fixed"><span><input type="checkbox" /></span></th>
 					<%}%> 
 					
 					<% for(var i=0;i<$widget.columns.length;i++){ var colOp = $widget.columns[i]; %>
@@ -17,6 +17,8 @@
 				    		<span class="table-th-label"><%=colOp.header%></span>
 				    	</th>
 				    <%}%> 
+				    <td class="scroll-space" width="16" style="border-bottom: 2px solid #e9ecef" >  
+				    </td>
 				</tr>
 			</thead>
 		</table>  
@@ -53,7 +55,7 @@
 							var fieldValue = colOp.field ? dataItem[colOp.field] : null;
 					%>
 						<td>
-							<span class="table-td-text" style="width:<%= (colOp.width || 150)-17 %>px; min-width:<%= (colOp.width || 150)-17 %>px;">
+							<span class="table-td-text" style="width:<%= (colOp.width || 150)-17 %>px; min-width:<%= (colOp.width || 150)-17 %>px;" data-toggle="tooltip" title="Example tooltip">
 							<%if(colOp.renderer){%>
 								<%=# colOp.renderer(fieldValue,dataItem,colOp) %>
 							<%}else{%>

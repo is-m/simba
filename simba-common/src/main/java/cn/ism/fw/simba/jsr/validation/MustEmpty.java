@@ -37,12 +37,11 @@ public @interface MustEmpty {
   public class MustEmptyValidator implements ConstraintValidator<MustEmpty, Object> {
 
     @Override
-    public void initialize(MustEmpty constraintAnnotation) {
-
+    public void initialize(MustEmpty constraintAnnotation) { 
     }
 
     @Override
-    public boolean isValid(Object value, ConstraintValidatorContext context) {
+    public boolean isValid(Object value, ConstraintValidatorContext context) { 
       return ObjectUtil.isEmpty(value);
     }
 

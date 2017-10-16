@@ -176,6 +176,10 @@ h1 {
 
 .quickbar ul { 
 	list-style: none;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
 	display: flex;
 	margin: 0;
 }  
@@ -228,6 +232,10 @@ h1 {
 
 .mu-form label,.mu-form .label {
 	text-align:center;
+}
+
+.mu-form .mu-form-btns {
+	margin-top:40px;
 }
 
 .mu-grid {
@@ -391,9 +399,15 @@ h1 {
 	border: 1px solid #EEE;
 	border-bottom: none;
 }
+
 .table-scroll-body {
 	border: 1px solid #EEE;
 	border-top: none;
+}
+
+.require:before{ 
+	color:red;
+	content:"* ";
 }
 
 /*! jQuery UI - v1.12.1 - 2017-10-03

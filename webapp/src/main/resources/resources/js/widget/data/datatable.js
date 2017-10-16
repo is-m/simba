@@ -55,13 +55,16 @@ define(["widget/factory","jquery","jqueryui"],function(widget,$,$ui){
 				
 			})*/
 			
-			// 绑定滚动条事件
-			debugger
+			// 绑定滚动条事件 
 			$tableBody.on("scroll",function(){ 
-				var bodyScrollLeft = $(this).scrollLeft();
-				console.log("body scroll::"+bodyScrollLeft);
+				var bodyScrollLeft = $(this).scrollLeft(); 
 				$tableHead.scrollLeft(bodyScrollLeft);
-			});
+			}); 
+			
+			// 初始化提示框
+			//$tableBody.find("tr>td>span",function(){
+				
+			//}); 
 		},
 		ready:function(){
 			

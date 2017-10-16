@@ -1,6 +1,11 @@
 package cn.ism.fw.simba.sitemap;
 
-import cn.ism.fw.simba.base.BaseVO;
+import javax.validation.constraints.Max;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import cn.ism.fw.simba.base.BaseResourceVO;
 
 /**
  * 栏目VO
@@ -8,97 +13,137 @@ import cn.ism.fw.simba.base.BaseVO;
  * @since 2017年5月7日
  * @author Administrator
  */
-public class CatelogVO extends BaseVO {
+public class CatelogVO extends BaseResourceVO {
 
-	private static final long serialVersionUID = 4145424803228191015L;
+  private static final long serialVersionUID = 4145424803228191015L;
 
-	/**
-	 * 标题
-	 */
-	private String title;
+  /**
+   * 标题
+   */
+  @Length(max=500)
+  @NotEmpty
+  private String title;
 
-	/**
-	 * 访问地址
-	 */
-	private String url;
+  /**
+   * 图标
+   */
+  @Length(max=50)
+  private String icon;
 
-	/**
-	 * 是否生效
-	 */
-	private boolean enabled;
+  /**
+   * 访问地址
+   */
+  @Length(max=500)
+  private String url;
 
-	private int sort;
 
-	/**
-	 * 显示类型：all:全部可见，child:有子栏目时可用时可见，permission:功能可用时可见
-	 */
-	private String showType;
+  /**
+   * url打开方式，inner:内部链接、iframe:嵌入页面，window:打开新窗口
+   */
+  @Length(max=20)
+  private String accessMode;
 
-	/**
-	 * 可见的权限点
-	 * showMode：功能可用时可见时，会设置内容
-	 */
-	private String showValue;
+  /**
+   * 父节点ID
+   */
+  @Length(max=32)
+  private String parentId;
 
-	/**
-	 * url打开方式，例如：弹出页面，还是页内跳转还是弹出层等
-	 * 默认为 页内跳转
-	 */
-	private String openType;
 
-	public String getTitle() {
-		return title;
-	}
+  /**
+   * 是否生效
+   */
+  @Length(max=1)
+  private String enabled;
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  /**
+   * 排序
+   */ 
+  @Max(value=32500)
+  private Integer seq;
 
-	public String getUrl() {
-		return url;
-	}
+  /**
+   * 显示类型：all:全部可见，child:有子栏目时可用时可见，permission:功能可用时可见
+   */
+  @Length(max=20)
+  private String visibleMode;
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+  /**
+   * 可见的权限点 showMode：功能可用时可见时，会设置内容,对应权限点
+   */
+  @Length(max=200)
+  private String visibleValue;
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+  public String getTitle() {
+    return title;
+  }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-	public int getSort() {
-		return sort;
-	}
+  public String getIcon() {
+    return icon;
+  }
 
-	public void setSort(int sort) {
-		this.sort = sort;
-	}
+  public void setIcon(String icon) {
+    this.icon = icon;
+  }
 
-	public String getShowType() {
-		return showType;
-	}
+  public String getUrl() {
+    return url;
+  }
 
-	public void setShowType(String showType) {
-		this.showType = showType;
-	}
+  public void setUrl(String url) {
+    this.url = url;
+  }
 
-	public String getShowValue() {
-		return showValue;
-	}
+  public String getAccessMode() {
+    return accessMode;
+  }
 
-	public void setShowValue(String showValue) {
-		this.showValue = showValue;
-	}
+  public void setAccessMode(String accessMode) {
+    this.accessMode = accessMode;
+  }
 
-	public String getOpenType() {
-		return openType;
-	}
+  public String getParentId() {
+    return parentId;
+  }
 
-	public void setOpenType(String openType) {
-		this.openType = openType;
-	}
+  public void setParentId(String parentId) {
+    this.parentId = parentId;
+  }
+
+  public String getEnabled() {
+    return enabled;
+  }
+
+  public void setEnabled(String enabled) {
+    this.enabled = enabled;
+  }
+
+  public Integer getSeq() {
+    return seq;
+  }
+
+  public void setSeq(Integer seq) {
+    this.seq = seq;
+  }
+
+  public String getVisibleMode() {
+    return visibleMode;
+  }
+
+  public void setVisibleMode(String visibleMode) {
+    this.visibleMode = visibleMode;
+  }
+
+  public String getVisibleValue() {
+    return visibleValue;
+  }
+
+  public void setVisibleValue(String visibleValue) {
+    this.visibleValue = visibleValue;
+  } 
+ 
 }

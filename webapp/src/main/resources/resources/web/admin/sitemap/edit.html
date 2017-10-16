@@ -1,123 +1,89 @@
 <script type="text/javascript" src="/webapp/web/admin/sitemap/edit.js"></script>
 <!-- <h2>这个是编辑页面</h2> -->
 <div class="container">
-  <form class="mu-form"> 
+  <form class="mu-form" id="formEditSitemap"> 
   	<div class="mu-form-header">
   		<h5><span>基本信息</span></h5>
   	</div>
   	<div class="form-group row">
-      <label for="inputEmail3" class="col-sm-2 col-form-label">Email <i class="fa fa-question-circle-o"></i></label>
+      <label for="inputEmail3" class="col-sm-2 col-form-label require">菜单标题 <i class="fa fa-question-circle-o"></i></label>
       <div class="col-sm-4">
-        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+      	<div class="input-group">
+	      <span class="input-group-btn">
+	        <button class="btn btn-outline-secondary" type="button" id="btnSelectIcon">无</button>
+	      </span>
+	      <input type="text" class="form-control" data-validtors="required">
+	    </div> 
       </div>
       
-      <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+      <label for="inputEmail3" class="col-sm-2 col-form-label">父菜单</label>
       <div class="col-sm-4">
-        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+      	<div class="input-group">
+	      <input type="text" class="form-control">
+	      <span class="input-group-btn">
+	      	<!-- 组件图标 fa fa-puzzle-piece -->
+	        <button class="btn btn-outline-secondary" type="button" id="btnSelectParent"><i class="fa fa-ellipsis-h"></i></button>
+	      </span>
+	    </div> 
       </div>
     </div> 
     
     <div class="form-group row">
-      <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+      <label for="inputEmail3" class="col-sm-2 col-form-label">访问路径</label>
       <div class="col-sm-4">
-        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+        <input type="email" class="form-control" id="inputEmail3" placeholder="">
       </div>
       
-      <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+      <label for="inputEmail3" class="col-sm-2 col-form-label">访问方式</label>
       <div class="col-sm-4">
-        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+      	<select class="form-control">
+		  <option value="inner" selected="selected">内部链接</option>
+		  <option value="iframe">嵌入页面</option>
+		  <option value="window">新窗口</option>
+		</select> 
       </div>
     </div> 
+    
+    
 
 	<div class="mu-form-header">
-  		<h5><span>扩展信息</span></h5>
+  		<h5><span>显示信息</span></h5>
   	</div>
-    <div class="form-group row">
-      <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-      <div class="col-sm-10">
-        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-      <div class="col-sm-10">
-        <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-      </div>
-    </div>
-    <fieldset class="form-group">
-      <div class="row">
-        <legend class="col-form-legend col-sm-2 label">Radios</legend>
-        <div class="col-sm-10">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-              Option one is this and that&mdash;be sure to include why it's great
-            </label>
-          </div>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-              Option two can be something else and selecting it will deselect option one
-            </label>
-          </div>
-          <div class="form-check disabled">
-            <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
-              Option three is disabled
-            </label>
-          </div>
-        </div>
-      </div>
-    </fieldset>
-    <div class="form-group row">
-      <div class="col-sm-2 label">Checkbox</div>
-      <div class="col-sm-10">
-        <div class="form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox"> Check me out
-          </label>
-        </div>
-      </div>
-    </div>
-    
-    <div class="mu-form-header">
-  		<h5><span>审批意见</span></h5>
-  	</div>
+  	
   	<div class="form-group row">
-      <label for="inputEmail3" class="col-sm-2 col-form-label"></label>
-      <div class="col-sm-10">
-         <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="approval" id="approval1" value="agree" checked>
-              	通过
-         </label>
-         <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="approval" id="approval2" value="reject" >
-              	驳回
-         </label>
-         <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="approval" id="approval3" value="transfer" >
-              	转他人审批
-         </label> 
+  	 <label for="inputEmail3" class="col-sm-2 col-form-label">是否启用</label>
+      <div class="col-sm-4">
+      	<div class="form-check form-check-inline">
+		  <label class="form-check-label">
+		    <input class="form-check-input" type="radio" name="isEnabled" value="enabled" checked="checked"> 启用
+		  </label>
+		  <label class="form-check-label">
+		    <input class="form-check-input" type="radio" name="isEnabled" value="disabled"> 停用
+		  </label>
+		</div> 
       </div>
-    </div>
-    <div class="form-group row">
-      <label for="inputEmail3" class="col-sm-2 col-form-label">审批意见</label>
-      <div class="col-sm-10">
-        <textarea class="form-control" id="inputEmail3" placeholder="意见" rows="5" ></textarea>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="inputEmail3" class="col-sm-2 col-form-label">抄送人</label>
-      <div class="col-sm-10">
-        <textarea class="form-control" id="inputEmail3" placeholder="抄送给" rows="2" ></textarea>
-      </div>
+      
+      <label for="inputEmail3" class="col-sm-2 col-form-label">显示顺序</label>
+      <div class="col-sm-4">
+        <input class="form-control" id="inputEmail3" placeholder="">
+      </div> 
     </div>
     
     <div class="form-group row">
+      <label for="inputEmail3" class="col-sm-2 col-form-label">显示模式</label>
+      <div class="col-sm-4">
+        <select class="form-control" name="showMode">
+		  <option value="all" selected="selected">全部可见</option>
+		  <option value="hasChildren">有子栏目时可见</option>
+		  <option value="hasPermission">有权限时可见</option>
+		</select> 
+      </div>
+    </div> 
+    
+    <div class="form-group row mu-form-btns">
       <div class="col-sm-12 text-center">
-        <button id="btnSave" type="button" class="btn btn-outline-primary">Save</button>
-        <button id="btnSaveDraft" type="button" class="btn btn-outline-primary">Save draft</button>
-        <button id="btnCancel" type="button" class="btn btn-outline-primary">Cancel</button>
+        <button id="btnSave" type="button" class="btn btn-sm btn-outline-primary"><i class="fa fa-check"></i> 保存</button> 
+        <button id="btnCancel" type="button" class="btn btn-sm btn-outline-primary"><i class="fa fa-close"></i> 取消</button>
       </div>
     </div>
   </form>

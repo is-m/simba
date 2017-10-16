@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import cn.ism.fw.simba.context.RequestContext;
 import cn.ism.fw.simba.jsr.validation.MustEmpty;
 import cn.ism.fw.simba.jsr.validation.groups.CreateGroup;
 import cn.ism.fw.simba.jsr.validation.groups.UpdateGroup;
@@ -27,7 +28,7 @@ public class BaseVO extends BasePOJO {
   @NotEmpty(groups= {UpdateGroup.class})
   private String id;
 
-  private boolean setId;
+  private boolean setId; 
 
   public String getId() {
     if (id == null || id.trim().length() == 0) {
@@ -43,6 +44,10 @@ public class BaseVO extends BasePOJO {
 
   public boolean isSetId() {
     return setId;
+  }
+  
+  public String getCurrentUserId(){
+    return RequestContext.getCurrent().getUser().getId();
   }
 
   // @NumberFormat(style=Style.CURRENCY)

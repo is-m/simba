@@ -142,6 +142,13 @@
 			<artifactId>simba-web-support</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>cn.ism.fw</groupId>
+			<artifactId>simba-sitemap</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>  
