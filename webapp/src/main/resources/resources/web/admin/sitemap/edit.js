@@ -4,6 +4,17 @@ require(["rt/pageContext","rt/validation","rt/request"],function(pageContext,val
 		
 		page.ready = function(){  
 			console.log("你来把，我准备好了");
+			// 从后台获取校验内容并绑定到元素
+			//validator.bind($("#formEditSitemap"),"CatelogVO",["CreateGroup"]);
+			 $(".form_datetime").datetimepicker({
+				    fontAwesome:true,
+				    format: 'yyyy-mm-dd',//'yyyy-mm-dd hh:ii',
+			        autoclose: true,
+			        todayBtn: true,
+			        //startDate: "2013-02-14 10:00",
+			        //minuteStep: 10
+			        minView:"month" // month 可以选择到日， day:可以选择到小时
+			    });
 			
 			$("#btnSave").on("click",function(){
 				// 往后台添加一个栏目

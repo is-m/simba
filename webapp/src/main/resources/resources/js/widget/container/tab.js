@@ -95,6 +95,11 @@ define(["widget/factory","jquery","rt/pageContext"],function(widget,$,pageContex
 			var pageOp = $.extend(true,pageDefaultOption,op);
 			
 			var $tabHeader = this.$dom.find(".tab-header:eq(0)");
+			
+			if($tabHeader.find("[data-toggle={0}]".format(pageOp.id)).length){
+				this.selectTab(pageOp.id); 
+				return;
+			}
 			// 
 			
 			// 这个要做成工具供模版调用
@@ -118,7 +123,7 @@ define(["widget/factory","jquery","rt/pageContext"],function(widget,$,pageContex
 		,selectTab:function(tabId){
 			if(tabId){
 				var $tabHeader = this.$dom.find(".tab-header:eq(0)"); 
-				if($.isNumeric(tab)){
+				if($.isNumeric(tabId)){
 					$tabHeader.find(".nav-link:eq({0})".format(tabId)).trigger("click"); 
 				}else{
 					$tabHeader.find("[data-toggle={0}]".format(tabId)).trigger("click");

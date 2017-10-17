@@ -40,7 +40,7 @@ public class RequestContextFilter implements Filter {
     HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse resp = (HttpServletResponse) response;
     String threadName = Thread.currentThread().getName();
-    System.out.println("-------------" + threadName);
+    //System.out.println("-------------" + threadName);
     try {
 
       // TODO:暂时未放置用户信息

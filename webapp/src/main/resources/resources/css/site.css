@@ -589,3 +589,8 @@ h1 {
 	touch-action: none;
 }
 
+/* === datetimepicker === */
+.datetimepicker  td, .datetimepicker th {
+	font-size:14px;
+	padding: 3px 6px;
+}

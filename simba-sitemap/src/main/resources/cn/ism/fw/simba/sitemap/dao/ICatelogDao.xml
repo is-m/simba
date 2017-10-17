@@ -35,7 +35,7 @@
 		    #{isEnabled,jdbcType=VARCHAR},
 		    #{visibleMode,jdbcType=VARCHAR},
 		    #{visibleValue,jdbcType=VARCHAR},
-		    #{edition,jdbcType=INTEGER},
+		    1,
 		    'N',
 		    #{currentUserId,jdbcType=VARCHAR},
 		    SYSDATE(),

@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="../css/lib/iconfont.css" />
 <link rel="stylesheet" href="../css/lib/font-awesome.css" /> 
 <link rel="stylesheet" href="../css/lib/elektron.css" /> 
+<link rel="stylesheet" href="../css/lib/bootstrap-datetimepicker.css" /> 
+
 
 <link rel="stylesheet" href="../css/site.css" />
 
@@ -158,6 +160,7 @@
 				// paths 更多用法：http://www.tuicool.com/articles/7JBnmy
 				jquery : 'lib/jquery',
 				jqueryui :'lib/jquery-ui',
+				'jquery.datetimepicker' : "lib/bootstrap-datetimepicker",
 				template: 'lib/template-web'
 			}
 			,shim: {
@@ -166,6 +169,10 @@
 		        },
 		        'jqueryui': {
 		             deps: ['jquery']
+		        },
+		        'jquery.datetimepicker':{
+		        	deps: ['jquery'],
+		        	exports: 'jquery.fn.datetimepicker'
 		        }
 			}
 			/* 非AMD规范模块需要使用shim配置来加载
@@ -179,7 +186,7 @@
 
 		// app
 		// ! js 模块化更多的是为了处理模块之间的依赖关系，和异步加载脚本
-		require([ 'jquery', 'app', 'rt/core' ], function($, app, core) {
+		require([ 'jquery', 'app', 'rt/core','jquery.datetimepicker' ], function($, app, core) {
 			$(app.init);
 		});
 
