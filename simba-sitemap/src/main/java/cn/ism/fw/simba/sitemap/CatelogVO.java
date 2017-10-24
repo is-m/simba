@@ -55,7 +55,7 @@ public class CatelogVO extends BaseResourceVO {
   /**
    * 是否生效
    */
-  @Length(max=1)
+  //@Length(max=1)
   private String isEnabled;
 
   /**

@@ -11,7 +11,7 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 				}]
 			});
 			
-			var gridOption = {
+		/*	var gridOption = {
 				
 				pageOp:{
 					el:"#pageDemo",
@@ -33,7 +33,7 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 			
 			// 绑定表格
 			$("#tableDemo").xWidget("datatable",gridOption);
-			
+			*/
 			
 		}
 		

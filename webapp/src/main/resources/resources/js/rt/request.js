@@ -2,6 +2,11 @@
 define(["jquery"],function($){ 
 	
 	var ajax = function(url,data,sCallback,fCallback,method){ 
+		
+		if( method == "post" || method == "put" ){
+			data = typeof data === 'string' ? data : JSON.stringify(data);
+		}
+		
 		var _async = $.ajax({
 			url:url,
 			data:data,

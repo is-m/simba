@@ -2,7 +2,7 @@
 require(["rt/pageContext","widget/data/datatable","widget/container/tab"],function(pageContext){
 	pageContext.define("admin.sitemap.list",function(page){
 		
-		page.ready = function(){  
+		page.ready = function(){    
 			var gridOption = {
 				selectMode:'mutli', /* 多选：mutli,单选：single,默认：normal */
 				height:200,

@@ -65,6 +65,7 @@ define(["jquery"],function($){
 				pageContextElStack.push($el);
 			}else{
 				$el.attr("data-module","error");
+				console.log("page context load page error!",resp,status,xhr)
 			} 
 		});
 	}

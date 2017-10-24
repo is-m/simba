@@ -11,7 +11,8 @@
 <link rel="stylesheet" href="../css/lib/iconfont.css" />
 <link rel="stylesheet" href="../css/lib/font-awesome.css" /> 
 <link rel="stylesheet" href="../css/lib/elektron.css" /> 
-<link rel="stylesheet" href="../css/lib/bootstrap-datetimepicker.css" /> 
+<!-- <link rel="stylesheet" href="../css/lib/ztree/demo.css" />  -->
+<link rel="stylesheet" href="../css/lib/ztree/metroStyle/metroStyle.css" /> 
 
 
 <link rel="stylesheet" href="../css/site.css" />
@@ -83,7 +84,7 @@
 		</div>
 	</div>
 
-
+	<script src="../js/lib/popper.js"></script>
 	<script src="../js/lib/require.js"></script>
 	<script type="text/javascript">
 		// 后台：默认角色，访客
@@ -161,6 +162,10 @@
 				jquery : 'lib/jquery',
 				jqueryui :'lib/jquery-ui',
 				'jquery.datetimepicker' : "lib/bootstrap-datetimepicker",
+				'ztree' : "lib/jquery.ztree.all",
+				"bootstrap":'lib/bootstrap',
+				'Popper-utils':'lib/popper-utils',
+				'popper':'lib/popper',
 				template: 'lib/template-web'
 			}
 			,shim: {
@@ -173,6 +178,16 @@
 		        'jquery.datetimepicker':{
 		        	deps: ['jquery'],
 		        	exports: 'jquery.fn.datetimepicker'
+		        },
+		        'ztree':{
+		        	deps:['jquery']
+		        },
+		        'popper':{
+		        	deps:['Popper-utils'],
+		        	exports:"Popper"
+		        } ,
+		        "bootstrap":{
+		        	deps:['jquery'/* ,'popper' */]
 		        }
 			}
 			/* 非AMD规范模块需要使用shim配置来加载
@@ -186,7 +201,7 @@
 
 		// app
 		// ! js 模块化更多的是为了处理模块之间的依赖关系，和异步加载脚本
-		require([ 'jquery', 'app', 'rt/core','jquery.datetimepicker' ], function($, app, core) {
+		require([ 'jquery', 'app', 'rt/core',"bootstrap", 'rt/jquery-mex','ztree'], function($, app, core,bs,jqueryMEX,ztree) {
 			$(app.init);
 		});
 

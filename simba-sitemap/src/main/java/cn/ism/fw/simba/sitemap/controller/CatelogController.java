@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.ism.fw.simba.base.ResultVO;
+import cn.ism.fw.simba.jsr.validation.VCreate;
 import cn.ism.fw.simba.jsr.validation.groups.CreateGroup;
 import cn.ism.fw.simba.sitemap.CatelogVO;
 import cn.ism.fw.simba.sitemap.service.ICatelogService;
@@ -48,7 +49,7 @@ public class CatelogController {
   }
 
   @PostMapping
-  public ResultVO create(@RequestBody @Validated({Default.class, CreateGroup.class}) CatelogVO catelogVO, BindingResult bindingResult) {
+  public ResultVO create(@RequestBody @VCreate CatelogVO catelogVO, BindingResult bindingResult) {
     return bindingResult.hasErrors() ? fieldErrors(bindingResult) : ResultVO.SUCCESS(catelogService.createObj(catelogVO));
   }
 

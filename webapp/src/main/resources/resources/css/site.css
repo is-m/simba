@@ -410,6 +410,20 @@ h1 {
 	content:"* ";
 }
 
+.dropdown-menu {
+	border-radius: 0;
+	padding: 0;
+	font-size: 0.9rem;
+}
+
+.modal-header {
+	border-bottom: none;
+}
+
+.modal-footer {
+	border-top: none;
+}
+
 /*! jQuery UI - v1.12.1 - 2017-10-03
 * http://jqueryui.com
 * Includes: draggable.css, core.css, resizable.css, selectable.css, sortable.css

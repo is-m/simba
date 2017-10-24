@@ -2,6 +2,11 @@ package webapp.test;
 
 import java.util.Scanner;
 
+/**
+ * 
+ * @since 2017年10月18日
+ * @author Administrator
+ */
 public class Game {
 
 	private char[] randomString;

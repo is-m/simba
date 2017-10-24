@@ -2,6 +2,7 @@
 <!-- <h2>这个是编辑页面</h2> -->
 <div class="container">
   <form class="mu-form" id="formEditSitemap"> 
+  	<input name="id" type="hidden" value="123" />
   	<div class="mu-form-header">
   		<h5><span>基本信息</span></h5>
   	</div>
@@ -12,14 +13,16 @@
 	      <span class="input-group-btn">
 	        <button class="btn btn-outline-secondary" type="button" id="btnSelectIcon">无</button>
 	      </span>
-	      <input type="text" class="form-control" data-validtors="required">
+	      <input name="title" type="text" class="form-control" data-validtors="required">
+	      <input name="icon" type="hidden" />
 	    </div> 
       </div>
       
       <label for="inputEmail3" class="col-sm-2 col-form-label">父菜单</label>
       <div class="col-sm-4">
       	<div class="input-group">
-	      <input type="text" class="form-control">
+	      <input name="parentName" type="text" class="form-control">
+	      <input name="parentId" type="hidden">
 	      <span class="input-group-btn">
 	      	<!-- 组件图标 fa fa-puzzle-piece -->
 	        <button class="btn btn-outline-secondary" type="button" id="btnSelectParent"><i class="fa fa-ellipsis-h"></i></button>
@@ -31,12 +34,12 @@
     <div class="form-group row">
       <label for="inputEmail3" class="col-sm-2 col-form-label">访问路径</label>
       <div class="col-sm-4">
-        <input type="email" class="form-control" id="inputEmail3" placeholder="">
+        <input name="url" type="text" class="form-control" id="inputEmail3" placeholder="">
       </div>
       
       <label for="inputEmail3" class="col-sm-2 col-form-label">访问方式</label>
       <div class="col-sm-4">
-      	<select class="form-control">
+      	<select name="accessMode" class="form-control">
 		  <option value="inner" selected="selected">内部链接</option>
 		  <option value="iframe">嵌入页面</option>
 		  <option value="window">新窗口</option>
@@ -65,7 +68,7 @@
       
       <label for="inputEmail3" class="col-sm-2 col-form-label">显示顺序</label>
       <div class="col-sm-4">
-        <input class="form-control" id="inputEmail3" placeholder="">
+        <input name="seq" class="form-control" id="inputEmail3" placeholder="">
       </div> 
     </div>
     
@@ -83,17 +86,7 @@
     <div class="form-group row">
       <label for="inputEmail3" class="col-sm-2 col-form-label">创建日期</label>
       <div class="col-sm-4">
-      	<div class="input-append date form_datetime">
-      		<div class="input-group">
-      		  <span class="input-group-btn">
-		      	<!-- 组件图标 fa fa-puzzle-piece -->
-		        <!-- <button class="btn btn-outline-secondary add-on" type="button" id="btnSelectParent"><i class="fa fa-remove"></i></button> -->
-		        <button class="btn btn-outline-secondary add-on" type="button"><i class="fa fa-calendar"></i></button>   
-		      </span>
-		      <input type="text" class="form-control" readonly="readonly">
-		      
-		    </div>  
-		</div>   
+      	<div data-x-widget='form.DateBox' id="createDate"></div>
       </div>
     </div> 
     
@@ -104,4 +97,26 @@
       </div>
     </div>
   </form>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
