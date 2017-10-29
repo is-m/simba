@@ -5,7 +5,7 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 		page.ready = function(){    
 			var gridOption = {
 				selectMode:'mutli', /* 多选：mutli,单选：single,默认：normal */
-				height:200,
+				height:300,
 				treeOp:{
 					parentField:"parentId",
 					parentRoot:"0",
@@ -110,6 +110,12 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 					url:"/webapp/web/admin/sitemap/edit.html",
 					allowClose:true
 				}); 
+			});
+			
+			$("#btnDelete").on("click",function(){
+				require(["ui/ui-confirm"],function(c){
+					c.test();
+				})
 			});
 		}
 		

@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="../css/lib/elektron.css" /> 
 <!-- <link rel="stylesheet" href="../css/lib/ztree/demo.css" />  -->
 <link rel="stylesheet" href="../css/lib/ztree/metroStyle/metroStyle.css" /> 
+<link rel="stylesheet" href="../css/lib/jquery-confirm.css" /> 
 
 
 <link rel="stylesheet" href="../css/site.css" />
@@ -166,6 +167,8 @@
 				"bootstrap":'lib/bootstrap',
 				'Popper-utils':'lib/popper-utils',
 				'popper':'lib/popper',
+				'jquery.confirm':'lib/jquery-confirm',
+				'echart':'lib/echarts.common.min',
 				template: 'lib/template-web'
 			}
 			,shim: {
@@ -180,7 +183,10 @@
 		        	exports: 'jquery.fn.datetimepicker'
 		        },
 		        'ztree':{
-		        	deps:['jquery']
+		        	deps:['jquery'] 
+		        },
+		        'jquery.confirm':{
+		        	deps:["jquery"]
 		        },
 		        'popper':{
 		        	deps:['Popper-utils'],

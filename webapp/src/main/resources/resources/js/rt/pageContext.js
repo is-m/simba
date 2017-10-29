@@ -19,7 +19,8 @@ define(["jquery"],function($){
 		callback(page);
 		pageContextStack.push(page);
 		pageContextMap[id]=page;
-		// pageContext.define 主要是加载内容到核心上下文，而非核心上下文的加载需要通过选中元素后$("xx").loadPage(url);
+		// pageContext.define 主要是加载内容到核心上下文，而非核心上下文的加载需要通过选中元素后$("xx").loadPage(url); 
+		// 或者手动绑定模块 $("xx").boundModel("modelId") 未开发
 		var $pc = pageContextElStack[pageContextElStack.length-1];
 		//debugger
 		page.$dom = $pc;
@@ -29,6 +30,10 @@ define(["jquery"],function($){
 		
 		// TODO:等页面自动渲染部分完成后触发ready函数
 		page.ready && page.ready();
+	}
+	
+	var _get = function(id){
+		return pageContextMap[id];
 	}
 	
 	var _shutPage = function(el){ 
@@ -84,7 +89,8 @@ define(["jquery"],function($){
 		define:_define,
 		shutdown:_shutdown,
 		shutPage:_shutPage,
-		loadPage:_loadPage
+		loadPage:_loadPage,
+		get:_get
 	}
 	
 });

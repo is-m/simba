@@ -31,17 +31,57 @@ require(["rt/pageContext","rt/validation","rt/request","widget/form/dateBox"],fu
 			});
 			
 			$("#btnSelectIcon").on("click",function(){ 
-				require(["ui/ui-dialog"],function(d){
-					debugger
-					d.popTreeDialog();
+				require(["ui/ui-confirm"],function(msg){
+					msg.dialog({
+						title:"图标选择",
+						url:"/webapp/web/admin/sitemap/iconSelector.html",
+						columnClass:"medium",
+						buttons:{
+							'select':function(){
+								var selectedIcon = pageContext.get("admin.sitemap.iconSelector").getSelectedIcon();
+								if(selectedIcon == null){
+									$.alert('null');
+									return false;
+								}
+								$("#btnSelectIcon").html("<i class='{0}'></i>".format(selectedIcon.split(":")[1]));
+								$("#formEditSitemap").find("[name=icon]").val(selectedIcon);
+							},
+							'cancel':function(){}
+						}
+					});
+					//uic.alert("需要选择图片哦");
 				}); 
 			});
 			
-			$("#btnSelectParent").on("click",function(){
-				require(["ui/ui-dialog"],function(d){
-					debugger
-					d.popTreeDialog();
-				}); 
+			$("#btnSelectParent").on("click",function(){ 
+				require(["ui/ui-confirm"],function(msg){
+					msg.dialog({
+						title:"选择父栏目",
+						//url:"/webapp/web/admin/sitemap/iconSelector.html",
+						columnClass:"medium",
+						format:{
+							type:"tree", // page tree table table2
+							setting:{
+								check: {
+									enable: true,
+									chkStyle: "radio",
+									radioType: "all"
+								},
+								data: {
+									simpleData: {
+										enable: true
+									}
+								},
+								dataset:"/webapp/api/sitemap/s/tree"
+							}
+						},
+						buttons:{
+							'select':function(){ 
+							},
+							'cancel':function(){}
+						}
+					}); 
+				});
 			});
 		}
 		
