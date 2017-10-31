@@ -4,44 +4,86 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.ism.fw.simba.sitemap.dao.ICatelogDao">
 
+	<resultMap type="cn.ism.fw.simba.sitemap.CatelogVO" id="catelogMap">
+		<id property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="icon" column="icon" /> 
+		<result property="url" column="url" />
+		<result property="accessMode" column="access_mode" />
+		<result property="parentId" column="parent_id" />
+		<result property="seq" column="seq" />
+		<result property="isEnabled" column="is_enabled" />
+		<result property="visibleMode" column="visible_mode" />
+		<result property="visibleValue" column="visible_value" />
+		<result property="edition" column="edition" />
+		<result property="deleteFlag" column="delete_flag" />
+		<result property="createdBy" column="created_by" />
+		<result property="creationDate" column="creation_date" />
+		<result property="lastUpdateBy" column="last_update_by" />
+		<result property="lastUpdatedDate" column="last_updated_date" />
+	</resultMap>
+
 	<insert id="createObj">
-		INSERT INTO `simba_demo`.`sb_catelog_t` (
-		  `id`,
-		  `title`,
-		  `icon`,
-		  `url`,
-		  `access_mode`,
-		  `parent_id`,
-		  `seq`,
-		  `is_enabled`,
-		  `visible_mode`,
-		  `visible_value`,
-		  `edition`,
-		  `delete_flag`,
-		  `created_by`,
-		  `creation_date`,
-		  `last_update_by`,
-		  `last_updated_date`
-		) 
+		INSERT INTO `sb_catelog_t` (
+		`id`,
+		`title`,
+		`icon`,
+		`url`,
+		`access_mode`,
+		`parent_id`,
+		`seq`,
+		`is_enabled`,
+		`visible_mode`,
+		`visible_value`,
+		`edition`,
+		`delete_flag`,
+		`created_by`,
+		`creation_date`,
+		`last_update_by`,
+		`last_updated_date`
+		)
 		VALUES
-		  (
-		    #{id},
-		    #{title,jdbcType=VARCHAR},
-		    #{icon,jdbcType=VARCHAR},
-		    #{url,jdbcType=VARCHAR},
-		    #{accessMode,jdbcType=VARCHAR},
-		    #{parentId,jdbcType=VARCHAR},
-		    #{seq,jdbcType=INTEGER},
-		    #{isEnabled,jdbcType=VARCHAR},
-		    #{visibleMode,jdbcType=VARCHAR},
-		    #{visibleValue,jdbcType=VARCHAR},
-		    1,
-		    'N',
-		    #{currentUserId,jdbcType=VARCHAR},
-		    SYSDATE(),
-		    #{currentUserId,jdbcType=VARCHAR},
-		    SYSDATE()
-		  ); 
+		(
+		#{id},
+		#{title,jdbcType=VARCHAR},
+		#{icon,jdbcType=VARCHAR},
+		#{url,jdbcType=VARCHAR},
+		#{accessMode,jdbcType=VARCHAR},
+		iFNULL(#{parentId,jdbcType=VARCHAR},'0'),
+		#{seq,jdbcType=INTEGER},
+		#{isEnabled,jdbcType=VARCHAR},
+		#{visibleMode,jdbcType=VARCHAR},
+		#{visibleValue,jdbcType=VARCHAR},
+		1,
+		'N',
+		#{currentUserId,jdbcType=VARCHAR},
+		SYSDATE(),
+		#{currentUserId,jdbcType=VARCHAR},
+		SYSDATE()
+		);
 	</insert>
 
+	<select id="findTreeList" resultMap="catelogMap" >
+		SELECT
+		`id`,
+		`title`,
+		/*`icon`,*/
+		`url`,
+		`access_mode`,
+		iFNULL(`parent_id`,0) as parent_id,
+		`seq`,
+		`is_enabled`,
+		`visible_mode`,
+		`visible_value`,
+		`edition`,
+		/*`delete_flag`,*/
+		`created_by`,
+		`creation_date`,
+		`last_update_by`,
+		`last_updated_date`
+		FROM
+		`sb_catelog_t` t
+		where t.delete_flag = 'N'
+		LIMIT 0, 1000;
+	</select>
 </mapper>

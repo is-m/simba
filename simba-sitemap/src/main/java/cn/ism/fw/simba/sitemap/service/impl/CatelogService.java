@@ -27,6 +27,11 @@ public class CatelogService implements ICatelogService {
   @Override
   public int createObj(CatelogVO vo) {
     return catelogDao.createObj(vo);
+  }
+
+  @Override
+  public List<CatelogVO> findTreeList() { 
+    return catelogDao.findTreeList();
   } 
 
 }

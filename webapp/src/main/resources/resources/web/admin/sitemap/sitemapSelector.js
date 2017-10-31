@@ -5,6 +5,7 @@ require(["rt/pageContext"],function(pageContext){
 		
 		page.ready = function(){ 
 			 // 加载选择树
+			
 		};
 		
 		page.click = function(el){

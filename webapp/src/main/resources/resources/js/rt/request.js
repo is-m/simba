@@ -19,7 +19,7 @@ define(["jquery"],function($){
 				console.log("call service error:",resp);
 				fCallback && fCallback(resp);
 			}else{
-				sCallback(resp.data);
+				sCallback && sCallback(resp.data);
 			} 
 		});
 		

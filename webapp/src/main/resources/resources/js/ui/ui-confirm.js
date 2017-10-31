@@ -69,18 +69,22 @@ define(["jquery","jquery.confirm","rt/util"],function($,c,util){
 						_op.content = function(){
 							var self = this; 
 							if(_setting.dataset){
-								var datasetWorker = util.getDataset(_setting.dataset);
-								datasetWorker.done(function(data){
-									var $treeObj = $("<div class='ztree'></div>")
-									$.fn.zTree.init($treeObj, _setting , data);
-						        	self.setContent($treeObj);
+								return util.getDataset(_setting.dataset)
+								.done(function(data){
+									if(data && data.length){
+										var $treeObj = $("<div class='ztree'></div>")
+										var treeManager = $.fn.zTree.init($treeObj, _setting , data);
+							        	self.setContent($treeObj);
+							        	self.treeManager = treeManager;
+									}else{
+										self.setContent("<div style='color:red'>未发现匹配的记录!</div>");
+									} 
 								})
 								.fail(function(e){
-									self.setContent("<div style='color:red'>init Data Exception</div>");
-								});
-								return datasetWorker;
+									self.setContent("<div style='color:red'>获取数据失败!</div>");
+								}); 
 							} else{
-								return "no found dataset option";
+								return "<div style='color:red'>未使用dataset选项，无法加载数据!</div>";
 							}
 						};
 						break; 

@@ -13,4 +13,10 @@
 			insert into country values(#{id},#{countryname},#{countrycode})
 		</if>
 	</insert>
+	
+	<-- 
+		http://blog.csdn.net/abcd898989/article/details/51178052
+		http://www.cnblogs.com/softidea/p/5769793.html
+	 -->
+	
 </mapper>

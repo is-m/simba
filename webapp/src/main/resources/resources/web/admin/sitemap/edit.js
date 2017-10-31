@@ -2,6 +2,8 @@
 require(["rt/pageContext","rt/validation","rt/request","widget/form/dateBox"],function(pageContext,validator,http,dateBox){
 	pageContext.define("admin.sitemap.edit",function(page){
 		
+		var $form = $("#formEditSitemap");
+		
 		page.ready = function(){  
 			page.init();
 			console.log("你来把，我准备好了");
@@ -61,6 +63,7 @@ require(["rt/pageContext","rt/validation","rt/request","widget/form/dateBox"],fu
 						columnClass:"medium",
 						format:{
 							type:"tree", // page tree table table2
+							
 							setting:{
 								check: {
 									enable: true,
@@ -68,15 +71,29 @@ require(["rt/pageContext","rt/validation","rt/request","widget/form/dateBox"],fu
 									radioType: "all"
 								},
 								data: {
+									key:{
+										name : "title",
+									},
 									simpleData: {
-										enable: true
+										enable: true,
+										idKey: "id",
+										pIdKey: "parentId",
+										rootPId: 0
 									}
 								},
-								dataset:"/webapp/api/sitemap/s/tree"
+								dataset:"/webapp/api/sitemap/s/tree" 
 							}
 						},
 						buttons:{
 							'select':function(){ 
+								var nodes = this.treeManager.getCheckedNodes(true);
+								if(nodes.length){
+									var node = nodes[0]; 
+									$form.find("[name=parentName]").val(node.title);
+									$form.find("[name=parentId]").val(node.id);
+								}else{
+									return false;
+								}
 							},
 							'cancel':function(){}
 						}

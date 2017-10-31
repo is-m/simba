@@ -19,7 +19,7 @@ import cn.ism.fw.simba.jsr.validation.groups.UpdateGroup;
  * @since 2017年9月25日
  * @author Administrator
  */
-@JsonIgnoreProperties("setId")
+@JsonIgnoreProperties({"setId","currentUserId"})
 @JsonInclude(Include.NON_NULL)
 public class BaseVO extends BasePOJO {
 

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ImportResource;
 
 import cn.ism.template.webapp.common.util.SpringBootUtil;
 
-@EnableAspectJAutoProxy(proxyTargetClass=true,exposeProxy=true)
+@EnableAspectJAutoProxy(proxyTargetClass=true)
 @ImportResource(locations={"classpath:config/applicationContext.xml"})
 @SpringBootApplication
 @MapperScan({"cn.ism.fw.simba.security.dao","cn.ism.fw.simba.sitemap.dao"})

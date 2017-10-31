@@ -12,10 +12,10 @@ CREATE TABLE sb_catelog_t (
   is_enabled CHAR(1) COMMENT '是否生效',
   visible_mode VARCHAR(20) COMMENT '可见类型，all:全部可见,child:存在子栏目时可见,right:功能可用时可见',
   visible_value VARCHAR(200) COMMENT '可见值，暂定为 visible_mode 为 right:功能可用时可见 时，该值为具体功能权限点CODE',
-  edition INT COMMENT '数据版本号',
+  edition INT DEFAULT 1 COMMENT '数据版本号',
   delete_flag CHAR(1) DEFAULT 'N' COMMENT '删除标记,N:未删除，Y:已删除',
   created_by VARCHAR(32) COMMENT '创建人',
   creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间', 
   last_update_by VARCHAR(32) COMMENT '最后修改人',
-  last_updated_date TIMESTAMP COMMENT '最后修改时间'
+  last_updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间'
 )

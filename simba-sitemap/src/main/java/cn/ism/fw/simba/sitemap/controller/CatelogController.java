@@ -56,5 +56,10 @@ public class CatelogController {
   @GetMapping
   public ResultVO findList() {
     return ResultVO.SUCCESS(catelogService.findList());
-  }
+  } 
+  
+  @GetMapping("/s/tree")
+  public ResultVO findTreeList() {
+    return ResultVO.SUCCESS(catelogService.findTreeList());
+  } 
 }

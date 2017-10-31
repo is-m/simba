@@ -27,5 +27,12 @@ public interface ICatelogService  {
 	 * @author Administrator
 	 */
 	public int createObj(CatelogVO vo);
-	 
+	
+	/**
+	 * 获取栏目树列表
+	 * @return
+	 * @since 2017年10月30日
+	 * @author Administrator
+	 */
+	public List<CatelogVO> findTreeList();
 }
