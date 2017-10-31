@@ -38,34 +38,7 @@
 					<col style="width:<%= colOp.width || '150' %>px; min-width:<%= colOp.width || '150' %>px;"> 
 				<%}%> 
 			</colgroup> 
-			<tbody>
-				<% for(var j=0;j<$widget.dataset.length;j++){ var dataItem = $widget.dataset[j]; %>
-					<tr> 
-					<% if($widget.showSeq !== false){%>
-						<th><span><%=(j+1)%></span></th>
-					<%}%>
-					
-					<% if($widget.selectMode == "mutli"){%>
-						<td><span><input type="checkbox" /></span></td>
-					<%}%> 
-					
-					<% 
-						for(var i=0;i<$widget.columns.length;i++){ 
-							var colOp = $widget.columns[i];
-							var fieldValue = colOp.field ? dataItem[colOp.field] : null;
-					%>
-						<td>
-							<span class="table-td-text" style="width:<%= (colOp.width || 150)-17 %>px; min-width:<%= (colOp.width || 150)-17 %>px;" data-toggle="tooltip" title="Example tooltip">
-							<%if(colOp.renderer){%>
-								<%=# colOp.renderer(fieldValue,dataItem,colOp) %>
-							<%}else{%>
-								<%= fieldValue %>
-							<%}%>
-							</span>
-						</td>
-				    <%}%>   
-					</tr>
-				<%}%> 
+			<tbody class="datatable-rows"> 
 			</tbody>
 		</table>   
 	</div> 

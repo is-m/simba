@@ -16,9 +16,11 @@ require(["rt/pageContext","rt/validation","rt/request","widget/form/dateBox"],fu
 				var isValid =  true;//$("#formEditSitemap").valid();
 				if(isValid){
 					$("#formEditSitemap").formSubmit("post","/webapp/api/sitemap",function(resp){
-						alert('success');
+						// 关闭页签，刷新表格
+						$("#demoTab").xWidget().closeTab();
+						$("#btnSearch").trigger("click");
 					},function(resp){
-						alert('error');
+						alert('server error');
 					}); 
 				}
 			});
@@ -81,7 +83,9 @@ require(["rt/pageContext","rt/validation","rt/request","widget/form/dateBox"],fu
 										rootPId: 0
 									}
 								},
-								dataset:"/webapp/api/sitemap/s/tree" 
+								dataset:"/webapp/api/sitemap/s/tree",
+								expandLevel:-1,
+								defaultChecked: $form.find("[name=parentId]").val()
 							}
 						},
 						buttons:{

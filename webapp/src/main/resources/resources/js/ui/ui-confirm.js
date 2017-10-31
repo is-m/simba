@@ -73,8 +73,20 @@ define(["jquery","jquery.confirm","rt/util"],function($,c,util){
 								.done(function(data){
 									if(data && data.length){
 										var $treeObj = $("<div class='ztree'></div>")
-										var treeManager = $.fn.zTree.init($treeObj, _setting , data);
+										var treeManager = $.fn.zTree.init($treeObj, _setting , data); 
 							        	self.setContent($treeObj);
+							        	if(_setting.expandLevel == -1){
+											treeManager.expandAll(true); 
+										} 
+							        	
+							        	var _defChecked = _setting.defaultChecked;
+							        	if(_defChecked){
+							        		var defaultNode = treeManager.getNodeByParam(_setting.data.simpleData.idKey || "id",_defChecked);
+ 
+							        		treeManager.checkNode(defaultNode,true, true);
+							        		// 解决ztree显示样式为inline导致选中图标不显示的问题
+							        		$treeObj.find(".radio_true_full,.radio_false_part").css({"display":"inline-block"});
+							        	}
 							        	self.treeManager = treeManager;
 									}else{
 										self.setContent("<div style='color:red'>未发现匹配的记录!</div>");

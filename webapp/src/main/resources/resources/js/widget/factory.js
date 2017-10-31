@@ -96,6 +96,7 @@ define(["jquery","template"],function($,tmpl){
 				tmpl(templateUri,html);
 				
 				var $data = {
+					$self:{ $win:window, $widget:widgetOp, $data:data },
 					$win:window,
 					$widget:widgetOp,
 					$data:data

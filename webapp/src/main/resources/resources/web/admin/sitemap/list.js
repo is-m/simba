@@ -117,6 +117,15 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 					c.test();
 				})
 			});
+			
+			$("#btnSearch").on("click",function(){
+				
+			});
+			
+			$("#btnReset").on("click",function(){
+				$("#formSearch")[0].reset();
+				$("#btnSearch").trigger("click");
+			});
 		}
 		
 	});

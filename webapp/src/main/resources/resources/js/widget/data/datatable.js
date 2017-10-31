@@ -1,4 +1,36 @@
-define(["widget/factory","jquery","jqueryui"],function(widget,$,$ui){
+define(["widget/factory","jquery","jqueryui","template"],function(widget,$,$ui,tmpl){
+	// 预处理数据行渲染模版
+	var _dataRowTemplate = 
+		'<% for(var j=0;j<$widget.dataset.length;j++){ var dataItem = $widget.dataset[j]; %>' +
+		'<tr> ' +
+			'<% if($widget.showSeq !== false){%>' +
+			'	<th><span><%=(j+1)%></span></th>' +
+			'<%}%>' + 
+			'<% if($widget.selectMode == "mutli"){%>' + 
+			'<td><span><input type="checkbox" /></span></td>' + 
+		'<%}%> ' + 
+		
+		'<% ' + 
+			'for(var i=0;i<$widget.columns.length;i++){ ' + 
+				'var colOp = $widget.columns[i];' + 
+				'var fieldValue = colOp.field ? dataItem[colOp.field] : null;' + 
+		'%>' + 
+			'<td>' + 
+				'<span class="table-td-text" style="width:<%= (colOp.width || 150)-17 %>px; min-width:<%= (colOp.width || 150)-17 %>px;" data-toggle="tooltip" title="Example tooltip">' + 
+				'<%if(colOp.renderer){%>' + 
+					'<%=# colOp.renderer(fieldValue,dataItem,colOp) %>' + 
+				'<%}else{%>' +
+					'<%= fieldValue %>' + 
+				'<%}%>' + 
+				'</span>' + 
+			'</td>' + 
+		'<%}%>   ' + 
+		'</tr>' + 
+		'<%}%> ';
+	tmpl('datatable-datarows',_dataRowTemplate);
+	
+	
+	
 	
 	widget.define("datatable",{
 		template:"<h1>Hello this navbar Widget</h1>", 
@@ -29,7 +61,15 @@ define(["widget/factory","jquery","jqueryui"],function(widget,$,$ui){
 		afterRender:function(){
 			var $tableHead = this.$dom.find(".table-scroll-header:eq(0)");
 			var $tableBody = this.$dom.find(".table-scroll-body:eq(0)");
-			this.$dom.find("th").resizable();
+			
+			// 生成行代码 
+			debugger
+			
+			var rowHtml = tmpl('datatable-datarows',{ $win:window,$widget:this.op,$data:this.data });
+			var $tableDataRows = this.$dom.find(".datatable-rows:eq(0)");
+			$tableDataRows.html(rowHtml);
+			
+			//this.$dom.find("th").resizable();
 			/*this.$dom.find(".table-th-resize").on("mousedown",function(e){ 
 				console.log("mouse down",e);
 				var $this = $(this);
