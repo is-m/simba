@@ -89,6 +89,16 @@ define([ "jquery", "popper","rt/request" ], function($, Popper,http) {
 		});
 	}
 	
+	$.fn.toggleClass2 = function(cls1,cls2,callback){
+		return this.each(function(i,n){
+			var $this = $(this);
+			var has2 = $this.hasClass(cls2),removeCls=has2?cls2:cls1,addCls=has2 ? cls1 : cls2;
+			$this.removeClass(removeCls).addClass(addCls);
+			// 回调时回传当前样式，以及当前对象
+			callback && callback(addCls,$this);
+		});
+	};
+	
 	$.fn.formFill = function(){ 
 	} 
 

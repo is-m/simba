@@ -84,6 +84,30 @@
 		FROM
 		`sb_catelog_t` t
 		where t.delete_flag = 'N'
-		LIMIT 0, 1000;
+		LIMIT 0, 1000
+	</select>
+	
+	<select id="findById" resultMap="catelogMap">
+		SELECT
+		`id`,
+		`title`,
+		`icon`,
+		`url`,
+		`access_mode`,
+		`parent_id`,
+		`seq`,
+		`is_enabled`,
+		`visible_mode`,
+		`visible_value`,
+		`edition`,
+		/*`delete_flag`,*/
+		`created_by`,
+		`creation_date`,
+		`last_update_by`,
+		`last_updated_date`
+		FROM
+		`sb_catelog_t` t
+		where t.delete_flag = 'N'
+		and t.id = #{id} 
 	</select>
 </mapper>

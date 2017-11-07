@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,4 +63,9 @@ public class CatelogController {
   public ResultVO findTreeList() {
     return ResultVO.SUCCESS(catelogService.findTreeList());
   } 
+  
+  @GetMapping("/{id}")
+  public ResultVO findTreeList(@PathVariable("id") String id) {
+    return ResultVO.SUCCESS(catelogService.findById(id));
+  }
 }

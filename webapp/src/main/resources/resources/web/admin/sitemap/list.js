@@ -7,10 +7,11 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 				selectMode:'mutli', /* 多选：mutli,单选：single,默认：normal */
 				height:300,
 				treeOp:{
-					parentField:"parentId",
-					parentRoot:"0",
-					iconRoot:"folder-open", 
-					iconLeaf:"file-o" 
+					async:false, 
+					idKey: "id",
+					pIdKey: "parentId",
+					rootPId: 0,
+					field:"title"
 				},
 				pageOp:{
 					// el:"#pageDemo",
@@ -23,6 +24,7 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 						header:"操作",
 						width:100,
 						renderer:function(value,record,columnOp){
+							var $btnView = $('<a class="btn btn-link btn-sm" href="#">查看</a>');
 							return '<a class="btn btn-link btn-sm" href="#">查看</a>'+
 				      		'<a class="btn btn-link  btn-sm"  href="#">编辑</a>';//+
 				      		//'<a class="btn btn-link btn-sm" href="#">删除</a>';
@@ -30,7 +32,7 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 					},{
 						field:"title",
 						header:"菜单标题",
-						width:100,
+						width:150,
 						showTip:true,
 						tip:function(value,record,columnOp){
 							return value;
@@ -89,14 +91,13 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 					}
 					
 				]
-				,dataset:[
-					/* inner: 内部访问，iframe:页面嵌入，window:新窗口*/
-					{ "title" : "Dashboard 1" ,url:"/admin/dashboard01.html" , showMode:"inner" , parentId:"0",id:"1" ,icon:"line-chart",seq:10,enabled:true ,showMode:"all" ,showValue:"",lastUpdateBy:"liaoxianmu"},
-					{ "title" : "Dashboard 2" ,url:"/admin/dashboard02.html" , showMode:"iframe",parentId:"0",id:"2" ,icon:"flag",seq:20,enabled:true ,showMode:"all" ,showValue:"",lastUpdateBy:"liaoxianmu"},
-					{ "title" : "导入导出" ,url:"/admin/dashboard02.html" , showMode:"inner" , parentId:"0" , id:"3" , icon:"tasks",seq:30,enabled:true ,showMode:"hasChild" ,showValue:"",lastUpdateBy:"liaoxianmu"},
-					{ "title" : "导入任务" ,url:"/admin/dashboard02.html" , showMode:"window" , parentId:"3", id:"4",seq:10,enabled:false ,showMode:"hasRight" ,showValue:"SYS::IMPORT::LIST",lastUpdateBy:"liaoxianmu"},
-					{ "title" : "导出任务" ,url:"/admin/dashboard02.html" , showMode:"window" , parentId:"3", id:"5",seq:20,enabled:false ,showMode:"hasRight" ,showValue:"SYS::EXPORT::LIST",lastUpdateBy:"liaoxianmu"}
-				]
+				,dataset:"/webapp/api/sitemap/s/tree"
+				,operation:{
+					search:{
+						btn:"#btnSearch",
+						panel:"#formSearch"
+					}
+				}
 			};
 			
 			// 绑定表格
@@ -116,11 +117,7 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 				require(["ui/ui-confirm"],function(c){
 					c.test();
 				})
-			});
-			
-			$("#btnSearch").on("click",function(){
-				
-			});
+			}); 
 			
 			$("#btnReset").on("click",function(){
 				$("#formSearch")[0].reset();

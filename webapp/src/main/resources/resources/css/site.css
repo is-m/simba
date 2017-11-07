@@ -405,6 +405,18 @@ h1 {
 	border-top: none;
 }
 
+.table-message-body {
+	border-radius: 10px;
+}
+
+.table-message-body i {
+	font-size: 2em;
+}
+
+.table-message-body p {
+	margin: 10px 0 0 0;
+}
+
 .require:before{ 
 	color:red;
 	content:"* ";

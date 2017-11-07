@@ -1,5 +1,6 @@
 package cn.ism.fw.simba.sitemap.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import cn.ism.fw.simba.sitemap.CatelogVO;
@@ -35,4 +36,12 @@ public interface ICatelogService  {
 	 * @author Administrator
 	 */
 	public List<CatelogVO> findTreeList();
+	
+	/**
+	 * 按ID查询
+	 * @return
+	 * @since 2017年11月6日
+	 * @author Administrator
+	 */
+	public CatelogVO findById(Serializable id);
 }

@@ -23,7 +23,7 @@
 			</thead>
 		</table>  
 	</div>
-	<div class="table-scroll-body"  style="overflow-y:scroll; padding-right:16px; <%= $widget.height ? ("height:" + $widget.height + "px; ") : "" %> ; " >
+	<div class="table-scroll-body"  style="overflow-y:auto; padding-right:16px; <%= $widget.height ? ("height:" + $widget.height + "px; ") : "" %> ; " >
 		<table class="table table-striped" style="width:<%= $widget._tableWidth  %>px;">
 			<colgroup>
 				<% if($widget.showSeq !== false){%>
@@ -38,9 +38,14 @@
 					<col style="width:<%= colOp.width || '150' %>px; min-width:<%= colOp.width || '150' %>px;"> 
 				<%}%> 
 			</colgroup> 
-			<tbody class="datatable-rows"> 
+			<tbody class="datatable-rows">  
 			</tbody>
 		</table>   
+		<div class="table-message" style="position: absolute; width: 100%; top:0; bottom: 0; text-align: center; background: rgba(233,233,233,.1);">
+			<div class="table-message-body" style="position:absolute; top: 40%; left: 42%; background: rgba(233,233,233,.4);; padding: 20px;">
+				123
+			</div>
+		</div>
 	</div> 
 </div>
 <!-- 

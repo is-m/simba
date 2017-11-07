@@ -22,12 +22,51 @@ define([ "rt/core", "jquery", "rt/request" ], function(core, $, http) {
 			http.doGet(_d).done(function(ajaxResult) {
 				var data = _getAjaxData(ajaxResult);
 				dfd.resolve(data);
+			}).error(function(d){
+				dfd.reject(d);
 			});
 		}
 		/*
 		 * if ($.isPlainObject(_d)) { return http.ajax(_d); }
 		 */ 
 		return dfd;
+	};
+	
+	u.el = function(id){
+		if(typeof id != 'string') throw 'id is not string';
+		return $(id.indexOf("#") == 0 ? id : "#"+id); 
+	}
+	
+	u.getObj = function(src,namespace){ 
+		if(src && namespace){
+			var tempObj=src,nameArray = namespace.split(".");
+			for(var i=0;i<nameArray.length;i++){
+				var name = nameArray[i];
+				tempObj=tempObj[name];
+				if(typeof tempObj == 'undefined') {
+					return null; 
+				}
+			}
+			return tempObj;
+		}
+		return null;
+	}
+	
+	// 线性数据转化为树
+	u.toTree = function toTree(data,rootId,idField,parentIdField) {
+        var tree = [],temp, _r= rootId || 0 , _i = idField || "id", _p = parentIdField || "parentId";
+        for (var i = 0; i < data.length; i++) {
+        	 var obj = data[i];
+            if (obj[_p] == _r) { 
+                temp = toTree(data, obj.id,_i,_p); 
+                tree.push($.extend(obj,temp.length ? {children:temp, _isLeaf : false } : {_isLeaf : true}));
+            }
+        }
+        return tree;
+    };
+	
+	u.execFunction = function(scope,namespace,arguments){
+		
 	};
 
 	u.isEmpty = function() {

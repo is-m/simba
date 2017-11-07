@@ -1,5 +1,6 @@
 package cn.ism.fw.simba.sitemap.service.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -32,6 +33,11 @@ public class CatelogService implements ICatelogService {
   @Override
   public List<CatelogVO> findTreeList() { 
     return catelogDao.findTreeList();
+  }
+
+  @Override
+  public CatelogVO findById(Serializable id) { 
+    return catelogDao.findById(id);
   } 
 
 }
