@@ -14,10 +14,13 @@ Simba 是一个基于J2EE的 简单，易用，简洁，轻量级，前后端分
 ### 前端
 * jQuery
 * Bootstrap 4
+* Bootstrap fileinput
+* Bootstrap Datetimepicker
 * metisMenu
 * RequireJS
 * artTemplate
 * Font Awesome, iconfonts
+* jQuery confirm
 
 ### 后台
 * Spring Boot Web 
