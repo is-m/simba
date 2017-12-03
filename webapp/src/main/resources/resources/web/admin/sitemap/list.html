@@ -19,12 +19,16 @@
 		<div class="form-group row">
 			<label for="inputEmail3" class="col-sm-2 col-form-label">创建人</label>
 			<div class="col-sm-4">
-				<input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+				<input name="createBy" class="form-control">
 			</div>
 
 			<label for="inputEmail3" class="col-sm-2 col-form-label">创建时间</label>
 			<div class="col-sm-4">
-				<input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+				<div class="row">
+					<div data-x-widget='form.DateBox' id="createDate1" class="col-sm-6" ></div>
+					<div data-x-widget='form.DateBox' id="createDate2" class="col-sm-6" ></div>
+				<!-- <input name="createDate" class="form-control" data-x-widget="form.DateBox" id="createDate" > -->
+				</div>
 			</div>
 		</div>
 		<!-- 
@@ -78,7 +82,7 @@
 			<i class="iconfont icon-delete"></i> 删除
 		</button>
 		<div class="btn-group qBtnGroup">
-		  <button type="button" class="btn btn-outline-secondary btn-sm"><i class="fa fa-reply"></i> 导入</button>
+		  <button type="button" id="btnImportSitemap" class="btn btn-outline-secondary btn-sm"><i class="fa fa-reply"></i> 导入</button>
 		  <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		    <span class="sr-only">Toggle Dropdown</span>
 		  </button>

@@ -2,7 +2,7 @@ define(["widget/factory","jquery"],function(widget,$){
 	
 	widget.define("menu",{
 		template:"<h1>Hello this navbar Widget</h1>", 
-		templateUri:"js/widget/common/menu.html",
+		templateUri:"js/widget/menu.html",
 		resources:{
 			css:["../css/lib/metisMenu.css"] 
 		},

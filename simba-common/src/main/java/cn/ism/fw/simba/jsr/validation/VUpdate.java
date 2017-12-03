@@ -17,7 +17,7 @@ import cn.ism.fw.simba.jsr.validation.groups.UpdateGroup;
  * @since 2017年10月22日
  * @author Administrator
  */
-@Validated({ Default.class, UpdateGroup.class })
+@Validated({Default.class, UpdateGroup.class})
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface VUpdate {

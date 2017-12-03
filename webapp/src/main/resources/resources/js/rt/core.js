@@ -36,6 +36,20 @@ define([],function(){
 	        return args[i];
 	    });
 	}
+	 
+	String.prototype.splitEx = function(spiltChar,removeEmpty){
+		var temp = this.split(spiltChar);
+		
+		if(removeEmpty !== true) return temp;
+		
+		var result = [];
+		for(var i=0;i<temp.length;i++){
+			if(temp[i]!=''){
+				result.push(temp[i]);
+			}
+		}
+		return result;
+	}
 	
 	// 多字符分割
 	String.prototype.multiSplit = function(){
@@ -133,6 +147,19 @@ define([],function(){
 			this.splice(index, 1);
 		}
 	};
+	
+	Array.prototype.pushNonEmpty = function(val){
+		// TODO:待修改empty逻辑
+		if(val) this.push(val);
+	}
+	
+	Array.prototype.eachReturn = function(callback){
+		var result = [];
+		for(var i=0;i<this.length;i++){
+			result.pushNonEmpty(callback(this[i])); 
+		}
+		return result;
+	}
 	
 	var getType = function(arg){
 		_toString(arg)

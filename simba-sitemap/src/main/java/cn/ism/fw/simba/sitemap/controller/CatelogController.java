@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.validation.groups.Default;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.ism.fw.simba.base.ResultVO;
 import cn.ism.fw.simba.jsr.validation.VCreate;
-import cn.ism.fw.simba.jsr.validation.groups.CreateGroup;
 import cn.ism.fw.simba.sitemap.CatelogVO;
 import cn.ism.fw.simba.sitemap.service.ICatelogService;
 
@@ -60,8 +57,8 @@ public class CatelogController {
   } 
   
   @GetMapping("/s/tree")
-  public ResultVO findTreeList() {
-    return ResultVO.SUCCESS(catelogService.findTreeList());
+  public ResultVO findTreeList(CatelogVO catelogVO) {
+    return ResultVO.SUCCESS(catelogService.findTreeList(catelogVO));
   } 
   
   @GetMapping("/{id}")

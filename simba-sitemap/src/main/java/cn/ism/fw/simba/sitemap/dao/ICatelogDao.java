@@ -15,7 +15,7 @@ public interface ICatelogDao {
    * @since 2017年10月30日
    * @author Administrator
    */
-  List<CatelogVO> findTreeList();
+  List<CatelogVO> findTreeList(CatelogVO catelogVO);
 
   /**
    * 根据ID查询
@@ -24,7 +24,7 @@ public interface ICatelogDao {
    * @since 2017年11月6日
    * @author Administrator
    */
-  CatelogVO findById(Serializable id);
+  CatelogVO findById(Serializable id); 
 
   
 }

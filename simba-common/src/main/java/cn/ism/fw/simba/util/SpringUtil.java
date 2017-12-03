@@ -1,5 +1,6 @@
 package cn.ism.fw.simba.util;
 
+import java.util.Collection;
 import java.util.Map;
 
 import org.springframework.beans.BeansException;
@@ -25,7 +26,7 @@ public class SpringUtil implements ApplicationContextAware, EnvironmentAware {
 
   @Override
   public void setEnvironment(Environment environment) {
-    SpringUtil.env = environment;
+    env = environment;
   }
 
   public static ApplicationContext getContext() {
@@ -35,6 +36,10 @@ public class SpringUtil implements ApplicationContextAware, EnvironmentAware {
   public static final Environment getEnvironment() {
     return env;
   }
+  
+  public static void autowireBean(Object bean) {
+    ac.getAutowireCapableBeanFactory().autowireBean(bean);
+  }
 
   public static <T> T getBean(Class<T> t, String name) {
     return (T) ac.getBean(t, name);
@@ -42,6 +47,10 @@ public class SpringUtil implements ApplicationContextAware, EnvironmentAware {
 
   public static <T> Map<String, T> getBeansOfType(Class<T> t) {
     return (Map<String, T>) ac.getBeansOfType(t);
+  }
+  
+  public static Collection<Object> getAllBeans() {
+    return ac.getBeansOfType(Object.class).values();
   }
 
   public static <T> T getBeanOfLikeName(Class<T> t, String name) {
@@ -54,5 +63,20 @@ public class SpringUtil implements ApplicationContextAware, EnvironmentAware {
     return null;
   }
 
+  public static String getProperty(String key) {
+    return env.getProperty(key);
+  }
+
+  public static String getProperty(String key, String defaultValue) {
+    return env == null ? defaultValue : env.getProperty(key, defaultValue);
+  }
+  
+  public static String getRequiredProperty(String key) {
+    return env.getRequiredProperty(key);
+  }
+
+  public static String resolvePlaceholders(String text) {
+    return env.resolvePlaceholders(text);
+  }
 
 }

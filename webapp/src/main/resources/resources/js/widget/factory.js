@@ -1,5 +1,7 @@
-define(["jquery","template"],function($,tmpl){ 
+define(function(require){ 
 	"use strict";
+	var $ = require("jquery");
+	var tmpl = require("template");
 	/*
 	 TODO:组件要考虑用户可修改，样式可定义 
 	 */
@@ -63,7 +65,7 @@ define(["jquery","template"],function($,tmpl){
 		ajax:{},
 	}
 
-	$.fn.xWidget = function(name, op, data) {
+	$.fn.xWidget = function(name, op, data) { 
 		if(!arguments.length){
 			var managers = []; 
 			this.each(function(){
@@ -72,49 +74,7 @@ define(["jquery","template"],function($,tmpl){
 			return managers.length == 1 ? managers[0] : managers;
 		}
 		
-		// 未选中元素
-		if(this.jquery && this.length == 0){
-			// 获取组件内容
-			var Widget = WidgetFactory.constructMap[name]; 
-			if(!Widget){ 
-				console.log("no defined xWidget of name "+name)
-				return;
-			}
-			
-			var widgetDefine = Widget.define;
-			var templateUri = appConfig.contextPath + "/" +widgetDefine.templateUri;
-			var emptyWidgetHtml = null; 
-			// TODO:待优化，实际上如果请求过一次的内容，已经存在缓存内容
-			$.ajax({url:templateUri,type:"get",async:false}).success(function(html){  
-				var widgetOp = $.extend({},widgetDefine.op,op || {});
-				var widgetManager = new Widget(name,widgetOp,data);
-				
-				widgetManager.init && widgetManager.init();
-				
-				var tmpl = require("template");
-				
-				tmpl(templateUri,html);
-				
-				var $data = {
-					$self:{ $win:window, $widget:widgetOp, $data:data },
-					$win:window,
-					$widget:widgetOp,
-					$data:data
-				}
-					
-				var templatedHtml = tmpl(templateUri, $data);
-				emptyWidgetHtml=templatedHtml;
-			}).error(function(err){
-				console.log(err);
-				if(err.status==404){
-					var widgetManager = new Widget(name,op,data,null); 
-					componentMap[_id] = widgetManager;
-				} 
-			});
-			return $(emptyWidgetHtml);
-		}
-		
-		//debugger
+		/*var w = require("widget/"+name);*/
 		return this.each(function() {
 			var self = $(this); 
 			var _id = buildComponentId(name); 
@@ -144,7 +104,7 @@ define(["jquery","template"],function($,tmpl){
 						
 						var $data = {
 							$win:window,
-							$widget:widgetOp,
+							$widget:widgetManager.op,
 							value:'aui'
 						}
 						
@@ -206,7 +166,7 @@ define(["jquery","template"],function($,tmpl){
 			}else{
 				initCompoent();
 			} 
-		});
+		}); 
 	}
 
 	/**

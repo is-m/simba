@@ -2,7 +2,7 @@ define(["widget/factory","jquery","rt/pageContext"],function(widget,$,pageContex
 	
 	widget.define("tab",{
 		template:"<h1>Hello this navbar Widget</h1>", 
-		templateUri:"js/widget/container/tab.html",
+		templateUri:"js/widget/tab.html",
 		helpers:{
 		/*	"page":function(data){
 				var headHtml = [];

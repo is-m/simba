@@ -1,8 +1,12 @@
 // TODO: 1.pageContext 需要预加载 ，2.widget/data/datable 需要在使用时加载
-require(["rt/pageContext","widget/data/datatable","widget/container/tab"],function(pageContext){
+require(["rt/pageContext","widget/data/datatable","widget/tab","widget/form/dateBox"],function(pageContext,dt,tab,dateBox){
 	pageContext.define("admin.sitemap.list",function(page){
 		
 		page.ready = function(){    
+			//debugger
+			$("#createDate1").xWidget("form.DateBox",{ showIconButton:false ,format : 'yyyy-mm-dd hh:ii',minView : "hour"});
+			$("#createDate2").xWidget("form.DateBox",{ showIconButton:false ,format : 'yyyy-mm-dd hh:ii',minView : "hour"});
+			
 			var gridOption = {
 				selectMode:'mutli', /* 多选：mutli,单选：single,默认：normal */
 				height:300,
@@ -24,10 +28,16 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 						header:"操作",
 						width:100,
 						renderer:function(value,record,columnOp){
-							var $btnView = $('<a class="btn btn-link btn-sm" href="#">查看</a>');
-							return '<a class="btn btn-link btn-sm" href="#">查看</a>'+
-				      		'<a class="btn btn-link  btn-sm"  href="#">编辑</a>';//+
-				      		//'<a class="btn btn-link btn-sm" href="#">删除</a>';
+							var $btnView = $('<span><a class="btn btn-link btn-sm"  >查看</a><a class="btn btn-link  btn-sm"  >编辑</a></span>');
+							
+							$btnView.find("a:eq(0)").on("click",function(){
+								alert(1);
+							});
+							
+							$btnView.find("a:eq(1)").on("click",function(){
+								alert(2);
+							});
+							return $btnView.html();
 						}
 					},{
 						field:"title",
@@ -104,6 +114,21 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 			
 			$("#gridSitemap").xWidget("datatable",gridOption); 
 			
+			$("#btnImportSitemap").on("click",function(){
+				require(["ui/ui-confirm"],function(msg){
+					msg.dialog({
+						title:"导入数据", 
+						columnClass:"medium",
+						format:{
+							type:"fileUpload", 
+							setting:{
+								
+							}
+						}
+					}); 
+				});
+			});
+			
 			$("#btnAdd").on("click",function(){ 
 				var demoTab = $("#demoTab").xWidget();
 				var page = demoTab.addPage({
@@ -114,8 +139,13 @@ require(["rt/pageContext","widget/data/datatable","widget/container/tab"],functi
 			});
 			
 			$("#btnDelete").on("click",function(){
+				
 				require(["ui/ui-confirm"],function(c){
-					c.test();
+					c.confirm("确定删除吗?",function(isOk){
+						if(isOk){
+							
+						}
+					});
 				})
 			}); 
 			

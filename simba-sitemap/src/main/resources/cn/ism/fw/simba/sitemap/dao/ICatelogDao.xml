@@ -83,9 +83,18 @@
 		`last_updated_date`
 		FROM
 		`sb_catelog_t` t
-		where t.delete_flag = 'N'
+		<include refid="findList_condition"/>
 		LIMIT 0, 1000
 	</select>
+	
+	<sql id="findList_condition">
+		<where>
+			t.delete_flag = 'N'
+			<if test="title != null">
+				and t.title like concat('%',#{title},'%')
+			</if>
+		</where>
+	</sql>
 	
 	<select id="findById" resultMap="catelogMap">
 		SELECT

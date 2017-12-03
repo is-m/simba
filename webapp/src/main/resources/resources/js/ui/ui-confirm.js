@@ -50,8 +50,28 @@ define(["jquery","jquery.confirm","rt/util"],function($,c,util){
 		
 	}
 	
-	var confirm = function(){
+	var confirm = function(msg,title,callback){
+		var _msg=msg,_title,_callback;
 		
+		if(arguments.length == 2){
+			_callback = title;
+		}else{
+			_title=title;
+			_callback=callback;
+		}
+		
+		$.confirm({
+			title : _title || '提示',
+			content : _msg || '确定进行操作吗',
+			buttons : {
+				confirm : function() {
+					_callback(true);
+				},
+				cancel : function() {
+					_callback(false);
+				}
+			}
+		});
 	};
 	
 	// TODO:如果加载了模块，关闭时，在销毁alert前，需要先销毁模块引用
@@ -60,9 +80,8 @@ define(["jquery","jquery.confirm","rt/util"],function($,c,util){
 			var _op = $.extend(true,{},defaultOp,op);
 			var _format = _op.format;
 			if( _format && _format.type){ 
-				var _type = _format.type;
-				var _setting = _format.setting;
-				switch(_format.type){
+				var _type = _format.type,_setting = _format.setting;
+				switch(_type){
 					case "tree":
 						if(!$.isPlainObject(_setting)) throw 'tree dialog setting no matched!'; 
 						
@@ -100,6 +119,100 @@ define(["jquery","jquery.confirm","rt/util"],function($,c,util){
 							}
 						};
 						break; 
+					case "fileUpload":
+						_op.content = function(){
+							var self = this; 
+							var dfd = $.Deferred();
+							setTimeout(function(){
+								require(["fileinputTheme"],function(fileInput){
+									dfd.resolve(fileInput); 
+								});
+							},0);
+							
+							dfd.done(function(fileInput){
+								var $fileInput = $('<div class="file-loading"><input id="input-ke-2" name="input-ke-2[]" type="file" multiple></div>')
+								self.setContent($fileInput);
+								
+								var $ctrlFile = $fileInput.find("#input-ke-2").fileinput({
+								    theme: "explorer",
+								    uploadUrl: "/file-upload-batch/2",
+								    showUpload: false, // 是否显示上传按钮,跟随文本框的那个
+								    showRemove: true, // 是否显示清理按钮
+								    layoutTemplates:{
+								    	actionDelete:'<button type="button" class="kv-file-remove {removeClass}" title="{removeTitle}" {dataUrl}{dataKey}><i class="fa fa-trash-o"></i></button>\n',
+								    	actionUpload:'', // 缩略图中的上传按钮
+								    	actionZoom:'',   // 缩略图中的预览按钮
+								    	close:''         // 头部的关闭按钮
+								    },
+								    minFileCount: 1,
+								    maxFileCount: 5,
+								    overwriteInitial: false,
+								    previewFileIcon: '<i class="fa fa-file"></i>',
+								    //showPreview:false,
+								    initialPreview: [],
+								    initialPreviewAsData: true, // defaults markup  
+								    initialPreviewConfig: [],
+								    preferIconicPreview: true, // this will force thumbnails to display icons for following file extensions
+								    previewFileIconSettings: { // configure your icon file extensions
+								        'doc': '<i class="fa fa-file-word-o text-primary"></i>',
+								        'xls': '<i class="fa fa-file-excel-o text-success"></i>',
+								        'ppt': '<i class="fa fa-file-powerpoint-o text-danger"></i>',
+								        'pdf': '<i class="fa fa-file-pdf-o text-danger"></i>',
+								        'zip': '<i class="fa fa-file-archive-o text-muted"></i>',
+								        'htm': '<i class="fa fa-file-code-o text-info"></i>',
+								        'txt': '<i class="fa fa-file-text-o text-info"></i>',
+								        'mov': '<i class="fa fa-file-movie-o text-warning"></i>',
+								        'mp3': '<i class="fa fa-file-audio-o text-warning"></i>',
+								        // note for these file types below no extension determination logic 
+								        // has been configured (the keys itself will be used as extensions)
+								        'jpg': '<i class="fa fa-file-photo-o text-danger"></i>', 
+								        'gif': '<i class="fa fa-file-photo-o text-muted"></i>', 
+								        'png': '<i class="fa fa-file-photo-o text-primary"></i>'    
+								    },
+								    previewFileExtSettings: { // configure the logic for determining icon file extensions
+								        'doc': function(ext) {
+								            return ext.match(/(doc|docx)$/i);
+								        },
+								        'xls': function(ext) {
+								            return ext.match(/(xls|xlsx)$/i);
+								        },
+								        'ppt': function(ext) {
+								            return ext.match(/(ppt|pptx)$/i);
+								        },
+								        'zip': function(ext) {
+								            return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
+								        },
+								        'htm': function(ext) {
+								            return ext.match(/(htm|html)$/i);
+								        },
+								        'txt': function(ext) {
+								            return ext.match(/(txt|ini|csv|java|php|js|css)$/i);
+								        },
+								        'mov': function(ext) {
+								            return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
+								        },
+								        'mp3': function(ext) {
+								            return ext.match(/(mp3|wav)$/i);
+								        }
+								    }
+								}); 
+								
+								$ctrlFile.on("filebatchselected", function(event, files) {
+						            $(this).fileinput("upload");
+						        })
+						        .on("fileuploaded", function(event, data) {
+							        if(data.response)
+							        {
+							            alert('处理成功');
+							        }
+							    });
+							});
+							
+							
+							
+							return dfd;
+						}
+						break;
 					case "page": 
 					case "table": 
 					case "table2":
@@ -127,7 +240,11 @@ define(["jquery","jquery.confirm","rt/util"],function($,c,util){
 				});  
 			}
 			
-			$.confirm(_op);
+			if(_op.buttons){
+				$.confirm(_op);
+			}else{
+				$.dialog(_op);
+			} 
 		}else{
 			window.alert('no found url');
 		}

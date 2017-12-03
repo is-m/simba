@@ -19,7 +19,7 @@ define(["widget/factory","jquery","jqueryui","template","rt/util"],function(widg
 			'<td data-field="<%=field%>">' + 
 				'<span class="table-td-text" style="width:<%= (colOp.width || 150)-17 %>px; min-width:<%= (colOp.width || 150)-17 %>px;" data-toggle="tooltip" title="Example tooltip">' + 
 				
-				'<%if(colOp.renderer){%>' + 
+				'<%if(colOp.renderer){ %>' + 
 					'<%=# colOp.renderer(fieldValue,dataItem,colOp) %>' + 
 				'<%}else{%>' +
 					'<%= fieldValue %>' + 
@@ -234,9 +234,21 @@ define(["widget/factory","jquery","jqueryui","template","rt/util"],function(widg
 			
 			// TODO:待后续替换成选中数据tbody区域，添加加载框
 			this.showMessage("<i class='fa fa-spinner fa-spin'></i><p>正在加载...</p>"); 
-			util.getDataset(this.op.dataset).done($.proxy(function(data){  
+			
+			var dataset = this.op.dataset;
+			// 如果当前有设置查询参数区域
+			var searchPanel = util.getObj(this,"op.operation.search.panel");
+			if(searchPanel != null && typeof dataset == 'string'){
+				var data = util.el(searchPanel).jsonData();
+				dataset = { url:dataset, data:data }
+			}else if(!$.isArray(dataset)){ // 并且不是静态数据
+				throw '存在查询条件区域，但是数据集不是URL请求，暂时未实现其他数据集+查询条件的处理逻辑';
+			}
+			
+			util.getDataset(dataset).done($.proxy(function(data){  
 				if(!data || data.length == 0){ 
 					_self.showMessage('<i class="fa fa-info"></i> <p>没有匹配的记录</p>');
+					$tableDataRows.html("");
 					return;
 				}
 				

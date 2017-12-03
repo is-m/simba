@@ -1,18 +1,19 @@
 // ajax 请求封装
 define(["jquery"],function($){ 
 	
-	var ajax = function(url,data,sCallback,fCallback,method){ 
-		
-		if( method == "post" || method == "put" ){
-			data = typeof data === 'string' ? data : JSON.stringify(data);
-		}
-		
-		var _async = $.ajax({
+	var ajax = function(url,data,sCallback,fCallback,method){  
+		var _ajaxOp = $.isPlainObject(url) ? url : {
 			url:url,
 			data:data,
 			method:method,
 			contentType:"application/json",
-		});
+		};
+		
+		if( _ajaxOp.method == "post" || _ajaxOp.method == "put" ){
+			_ajaxOp.data = typeof _ajaxOp.data === 'string' ? _ajaxOp.data : JSON.stringify(_ajaxOp.data);
+		}
+		
+		var _async = $.ajax(_ajaxOp);
 		
 		_async.success(function(resp){
 			if(resp && resp.code && resp.msg && resp.code != '200'){

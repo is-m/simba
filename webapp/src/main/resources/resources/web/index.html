@@ -14,7 +14,8 @@
 <!-- <link rel="stylesheet" href="../css/lib/ztree/demo.css" />  -->
 <link rel="stylesheet" href="../css/lib/ztree/metroStyle/metroStyle.css" /> 
 <link rel="stylesheet" href="../css/lib/jquery-confirm.css" /> 
-
+<link rel="stylesheet" href="../css/lib/fileinput/fileinput.css" /> 
+<link rel="stylesheet" href="../css/lib/fileinput/themes/explorer/theme.css" /> 
 
 <link rel="stylesheet" href="../css/site.css" />
 
@@ -164,12 +165,14 @@
 				jqueryui :'lib/jquery-ui',
 				'jquery.datetimepicker' : "lib/bootstrap-datetimepicker",
 				'ztree' : "lib/jquery.ztree.all",
-				"bootstrap":'lib/bootstrap',
+				'bootstrap':'lib/bootstrap',
 				'Popper-utils':'lib/popper-utils',
 				'popper':'lib/popper',
 				'jquery.confirm':'lib/jquery-confirm',
 				'echart':'lib/echarts.common.min',
-				template: 'lib/template-web'
+				'template': 'lib/template-web',
+				'fileinput': 'lib/fileinput',
+				'fileinputTheme':'../css/lib/fileinput/themes/explorer/theme'
 			}
 			,shim: {
 				'template': {
@@ -194,6 +197,12 @@
 		        } ,
 		        "bootstrap":{
 		        	deps:['jquery'/* ,'popper' */]
+		        } ,
+		        'fileinput':{
+		        	deps:['jquery']
+		        },
+		        'fileinputTheme':{
+		        	deps:['jquery','fileinput']
 		        }
 			}
 			/* 非AMD规范模块需要使用shim配置来加载

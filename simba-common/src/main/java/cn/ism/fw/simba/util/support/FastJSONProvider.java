@@ -1,6 +1,6 @@
 package cn.ism.fw.simba.util.support;
 
-import cn.ism.fw.simba.orm.NoImplementException;
+import cn.ism.fw.simba.exception.NoImplementException;
 
 public class FastJSONProvider implements JSONProvider {
 

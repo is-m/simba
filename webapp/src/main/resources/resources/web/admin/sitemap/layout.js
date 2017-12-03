@@ -1,5 +1,5 @@
 // TODO: 1.pageContext 需要预加载 ，2.widget/data/datable 需要在使用时加载
-require(["rt/pageContext","widget/container/tab"],function(pageContext){
+require(["rt/pageContext","widget/tab"],function(pageContext){
 	pageContext.define("admin.sitemap.layout",function(page){
 		
 		page.ready = function(){

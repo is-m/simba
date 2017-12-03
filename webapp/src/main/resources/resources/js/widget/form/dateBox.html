@@ -1,4 +1,5 @@
 <div class="input-append date form_datetime">
+<% if($widget.showIconButton) {%>
 	<div class="input-group">
 		<span class="input-group-btn"> <!-- 组件图标 fa fa-puzzle-piece --> <!-- <button class="btn btn-outline-secondary add-on" type="button" id="btnSelectParent"><i class="fa fa-remove"></i></button> -->
 			<button class="btn btn-outline-secondary add-on" type="button">
@@ -7,4 +8,7 @@
 		</span> 
 		<input type="text" class="form-control" readonly="readonly">
 	</div>
+<%}else{%>
+	<input type="text" class="form-control" readonly="readonly">
+<%}%>
 </div>

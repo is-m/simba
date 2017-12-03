@@ -13,7 +13,7 @@ require(["rt/pageContext","rt/validation","rt/request","widget/form/dateBox"],fu
 			 
 			$("#btnSave").on("click",function(){
 				// 往后台添加一个栏目
-				var isValid =  true;//$("#formEditSitemap").valid();
+				var isValid = $("#formEditSitemap").valid();
 				if(isValid){
 					$("#formEditSitemap").formSubmit("post","/webapp/api/sitemap",function(resp){
 						// 关闭页签，刷新表格

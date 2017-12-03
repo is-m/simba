@@ -6,6 +6,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import cn.ism.fw.simba.base.TreeVO;
+import cn.ism.fw.simba.base.TreeVO.TreeNodeVO;
 import cn.ism.fw.simba.security.SecureOperation;
 import cn.ism.fw.simba.security.SecureResource;
 import cn.ism.fw.simba.sitemap.CatelogVO;
@@ -31,8 +33,16 @@ public class CatelogService implements ICatelogService {
   }
 
   @Override
-  public List<CatelogVO> findTreeList() { 
-    return catelogDao.findTreeList();
+  public List<CatelogVO> findTreeList(CatelogVO catelogVO) { 
+    // TODO:待修改为查询一次后在内存中构造树对象，在树对象里匹配到数据后返回给界面 
+     List<CatelogVO> findTreeList = catelogDao.findTreeList(catelogVO); 
+     try {
+      TreeVO<CatelogVO> treeVO = new TreeVO<>(findTreeList, "id", "parentId", "0");
+      System.out.println("---:"+treeVO.getNodes().size());
+    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) { 
+      e.printStackTrace();
+    }
+     return findTreeList;
   }
 
   @Override

@@ -35,7 +35,7 @@ public interface ICatelogService  {
 	 * @since 2017年10月30日
 	 * @author Administrator
 	 */
-	public List<CatelogVO> findTreeList();
+	public List<CatelogVO> findTreeList(CatelogVO catelogVO);
 	
 	/**
 	 * 按ID查询

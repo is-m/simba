@@ -9,12 +9,12 @@ package cn.ism.fw.simba.util;
 public class Assert {
 
 	public static void isTrue(boolean isTrue, String msg,Object... params) {
-		if (isTrue)
+		if (!isTrue)
 			throw new IllegalStateException(msg);
 	}
 
 	public static void isFalse(boolean isFalse, String msg,Object... params) {
-		if (!isFalse)
+		if (isFalse)
 			throw new IllegalStateException(msg);
 	}
 

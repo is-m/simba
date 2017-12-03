@@ -15,7 +15,7 @@ public class ReflectUtil {
 	private static final Logger LOG = LoggerFactory.getLogger(ReflectUtil.class);
 
 	public static List<Field> getDeclaredFields(Object o) {
-		List<Field> result = CollectionUtil.newList();
+		List<Field> result = CollectionUtil.list();
 		Class<?> tempClass = o.getClass();
 		while (tempClass != null) {
 			result.addAll(Arrays.asList(tempClass.getDeclaredFields()));
