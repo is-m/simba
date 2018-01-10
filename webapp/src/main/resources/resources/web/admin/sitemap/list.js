@@ -27,17 +27,19 @@ require(["rt/pageContext","widget/data/datatable","widget/tab","widget/form/date
 					{
 						header:"操作",
 						width:100,
+						type:"operate",
 						renderer:function(value,record,columnOp){
-							var $btnView = $('<span><a class="btn btn-link btn-sm"  >查看</a><a class="btn btn-link  btn-sm"  >编辑</a></span>');
+							var $btnView = $('<span><a class="btn btn-link btn-sm" >查看</a><a class="btn btn-link  btn-sm"  >编辑</a></span>');
+							var rowData = record;
 							
 							$btnView.find("a:eq(0)").on("click",function(){
-								alert(1);
+								page.edit(rowData);
 							});
 							
 							$btnView.find("a:eq(1)").on("click",function(){
-								alert(2);
+								page.edit(rowData);
 							});
-							return $btnView.html();
+							return $btnView;
 						}
 					},{
 						field:"title",
@@ -122,7 +124,7 @@ require(["rt/pageContext","widget/data/datatable","widget/tab","widget/form/date
 						format:{
 							type:"fileUpload", 
 							setting:{
-								
+								uploadUrl:"/webapp/api/sitemap/import"
 							}
 						}
 					}); 
@@ -153,6 +155,29 @@ require(["rt/pageContext","widget/data/datatable","widget/tab","widget/form/date
 				$("#formSearch")[0].reset();
 				$("#btnSearch").trigger("click");
 			});
+		}
+		
+		page.edit = function(record){
+			var isCreate = !record;
+			var tab =  $("#demoTab").xWidget();
+			
+			if(!isCreate){
+				tab.on("afterLoad",function(page){
+					debugger
+					page.fillData(record);
+				},true);
+			}
+			
+			tab.addPage({
+				title: (isCreate ? "新增" : "编辑" ) + "栏目",
+				url:"/webapp/web/admin/sitemap/edit.html",
+				allowClose:true,
+				afterLoad:function(){
+					
+				}
+			}); 
+			
+		
 		}
 		
 	});

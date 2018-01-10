@@ -1,5 +1,12 @@
 define(["widget/factory","jquery","jqueryui","template","rt/util"],function(widget,$,$ui,tmpl,util){
 	// 预处理数据行渲染模版
+	/*
+	 	'<%if(colOp.renderer){ %>' + 
+					'<%=# colOp.renderer(fieldValue,dataItem,colOp) %>' + 
+				'<%}else{%>' +
+					'<%= fieldValue %>' + 
+				'<%}%>' + 
+	 */
 	var _dataRowTemplate = 
 		'<%  for(var j=0;j<$widget._data.length;j++){ var dataItem = $widget._data[j]; %>' +
 		'<tr data-row-index="<%=j%>"> ' +
@@ -18,12 +25,7 @@ define(["widget/factory","jquery","jqueryui","template","rt/util"],function(widg
 		'%>' + 
 			'<td data-field="<%=field%>">' + 
 				'<span class="table-td-text" style="width:<%= (colOp.width || 150)-17 %>px; min-width:<%= (colOp.width || 150)-17 %>px;" data-toggle="tooltip" title="Example tooltip">' + 
-				
-				'<%if(colOp.renderer){ %>' + 
-					'<%=# colOp.renderer(fieldValue,dataItem,colOp) %>' + 
-				'<%}else{%>' +
-					'<%= fieldValue %>' + 
-				'<%}%>' + 
+
 				'</span>' + 
 			'</td>' + 
 		'<%}%>   ' + 
@@ -49,6 +51,10 @@ define(["widget/factory","jquery","jqueryui","template","rt/util"],function(widg
 			for(var i=0;i<_op.columns.length;i++){
 				var colOp = _op.columns[i];
 				tableWidth += colOp.width || 150;
+				// TODO:如果是操作类型，暂且设置下字段，防止渲染单元格出问题，后续可能会进行优化, _bindCellData
+				if(colOp.type == 'operate'){
+					colOp.field="__operate"+i;
+				}
 			}
 			
 			_op["_tableWidth"] = tableWidth;
@@ -138,7 +144,7 @@ define(["widget/factory","jquery","jqueryui","template","rt/util"],function(widg
 						return col;
 					}
 				}
-				throw 'no found column op';
+				throw 'no found column op ['+field+']';
 			}
 			return 'getColumnOp arguments not support';
 		},
@@ -204,6 +210,7 @@ define(["widget/factory","jquery","jqueryui","template","rt/util"],function(widg
 										.attr("data-tree-level",+$row.data("treeLevel") + 1)
 										.attr("data-tree-expand",false)
 										.data("record",_rowData);
+										_self._bindCellData($(this),_rowData);
 									});
 									_self._renderTreeRows($tempRows); 
 									// 打开节点
@@ -225,6 +232,31 @@ define(["widget/factory","jquery","jqueryui","template","rt/util"],function(widg
 		},
 		getRowData:function(rowIndex){
 			return this.op._data[rowIndex];
+		},
+		// 绑定单元格数据
+		_bindCellData:function($row,record){
+			var _self=this;
+			$row.find("[data-field]").each(function(){ 
+				var $cell = $(this);
+				var field = $cell.data("field");  
+				// 字段属性为空值时不进行初始化
+				if(field == '') return;
+				
+				if(typeof record[field] !== 'undifined'){
+					var colOp = _self._getColumnOp(field);
+					var value = record[field];
+					if(colOp.renderer){
+						// 渲染数据
+						var renderValue = colOp.renderer(value,record,colOp,$cell.find(".table-td-text"));
+						// 如果返回值不为 undefined 则进行渲染，控件设置方也可以使用$cell自己来社会资单元格内容,如果人为渲染了内容又返回了内容则会用返回的内容替换手动渲染的内容
+						if(typeof renderValue !== 'undefined'){
+							$cell.find(".table-td-text").html(colOp.renderer(value,record,colOp,$cell));
+						}
+					}else{
+						$cell.find(".table-td-text").html(value);
+					} 
+				}
+			});
 		},
 		reload:function(){
 			var _self = this;
@@ -264,7 +296,9 @@ define(["widget/factory","jquery","jqueryui","template","rt/util"],function(widg
 				
 				// 在行上绑定数据 
 				$rows.each(function(i,n){ 
-					$(this).data("record",_self.op._data[i]);
+					var _rowData = _self.op._data[i];
+					$(this).data("record",_rowData);
+					_self._bindCellData($(this),_rowData);
 					if(_treeOp) {
 						$(this).attr("data-tree-parent","root");
 						$(this).attr("data-tree-level",0);

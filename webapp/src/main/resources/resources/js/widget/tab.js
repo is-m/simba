@@ -84,7 +84,7 @@ define(["widget/factory","jquery","rt/pageContext"],function(widget,$,pageContex
 		destory:function(){
 			
 		} 
-		,addPage:function(op){ 
+		,addPage:function(op){  
 			var pageDefaultOption = {
 				title:"未命名",
 				allowClose:true,
@@ -97,8 +97,8 @@ define(["widget/factory","jquery","rt/pageContext"],function(widget,$,pageContex
 			var $tabHeader = this.$dom.find(".tab-header:eq(0)");
 			
 			if($tabHeader.find("[data-toggle={0}]".format(pageOp.id)).length){
-				this.selectTab(pageOp.id); 
-				return;
+				this.selectTab(pageOp.id);  
+				return this.trigger("afterLoad",$bodyEl);
 			}
 			// 
 			
@@ -116,9 +116,10 @@ define(["widget/factory","jquery","rt/pageContext"],function(widget,$,pageContex
 			var $tabBody = this.$dom.find(".tab-body:eq(0)");
 			
 			var $bodyEl = $("<div data-tab-id='{0}'></div>".format(pageOp.id));
-			$tabBody.append($bodyEl);
-			 
-			$headerEl.find(".nav-link").trigger("click");
+			$tabBody.append($bodyEl); 
+			$headerEl.find(".nav-link").trigger("click"); 
+			
+			return this.trigger("afterLoad",$bodyEl);
 		}
 		,selectTab:function(tabId){
 			if(tabId){

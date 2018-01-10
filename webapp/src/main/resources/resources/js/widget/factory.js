@@ -2,6 +2,7 @@ define(function(require){
 	"use strict";
 	var $ = require("jquery");
 	var tmpl = require("template");
+	var log = require("rt/logger");
 	/*
 	 TODO:组件要考虑用户可修改，样式可定义 
 	 */
@@ -28,20 +29,59 @@ define(function(require){
 				this.op = op;
 				this.data = data;
 				this.$dom = $dom;
+				this.$events = {};
 			};
 			
 			Widget.define = defineContext;
 			 
 			Widget.prototype = $.extend(true,{
-				constructor:Widget,
-				on:function(eventName){
+				constructor:Widget, 
+				/**
+				 * 绑定事件
+				 * @param event  事件名
+				 * @paran func   事件触发时回调函数
+				 * @param isOnly 是否唯一，为true时，新设置的事件会覆盖老的事件，为其他时累加事件
+				 * @author Administrator
+				 */
+				on:function(event,func,isOnly){ 
+					log.debug("widget add event bound {0}",event); 
+					if(!$.isFunction(func)){
+						throw "on event of name '{0}' callback is not function".format(event);
+					}
+					if(isOnly === true){
+						$(this).off(event);
+						this.$events[event] = [];
+					} 
+
+					$(this).on(event,func);
+					this.$events[event] = (this.$events[event] || []);
+					this.$events[event].push(func); 
 					
+					return this;
 				},
-				un:function(){
+				// 取消事件绑定,如果未传参数则取消所有事件
+				off:function(event){
+					if(event && this.$events[event]){
+						log.warn("off event of name '{0}',but no reg this!",event); 
+						return this;
+					}
 					
+					var keys = (typeof event === 'undefined' ? Object.keys(this.$events) : [event] ); 
+					for(var i=0;i<keys.length;i++){
+						$(this).off(event);
+						this.$events[event] = null;
+						delete this.$events[event];
+					}
+					
+					return this;
+				},
+				trigger:function(event,args){
+					$(this).trigger(event,args);
+					return this;
 				},
 				refresh:function(op,data){
 					
+					return this;
 				}
 			},defineContext);  
 			

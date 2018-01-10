@@ -108,9 +108,15 @@ define([],function(){
 	
 	Date.prototype.add = function(value,unit){
 		
+	}; 
+	
+	// 在指定位置插入元素
+	Array.prototype.insert = function (index, item) { 
+		this.splice(index, 0, item); 
+		return this;
 	};
 	
-	// 数组去从
+	// 数组去重复
 	Array.prototype.unique = function(){
 		var tempMap = {};
 		for(var i=0,j=this.length;i<j;i++){

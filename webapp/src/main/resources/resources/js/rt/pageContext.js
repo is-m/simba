@@ -1,4 +1,4 @@
-define(["jquery"],function($){
+define(["jquery","rt/logger"],function($,log){
 	
 	var Page = function(id,$dom){
 		this._id = id; 
@@ -14,7 +14,7 @@ define(["jquery"],function($){
 	 * callback:回调函数 callback(page)
 	 */
 	var _define = function(id,callback){
-		console.log("load js module of "+id);
+		log.debug("load js module of "+id) 
 		var page = new Page(id);
 		callback(page);
 		pageContextStack.push(page);
@@ -70,6 +70,7 @@ define(["jquery"],function($){
 				pageContextElStack.push($el);
 			}else{
 				$el.attr("data-module","error");
+				log.error("page context load page error!"); 
 				console.log("page context load page error!",resp,status,xhr)
 			} 
 		});

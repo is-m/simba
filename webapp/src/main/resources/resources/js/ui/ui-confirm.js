@@ -135,7 +135,7 @@ define(["jquery","jquery.confirm","rt/util"],function($,c,util){
 								
 								var $ctrlFile = $fileInput.find("#input-ke-2").fileinput({
 								    theme: "explorer",
-								    uploadUrl: "/file-upload-batch/2",
+								    uploadUrl: _setting.uploadUrl || "/file-upload-batch/2",
 								    showUpload: false, // 是否显示上传按钮,跟随文本框的那个
 								    showRemove: true, // 是否显示清理按钮
 								    layoutTemplates:{
