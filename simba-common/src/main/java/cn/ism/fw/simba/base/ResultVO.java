@@ -110,6 +110,10 @@ public class ResultVO extends BasePOJO {
   public static ResultVO SUCCESS(Object data) {
     return new ResultVO(ResultType.SUCCESS, data);
   }
+  
+  public static ResultVO SUCCESS() {
+    return new ResultVO(ResultType.SUCCESS, null);
+  }
 
   public static ResultVO SUCCESS(int modifyCount) {
     HashMap<String, Object> data = new HashMap<>();

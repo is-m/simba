@@ -14,11 +14,12 @@ public class BaseResourceVO extends BaseVO {
   /**
    * 版本号，用于避免重复提交，或者并发操作问题
    */
+  
   private short edition;
   
   /**
    * 创建人
-   */
+   */ 
   private String createdBy;
   
   /**

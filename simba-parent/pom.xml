@@ -136,7 +136,21 @@
 				<version>3.0.2</version>
 			</dependency>
 
+			<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/javax.persistence -->
+			<dependency>
+			    <groupId>org.eclipse.persistence</groupId>
+			    <artifactId>javax.persistence</artifactId>
+			    <version>2.2.0</version>
+			</dependency> 
 		</dependencies>
+		
+		<!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
+		<dependency>
+		    <groupId>javax.transaction</groupId>
+		    <artifactId>jta</artifactId>
+		    <version>1.1</version>
+		</dependency>
+
 	</dependencyManagement>
 
 	<dependencies>

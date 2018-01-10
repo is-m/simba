@@ -1,5 +1,8 @@
 package cn.ism.fw.simba.sitemap;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Max;
 
 import org.hibernate.validator.constraints.Length;
@@ -14,7 +17,8 @@ import cn.ism.fw.simba.jsr.validation.groups.CreateGroup;
  * @since 2017年5月7日
  * @author Administrator
  */
-
+@Entity
+@Table(name="sb_catelog_t")
 public class CatelogVO extends BaseResourceVO {
 
   private static final long serialVersionUID = 4145424803228191015L;
@@ -75,6 +79,12 @@ public class CatelogVO extends BaseResourceVO {
    */
   @Length(max=200)
   private String visibleValue;
+  
+  /**
+   * 测试非数据库字段
+   */
+  @Transient
+  private String testField;
 
   public String getTitle() {
     return title;
