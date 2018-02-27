@@ -11,11 +11,13 @@ import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.ImportResource;
 
+import cn.ism.fw.simba.base.service.ServiceEntity;
+import cn.ism.fw.simba.util.ClassScanner;
 import cn.ism.template.webapp.common.util.SpringBootUtil;
 
 @EnableAspectJAutoProxy(proxyTargetClass=true)
 @ImportResource(locations={"classpath:config/applicationContext.xml"})
-@SpringBootApplication
+@SpringBootApplication 
 @MapperScan({"cn.ism.fw.simba.security.dao","cn.ism.fw.simba.sitemap.dao"})
 public class TemplateApplication implements ServletContextInitializer {
 	
@@ -23,6 +25,7 @@ public class TemplateApplication implements ServletContextInitializer {
 
 	public static void main(String[] args) {
 		SpringBootUtil.run(TemplateApplication.class, args);
+		 ClassScanner.scan("cn.ism.fw.simba.security", ServiceEntity.class).forEach(clazz -> System.out.println(clazz));
 	}
 
 	/**

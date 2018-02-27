@@ -24,7 +24,7 @@ public class RoleVO extends BaseVO {
 	private String description;
 	
 	/**
-	 * 角色默认页
+	 * 角色默认主页
 	 */
 	private String defaultPage;
 	

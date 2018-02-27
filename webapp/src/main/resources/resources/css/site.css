@@ -15,6 +15,10 @@ body {
 	/* background: #fbfbfb; */
 }
 
+a,button,.btn {
+	cursor: pointer;
+}
+
 /*
  * Typography
  */
@@ -434,6 +438,11 @@ h1 {
 
 .modal-footer {
 	border-top: none;
+}
+
+/* noborder */
+.nbd {
+	border:none !important;
 }
 
 /*! jQuery UI - v1.12.1 - 2017-10-03

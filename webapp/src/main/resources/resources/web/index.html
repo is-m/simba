@@ -63,7 +63,7 @@
 		<div class="row"> 
 			<div id="mainMenu" data-x-widget="menu" class="col-sm-3 col-md-2" style="padding:0;"></div> 
 			<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3" style="padding-bottom:70px;">
-				<h3>Dashboard</h3>
+				<h3 id="nav-breadcrumb">Dashboard</h3>
 				<div class="row" id="__pageContext"> 
 					<div class="col-md-6">123</div>
 					<div class="col-md-6">234</div>
@@ -79,7 +79,7 @@
 				
 				<div class="row">
 					<footer class="footer text-center"> 
-							<span class="text-muted"><a href="#">致远信息</a> 2017 &copy; 版权所有</span> 
+							<span class="text-muted"><a href="#">致远信息</a> 2018 &copy; 版权所有</span> 
 					</footer>
 				</div> 
 			</div>
@@ -216,7 +216,7 @@
 
 		// app
 		// ! js 模块化更多的是为了处理模块之间的依赖关系，和异步加载脚本
-		require([ 'jquery', 'app', 'rt/core',"bootstrap", 'rt/jquery-mex','ztree'], function($, app, core,bs,jqueryMEX,ztree) {
+		require(['jquery', 'app','rt/core'  ,"bootstrap" , 'rt/jquery-mex','ztree' ], function($, app, core,bs,jqueryMEX,ztree) {
 			$(app.init);
 		});
 
@@ -224,7 +224,7 @@
 			var jsonData = {
 				username : "test123",
 				passwd : "test123"
-			};
+			};511
 			$.ajax({
 				type : "POST",
 				url : "/webapp/api/user",

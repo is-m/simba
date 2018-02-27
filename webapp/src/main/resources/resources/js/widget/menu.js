@@ -30,7 +30,10 @@ define(["widget/factory","jquery"],function(widget,$){
 		},
 		ready:function(){ 
 			// 加载点击事件
-			
+			this.$dom.on("click","a",function(){ 
+				var $this = $(this); 
+				$this.attr("href") !== "#" && $("#nav-breadcrumb").html($this.text()); 
+			});
 		},
 		destory:function(){
 			

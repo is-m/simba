@@ -2,13 +2,20 @@ package cn.ism.fw.simba.security;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import cn.ism.fw.simba.base.BaseVO;
+import cn.ism.fw.simba.base.service.ServiceEntity;
 
 /**
  * 用户组
  * @since 2017年8月8日
  * @author Administrator
  */
+@Table(name="s_user_group_t")
+@Entity
+@ServiceEntity(name="userGroup")
 public class UserGroupVO extends BaseVO {
  
 	private static final long serialVersionUID = 4167961113368715535L;

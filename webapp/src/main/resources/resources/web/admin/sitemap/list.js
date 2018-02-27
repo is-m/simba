@@ -33,11 +33,11 @@ require(["rt/pageContext","widget/data/datatable","widget/tab","widget/form/date
 							var rowData = record;
 							
 							$btnView.find("a:eq(0)").on("click",function(){
-								page.edit(rowData);
+								page.doEdit(rowData);
 							});
 							
 							$btnView.find("a:eq(1)").on("click",function(){
-								page.edit(rowData);
+								page.doEdit(rowData);
 							});
 							return $btnView;
 						}
@@ -112,64 +112,49 @@ require(["rt/pageContext","widget/data/datatable","widget/tab","widget/form/date
 				}
 			};
 			
-			// 绑定表格
-			
-			$("#gridSitemap").xWidget("datatable",gridOption); 
-			
-			$("#btnImportSitemap").on("click",function(){
-				require(["ui/ui-confirm"],function(msg){
-					msg.dialog({
-						title:"导入数据", 
-						columnClass:"medium",
-						format:{
-							type:"fileUpload", 
-							setting:{
-								uploadUrl:"/webapp/api/sitemap/import"
-							}
-						}
-					}); 
+			// 绑定表格 
+			$("#gridSitemap").xWidget("datatable",gridOption);   
+		}
+		
+		page.doDelete = function(){
+			require(["ui/ui-confirm"],function(c){
+				c.confirm("确定删除吗?",function(isOk){
+					if(isOk){
+						
+					}
 				});
-			});
-			
-			$("#btnAdd").on("click",function(){ 
-				var demoTab = $("#demoTab").xWidget();
-				var page = demoTab.addPage({
-					title:"添加栏目",
-					url:"/webapp/web/admin/sitemap/edit.html",
-					allowClose:true
-				}); 
-			});
-			
-			$("#btnDelete").on("click",function(){
-				
-				require(["ui/ui-confirm"],function(c){
-					c.confirm("确定删除吗?",function(isOk){
-						if(isOk){
-							
+			})
+		}
+		
+		page.doImport = function(){
+			require(["ui/ui-confirm"],function(msg){
+				msg.dialog({
+					title:"导入数据", 
+					columnClass:"medium",
+					format:{
+						type:"fileUpload", 
+						setting:{
+							uploadUrl:"/webapp/api/sitemap/import"
 						}
-					});
-				})
-			}); 
-			
-			$("#btnReset").on("click",function(){
-				$("#formSearch")[0].reset();
-				$("#btnSearch").trigger("click");
+					}
+				}); 
 			});
 		}
 		
-		page.edit = function(record){
+		page.doEdit = function(record){
 			var isCreate = !record;
 			var tab =  $("#demoTab").xWidget();
 			
 			if(!isCreate){
 				tab.on("afterLoad",function(page){
 					debugger
+					alert("afterTab");
 					page.fillData(record);
 				},true);
 			}
 			
 			tab.addPage({
-				title: (isCreate ? "新增" : "编辑" ) + "栏目",
+				title: (isCreate ? "添加" : "编辑" ) + "栏目",
 				url:"/webapp/web/admin/sitemap/edit.html",
 				allowClose:true,
 				afterLoad:function(){

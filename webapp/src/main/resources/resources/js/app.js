@@ -4,16 +4,51 @@ define(function(require, exports, module){
 		// 隐藏整个页面内容
 		
 		// 绑定URL地址事件
-		require(["rt/router"],function(router){
-			router.init();
+		require(["rt/router","rt/pageContext"],function(router,pageContext){
+			router.init(); 
+		
+			// 初始化基础内容
+			console.log("init ui context");
+			initWidget();
+			
+			// 绑定全局事件监听
+			$(document).on("click",function(e){
+				
+				var $trigger = $(e.target);
+				// TODO:下面的逻辑可能需要调整，看看是帮上级按钮触发点击事件，还是帮不限层级的上级触发一次事件
+				// 如果是图标标签，并且上级是按钮则重新 
+				if($trigger.is("i") && $trigger.parent().is("button,.btn")){ 
+					// 如果这个图标本身没有点击事件，并且上级是个按钮且没有点击事件，但是有page-action属性的话，帮上级触发点击事件
+					var targetEvents =  $._data(e.target,"events");  
+					if(!targetEvents || !targetEvents["click"]){
+						var $parent = $trigger.parent(); 
+						var parentEvents =  $._data($parent[0],"events"); 
+						if((!parentEvents || !parentEvents["click"]) && $parent.is("[page-action]")){
+							$parent.trigger("click");
+						}
+					}
+				}
+				
+				// 如果存在全局事件失效的属性，则不触发全局事件
+				if($trigger.is(".e-disable")) return;
+				
+				
+				// 如果是重置按钮，则清空
+				if($trigger.is(".f-reset")){
+					var $fReset = $trigger.closest("form");
+					$fReset[0].reset();
+					$fReset.find(".f-search").trigger("click"); 
+				}
+				
+				if($trigger.is("[page-action]")){
+					var action = $trigger.attr("page-action");
+					action && pageContext.$do(action);
+				} 
+			});
+			
+			// 触发地址事件 
+			console.log("trigger url default event");
 		});
-		
-		// 初始化基础内容
-		console.log("init ui context");
-		initWidget();
-		
-		// 触发地址事件 
-		console.log("trigger url default event");
 	};
 	
 	var getAllChildrens = function(dom,collector){

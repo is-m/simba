@@ -22,6 +22,7 @@ define(["rt/core"],function(core){
 	};
 	
 	var currentLevel = 'debug';
+	var enableErrorStack = true;
 	var currentConfig = levelMap[currentLevel];
 	
 	// 打印日志
@@ -30,7 +31,11 @@ define(["rt/core"],function(core){
 		var levelConfig = levelMap[level];
 		if(levelConfig["priority"] >= currentConfig["priority"]){
 			var args = arguments , argLen = args.length;
+			//console.log(levelConfig["prefix"] + (argLen > 2 ? msg.format(Array.prototype.splice.call(args,2,argLen)) : msg));
 			console.log(levelConfig["prefix"] + (argLen > 2 ? msg.format(Array.prototype.splice.call(args,2,argLen)) : msg));
+			if(level == "error" && enableErrorStack){   
+				console.log("STACK",arguments.callee.caller.caller);
+			} 
 		} 
 	};
 	  

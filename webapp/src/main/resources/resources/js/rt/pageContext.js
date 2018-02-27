@@ -28,8 +28,8 @@ define(["jquery","rt/logger"],function($,log){
 		
 		$pc.data("context",$.extend(context,{ id : page }));
 		
-		// TODO:等页面自动渲染部分完成后触发ready函数
-		page.ready && page.ready();
+		// TODO:等页面自动渲染部分完成后触发ready函数 
+		page.ready && setTimeout(page.ready,0);
 	}
 	
 	var _get = function(id){
@@ -61,17 +61,19 @@ define(["jquery","rt/logger"],function($,log){
 		}
 	}
 	
-	var _loadPage = function(el,url){
-		var $el = $(el); 
+	var _loadPage = function(el,url,callback){
+		var $el = el.jquery ? el : $(el); 
 		$el.load(url,function(resp,status,xhr){
 			// 加载完页面，绑定上下文，
 			if(status != "error"){
 				$el.attr("data-module",url);
-				pageContextElStack.push($el);
+				pageContextElStack.push($el); 
+				callback && callback(true);
 			}else{
 				$el.attr("data-module","error");
 				log.error("page context load page error!"); 
 				console.log("page context load page error!",resp,status,xhr)
+				callback && callback(false);
 			} 
 		});
 	}
@@ -85,13 +87,37 @@ define(["jquery","rt/logger"],function($,log){
 		} 
 		 $("#__pageContext").data("context",null);
 	}
+	
+	var doAction = function(action){ 
+		if(!action){
+			log.warn("非法调用页面动作");
+			return;
+		}
+		
+		var pageAction = null; 
+		for(var i=0;i<pageContextStack.length;i++){
+			var page = pageContextStack[i];
+			var attr = page[action];
+			if(attr && !$.isFunction(attr)){
+				log.warn("执行指定页面动作时，找到非Function类型属性" + action)
+				continue;
+			}
+			if(pageAction){
+				log.error("执行指定页面动作时，找到多个同名动作" + action);
+				return;
+			}
+			pageAction = attr; 
+		} 
+		pageAction ? pageAction() : log.error("执行指定页面动作时，未找到页面动作" + action); 
+	}
 
 	return {
 		define:_define,
 		shutdown:_shutdown,
 		shutPage:_shutPage,
 		loadPage:_loadPage,
-		get:_get
+		get:_get,
+		$do:doAction
 	}
 	
 });

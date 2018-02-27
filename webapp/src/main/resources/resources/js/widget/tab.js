@@ -52,8 +52,8 @@ define(["widget/factory","jquery","rt/pageContext"],function(widget,$,pageContex
 					$curPage.show();
 					// 未初始化过才需要初始化
 					if(!$curPage.data("init")){
-						pageContext.loadPage($curPage,pageUrl);
-						$curPage.data("init",true);
+						pageContext.loadPage($curPage,pageUrl,function(){ self.trigger("afterLoad",$curPage); });
+						$curPage.data("init",true); 
 					} 
 					return false;
 				}
@@ -119,7 +119,7 @@ define(["widget/factory","jquery","rt/pageContext"],function(widget,$,pageContex
 			$tabBody.append($bodyEl); 
 			$headerEl.find(".nav-link").trigger("click"); 
 			
-			return this.trigger("afterLoad",$bodyEl);
+			return this;
 		}
 		,selectTab:function(tabId){
 			if(tabId){
