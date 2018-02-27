@@ -1,6 +1,7 @@
 package cn.ism.fw.simba.util;
 
 import java.io.UnsupportedEncodingException;
+import java.text.MessageFormat;
 
 /**
  * 字符串工具类
@@ -164,4 +165,8 @@ public class StringUtil {
   /*
    * end
    */
+  
+  public static String format(String source,Object... params) {
+    return MessageFormat.format(source, params);
+  }
 }

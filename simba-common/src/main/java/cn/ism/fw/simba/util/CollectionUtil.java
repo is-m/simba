@@ -51,7 +51,7 @@ public class CollectionUtil {
   public static boolean isEmpty(Object array) {
     if (array == null)
       return true;
-    Assert.isFalse(array.getClass().isArray(), "cann't support not array type");
+    Assert.isTrue(array.getClass().isArray(), "cann't support not array type");
     return Array.getLength(array) == 0;
   }
 

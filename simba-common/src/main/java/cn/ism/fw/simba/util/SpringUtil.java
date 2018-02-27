@@ -41,9 +41,14 @@ public class SpringUtil implements ApplicationContextAware, EnvironmentAware {
     ac.getAutowireCapableBeanFactory().autowireBean(bean);
   }
 
+  public static <T> T getBean(Class<T> t) {
+    return (T) ac.getBean(t);
+  }
+  
   public static <T> T getBean(Class<T> t, String name) {
     return (T) ac.getBean(t, name);
   }
+  
 
   public static <T> Map<String, T> getBeansOfType(Class<T> t) {
     return (Map<String, T>) ac.getBeansOfType(t);
