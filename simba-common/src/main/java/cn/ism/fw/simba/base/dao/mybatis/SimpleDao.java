@@ -45,7 +45,8 @@ public class SimpleDao implements IBaseDao<Object, Object> {
 
   @Override
   public Object getOne(Object k) {
-    String findByIdSql = StringUtil.format("select * from {0} where {1}='{2}'", meta.getTableName(),meta.getIdField(),k);
+    String findByIdSql = String.format("select * from %s where %s='%s'", meta.getTableName(),meta.getIdField(),k);
+    System.out.println(findByIdSql);
     return SqlHelper.selectOne(findByIdSql, meta.getEntityClass());
   }
 

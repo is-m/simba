@@ -128,8 +128,7 @@ define(["widget/factory","jquery","jqueryui","template","rt/util"],function(widg
 				self.reload();
 			}
 		},
-		ready:function(){
-			
+		ready:function(){ 
 		},
 		destory:function(){
 			
@@ -284,7 +283,28 @@ define(["widget/factory","jquery","jqueryui","template","rt/util"],function(widg
 					return;
 				}
 				
-				this.op._data = data;
+				if(data && data.page && data.result){
+					this.op._page = data.page;
+					this.op._data = data.result;
+				}else{
+					this.op._data = data; 
+				}
+				
+				
+				// 加载分页内容
+				if(this.op.pageOp !== false && this.op._page){
+					require(["widget/data/pager"],function(pager){
+						var $tableBody = _self.$dom.find(".table-scroll-body");
+						var $pageEl = $tableBody.siblings(".pageContainer");
+						if(!$pageEl.length){
+							  $pageEl = $("<div class='pageContainer'></div>");
+							  $tableBody.after($pageEl);
+						}
+						$pageEl.xWidget("pager",$.extend(true,_self.op.pageOp,_self.op._page));
+					})
+				}
+				
+				
 				// 如果是树结构表格，则配置，同步树（默认），异步树，来格式化和显示节点信息，同步树表格不进行翻页
 				var _treeOp = this.op.treeOp;
 				if(_treeOp){ 

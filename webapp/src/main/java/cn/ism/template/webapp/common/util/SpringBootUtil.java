@@ -28,6 +28,10 @@ public class SpringBootUtil {
 
 	private static ApplicationContext ac = null;
 
+	private void printStartInfo() {
+	  
+	}
+	
 	/**
 	 * the spring boot application main
 	 * 

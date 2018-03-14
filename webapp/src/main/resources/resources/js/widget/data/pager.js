@@ -14,8 +14,8 @@ define(["widget/factory","jquery"],function(widget,$){
 		templateUri:"js/widget/data/pager.html",
 		init:function(){
 			// 计算总页数
-			var pageSize = this.op.pageSize || 15,
-			var totalRecords:0
+			var pageSize = this.op.pageSize || 15;
+			var totalRecords = 0;
 			
 		},
 		loadData:function(){

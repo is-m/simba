@@ -3,6 +3,7 @@ package cn.ism.fw.simba.base.dao;
 import javax.persistence.Table;
 
 import org.springframework.util.Assert;
+import org.springframework.util.ReflectionUtils;
 
 import cn.ism.fw.simba.util.StringUtil;
 
@@ -57,9 +58,8 @@ public class EntityMeta {
     EntityMeta meta = new EntityMeta();
     meta.setEntityClass(entityClass);
     meta.setTableName(StringUtil.isEmpty(tableAnnotation.name()) ? entityClass.getName() : tableAnnotation.name());
-    
-    
+     
+    meta.setIdField("id");
     return meta;
-    
   }
 }

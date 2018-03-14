@@ -3,6 +3,8 @@ package cn.ism.fw.simba.base.service.impl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public abstract class DynamicMeta {
 
   private HttpServletRequest request;
@@ -38,5 +40,9 @@ public abstract class DynamicMeta {
     this.response = response;
   }
 
+  @Override
+  public String toString() {
+    return ToStringBuilder.reflectionToString(this);
+  }
   
 }

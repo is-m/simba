@@ -18,6 +18,7 @@ import cn.ism.fw.simba.base.PagedResult;
 import cn.ism.fw.simba.base.service.IBaseService;
 import cn.ism.fw.simba.base.service.impl.DynamicQueryMeta.QueryType;
 import cn.ism.fw.simba.log.LogFactory;
+import cn.ism.fw.simba.util.JSONUtil;
 import cn.ism.fw.simba.util.RequestUtil;
 
 /**
@@ -52,16 +53,19 @@ public class DynamicRestDispacherService {
     // get api/userGroup
     // 最多只支持两层关系
     DynamicQueryMeta meta = DynamicMetaFactory.getQueryMeta(req, resp);
+    LOG.info("获取到的查询参数:{}", meta + "");
     IBaseService entityService = entityServiceHolder.getEntityService(meta.getResource());
- 
+
+    LOG.info("查询参数 {}", meta);
     switch (meta.getQueryType()) {
       case PageList:
-        PagedResult pageData = entityService.getPageData(new PageVO(), null);
+        // 解析翻页参数
+        PagedResult pageData = entityService.getPageData(meta.getPage(), null);
         return pageData;
       case List:
         return entityService.getAll(null);
       case Detail:
-        return entityService.getOne(meta.getFilters().get("ID"));
+        return entityService.getOne(meta.getFilters().get("id"));
       default:
         throw new IllegalArgumentException("不能识别的操作");
     }

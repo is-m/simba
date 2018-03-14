@@ -22,6 +22,10 @@ public class IDUtil {
   public static boolean isID32(String value) {
     return StringUtil.notEmpty(value) && value.length() == 32;
   }
+  
+  public static boolean isID32OrNumber(String value) {
+    return StringUtil.notEmpty(value) && (value.length() == 32 || NumberUtil.isNumber(value));
+  }
 
   /**
    * 是否是指定长度的ID

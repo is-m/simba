@@ -1,7 +1,9 @@
 package cn.ism.fw.simba.base.service.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import cn.ism.fw.simba.base.PageVO;
 import cn.ism.fw.simba.util.ObjectUtil;
 
 /**
@@ -16,17 +18,17 @@ public class DynamicQueryMeta extends DynamicMeta {
   /**
    * 过滤条件
    */
-  private Map<?, ?> filters;
+  private Map<String, Object> filters= new HashMap<>();
 
   /**
    * 分页参数
    */
-  private Map<?, ?> page;
+  private PageVO page ;
 
   /**
    * 排序参数
    */
-  private Map<?, ?> sort;
+  private Map<String, String> sort = new HashMap<>();
 
   /**
    * 关系查询
@@ -45,27 +47,27 @@ public class DynamicQueryMeta extends DynamicMeta {
   
   private QueryType queryType;
   
-  public Map<?, ?> getFilters() {
+  public Map<String, Object> getFilters() {
     return filters;
   }
 
-  public void setFilters(Map<?, ?> filters) {
+  public void setFilters(Map<String, Object> filters) {
     this.filters = filters;
-  }
+  } 
 
-  public Map<?, ?> getPage() {
+  public PageVO getPage() {
     return page;
   }
 
-  public void setPage(Map<?, ?> page) {
+  public void setPage(PageVO page) {
     this.page = page;
-  }
+  } 
 
-  public Map<?, ?> getSort() {
+  public Map<String, String> getSort() {
     return sort;
   }
 
-  public void setSort(Map<?, ?> sort) {
+  public void setSort(Map<String, String> sort) {
     this.sort = sort;
   }
 
@@ -91,14 +93,16 @@ public class DynamicQueryMeta extends DynamicMeta {
 
   public void setIncludes(String[] includes) {
     this.includes = includes;
-  } 
+  }  
   
-  
+  public void setQueryType(QueryType queryType) {
+    this.queryType = queryType;
+  }
+
   public QueryType getQueryType() {
     return ObjectUtil.nvl(queryType, QueryType.PageList);
-  } 
-
-
+  }  
+  
   public static enum QueryType {
     /**
      * 详情，
@@ -113,4 +117,6 @@ public class DynamicQueryMeta extends DynamicMeta {
      */
     PageList
   }
+  
+  
 }

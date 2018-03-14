@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.ism.fw.simba.base.PageVO;
 import cn.ism.fw.simba.base.PagedResult;
+import cn.ism.fw.simba.base.ResultVO;
 import cn.ism.fw.simba.security.UserVO;
 import cn.ism.fw.simba.security.service.IUserService;
 
@@ -39,9 +40,15 @@ public class UserController {
   }
 
   @GetMapping("/page/{pageSize}/{curPage}")
+  public ResultVO find(PageVO page, UserVO vo) {
+    PagedResult<UserVO> pageData = userService.findPagedList(new PageVO(), new UserVO());
+    return ResultVO.SUCCESS(pageData);
+
+  }
+  /*@GetMapping("/page/{pageSize}/{curPage}")
   public ResponseEntity<?> find(PageVO page, UserVO vo) {
     PagedResult<UserVO> pageData = userService.findPagedList(new PageVO(), new UserVO());
     return ResponseEntity.ok(pageData);
 
-  }
+  }*/
 }

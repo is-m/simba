@@ -2,6 +2,8 @@ package cn.ism.fw.simba.base;
 
 import java.util.UUID;
 
+import javax.persistence.Id;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -25,6 +27,7 @@ public class BaseVO extends BasePOJO {
 
   private static final long serialVersionUID = -2985566320727450256L;
 
+  @Id
   @MustEmpty(groups = {CreateGroup.class})
   @NotEmpty(groups = {UpdateGroup.class})
   private String id;

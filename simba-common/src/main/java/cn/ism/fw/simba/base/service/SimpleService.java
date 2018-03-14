@@ -54,9 +54,8 @@ public class SimpleService implements IBaseService {
   }
 
   @Override
-  public Object getOne(Object k) {
-    // TODO Auto-generated method stub
-    return null;
+  public Object getOne(Object k) { 
+    return simpleDao.getOne(k);
   }
 
   @Override

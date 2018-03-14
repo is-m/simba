@@ -2,6 +2,8 @@ package cn.ism.fw.simba.util;
 
 import java.io.UnsupportedEncodingException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 字符串工具类
@@ -129,6 +131,19 @@ public class StringUtil {
       }
     }
     return true;
+  }
+  
+  public static String[] split(String source,String splitString,boolean removeEmpty) {
+    Assert.notEmpty(source, "参数 source不能为空");
+    Assert.notEmpty(splitString, "参数 splitString不能为空");
+    List<String> result = new ArrayList<>();
+    String[] arr = source.split(splitString);
+    for(String str : arr) {
+      if(!StringUtil.isEmpty(str)) {
+        result.add(str);
+      }
+    }
+    return result.toArray(new String[result.size()]);
   }
 
 
